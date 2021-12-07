@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>CTF Writeups on tqts.ar</title>
+    <link>https://tqts.ar/categories/ctf-writeups/</link>
+    <description>Recent content in CTF Writeups on tqts.ar</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Written by tqts. All content under Creative Commons </copyright>
+    <lastBuildDate>Wed, 10 Nov 2021 02:14:25 -0300</lastBuildDate><atom:link href="https://tqts.ar/categories/ctf-writeups/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Solving CaptureTheEther - Part 5 of 5 - Miscellaneous</title>
+      <link>https://tqts.ar/post/capturetheether-5/</link>
+      <pubDate>Wed, 10 Nov 2021 02:14:25 -0300</pubDate>
+      
+      <guid>https://tqts.ar/post/capturetheether-5/</guid>
+      <description>
+        
+          
+            &lt;p&gt;This last category of challenges is a mix of various types of vulnerabilities that don&#39;t really fit into any of the other categories.&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Solving CaptureTheEther - Part 4 of 5 - Accounts</title>
+      <link>https://tqts.ar/post/capturetheether-4/</link>
+      <pubDate>Wed, 10 Nov 2021 02:14:24 -0300</pubDate>
+      
+      <guid>https://tqts.ar/post/capturetheether-4/</guid>
+      <description>
+        
+          
+            &lt;p&gt;These challenges are meant to teach about the fine details of EVM-compatible networks accounts, contract deployment and cryptographic key pairs.&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Solving CaptureTheEther - Part 3 of 5 - Math</title>
+      <link>https://tqts.ar/post/capturetheether-3/</link>
+      <pubDate>Wed, 10 Nov 2021 02:14:23 -0300</pubDate>
+      
+      <guid>https://tqts.ar/post/capturetheether-3/</guid>
+      <description>
+        
+          
+            &lt;p&gt;Third post for the CaptureTheEther CTF writeups. Now the focus is on mathematical functions.&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Solving CaptureTheEther - Part 2 of 5 - Lotteries</title>
+      <link>https://tqts.ar/post/capturetheether-2/</link>
+      <pubDate>Wed, 10 Nov 2021 02:14:22 -0300</pubDate>
+      
+      <guid>https://tqts.ar/post/capturetheether-2/</guid>
+      <description>
+        
+          
+            &lt;p&gt;This is the second post of a total of five, for the CaptureTheEther CTF writeups. This time, the focus will be on the &lt;em&gt;Lotteries&lt;/em&gt; category
+of challenges. Most levels here will require the player to code and deploy new contracts to the network, and interact with them.&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Solving CaptureTheEther - Part 1 of 5 - Warmup</title>
+      <link>https://tqts.ar/post/capturetheether-1/</link>
+      <pubDate>Wed, 10 Nov 2021 02:14:21 -0300</pubDate>
+      
+      <guid>https://tqts.ar/post/capturetheether-1/</guid>
+      <description>
+        
+          
+            &lt;p&gt;This is the first post in a series about the Ethereum security introductory CTF &amp;quot;CaptureTheEther&amp;quot;. There will be a total of five posts,
+each one of them focused in one of the categories of the game.
+For each level I&#39;ll describe the contract, the vulnerability, the solution I used and a conclusion about what to check when developing
+or auditing smart contracts.&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

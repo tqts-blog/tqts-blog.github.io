@@ -1,0 +1,684 @@
+
+<!DOCTYPE html>
+<html lang="en" data-figures="" class="page" data-mode="dim">
+  <head>
+<title>Solving CaptureTheEther - Part 4 of 5 - Accounts | tqts.ar</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HFZFM2N29W"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-HFZFM2N29W');
+</script>
+
+<meta property="og:locale" content="en" />
+
+<meta property="og:type" content="article">
+<meta name="description" content="These challenges are meant to teach about the fine details of EVM-compatible networks accounts, contract deployment and cryptographic key pairs.">
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:creator" content="">
+<meta name="twitter:title" content="Solving CaptureTheEther - Part 4 of 5 - Accounts" />
+<meta property="og:url" content="https://tqts.ar/post/capturetheether-4/" />
+<meta property="og:title" content="Solving CaptureTheEther - Part 4 of 5 - Accounts" />
+<meta property="og:description" content="These challenges are meant to teach about the fine details of EVM-compatible networks accounts, contract deployment and cryptographic key pairs." />
+<meta property="og:image" content="https://tqts.ar/images/thumbnail.png" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://tqts.ar/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://tqts.ar/icons/favicon-32x32.png">
+<link rel="manifest" href="https://tqts.ar/icons/site.webmanifest">
+
+<link rel="canonical" href="https://tqts.ar/post/capturetheether-4/">
+
+    
+
+    
+    
+    <link rel="preload" href="https://tqts.ar/css/styles.01869c76e4757810d94ecbdccadba853d9d01d9416dfeb113df02e1479ff8b36e284e8bfeb3e8f353f2fdcdcbbdfcf27e558dbda96eb6341bfc304d55cd9e986.css" integrity = "sha512-AYacduR1eBDZTsvcytuoU9nQHZQW3&#43;sRPfAuFHn/izbihOi/6z6PNT8v3Ny7388n5Vjb2pbrY0G/wwTVXNnphg==" as="style" crossorigin="anonymous">
+    <link rel="preload" href="https://tqts.ar/js/bundle.min.061d04727b51b0a8fafe2f15b9370a961f33306e7af52abd00d69c906f5d825f1599306159d7756d7d2b4f359767a170625ae541d1f37d05c1daa4d5c7feec25.js" as="script" integrity=
+    "sha512-Bh0EcntRsKj6/i8VuTcKlh8zMG569Sq9ANackG9dgl8VmTBhWdd1bX0rTzWXZ6FwYlrlQdHzfQXB2qTVx/7sJQ==" crossorigin="anonymous">
+
+    
+    <link rel="stylesheet" type="text/css" href="https://tqts.ar/css/styles.01869c76e4757810d94ecbdccadba853d9d01d9416dfeb113df02e1479ff8b36e284e8bfeb3e8f353f2fdcdcbbdfcf27e558dbda96eb6341bfc304d55cd9e986.css" integrity="sha512-AYacduR1eBDZTsvcytuoU9nQHZQW3&#43;sRPfAuFHn/izbihOi/6z6PNT8v3Ny7388n5Vjb2pbrY0G/wwTVXNnphg==" crossorigin="anonymous">
+    
+  </head>
+  
+  
+  
+    
+  
+  <body data-code="25" data-lines="true" id="documentTop">
+
+<script type="text/javascript" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[','\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+<header class="nav_header" >
+  <nav class="nav"><a href='https://tqts.ar/' class="nav_brand nav_item" title="tqts.ar">
+  <img src="https://tqts.ar/logos/logo.png" class="logo" alt="tqts.ar">
+  <div class="nav_close">
+    <div><svg class="icon">
+  <use xlink:href="#open-menu"></use>
+</svg><svg class="icon">
+  <use xlink:href="#closeme"></use>
+</svg></div>
+  </div>
+</a>
+
+    <div class='nav_body nav_body_left'>
+      
+      
+      
+        
+
+  <div class="nav_parent">
+    <a href="https://tqts.ar/" class="nav_item" title="Home">Home </a>
+  </div>
+  <div class="nav_parent">
+    <a href="https://tqts.ar/posts/" class="nav_item" title="Archives">Archives </a>
+  </div>
+  <div class="nav_parent">
+    <a href="https://tqts.ar/about/" class="nav_item" title="About">About </a>
+  </div>
+      
+<div class='follow'>
+  <a href="https://github.com/tqtsar">
+    <svg class="icon">
+  <use xlink:href="#github"></use>
+</svg>
+  </a>
+    
+  <a href="https://tqts.ar/index.xml">
+    <svg class="icon">
+  <use xlink:href="#rss"></use>
+</svg>
+  </a>
+<div class="color_mode">
+  <input type="checkbox" class="color_choice" id="mode">
+</div>
+
+</div>
+
+    </div>
+  </nav>
+</header>
+
+    <main>
+  
+<div class="grid-inverse wrap content">
+  <article class="post_content">
+    <h1 class="post_title">Solving CaptureTheEther - Part 4 of 5 - Accounts</h1>
+  <div class="post_meta">
+    <span><svg class="icon">
+  <use xlink:href="#calendar"></use>
+</svg></span>
+    <span class="post_date">
+      Nov 10, 2021</span>
+    <span class="post_time"> · 11 min read</span><span>&nbsp;· <a href='https://tqts.ar/tags/solidity' title="Solidity" class="post_tag button button_translucent">Solidity
+        </a><a href='https://tqts.ar/tags/remix' title="Remix" class="post_tag button button_translucent">Remix
+        </a>
+    </span>
+    <span class="page_only">&nbsp;·
+  <div class="post_share">
+    Share on:
+    <a href="https://twitter.com/intent/tweet?text=Solving%20CaptureTheEther%20-%20Part%204%20of%205%20-%20Accounts&url=https%3a%2f%2ftqts.ar%2fpost%2fcapturetheether-4%2f&tw_p=tweetbutton" class="twitter" title="Share on Twitter" target="_blank" rel="nofollow">
+      <svg class="icon">
+  <use xlink:href="#twitter"></use>
+</svg>
+    </a>
+    <a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2ftqts.ar%2fpost%2fcapturetheether-4%2f&t=Solving%20CaptureTheEther%20-%20Part%204%20of%205%20-%20Accounts" class="facebook" title="Share on Facebook" target="_blank" rel="nofollow">
+      <svg class="icon">
+  <use xlink:href="#facebook"></use>
+</svg>
+    </a>
+    <a href="#linkedinshare" id = "linkedinshare" class="linkedin" title="Share on LinkedIn" rel="nofollow">
+      <svg class="icon">
+  <use xlink:href="#linkedin"></use>
+</svg>
+    </a>
+    <a href="https://tqts.ar/post/capturetheether-4/" title="Copy Link" class="link link_yank">
+      <svg class="icon">
+  <use xlink:href="#copy"></use>
+</svg>
+    </a>
+  </div>
+  </span>
+  </div>
+
+
+
+
+    
+    <div class="post_toc">
+      <h2>Overview</h2>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#fuzzy-identity">Fuzzy identity</a>
+      <ul>
+        <li><a href="#contract-analysis">Contract analysis</a></li>
+        <li><a href="#vulnerability--attack-vector">Vulnerability / Attack vector</a></li>
+        <li><a href="#solution">Solution</a></li>
+        <li><a href="#conclusions">Conclusions</a></li>
+      </ul>
+    </li>
+    <li><a href="#public-key">Public key</a>
+      <ul>
+        <li><a href="#contract-analysis-1">Contract analysis</a></li>
+        <li><a href="#vulnerability--attack-vector-1">Vulnerability / Attack vector</a></li>
+        <li><a href="#solution-1">Solution</a></li>
+        <li><a href="#conclusions-1">Conclusions</a></li>
+      </ul>
+    </li>
+    <li><a href="#account-takeover">Account takeover</a>
+      <ul>
+        <li><a href="#contract-analysis-2">Contract analysis</a></li>
+        <li><a href="#vulnerability--attack-vector-2">Vulnerability / Attack vector</a></li>
+        <li><a href="#solution-2">Solution</a></li>
+        <li><a href="#conclusions-2">Conclusions</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+    
+    <div class="post_body"><p>These challenges are meant to teach about the fine details of EVM-compatible networks accounts, contract deployment and cryptographic key pairs.</p>
+<p>There's a good (albeit a bit outdated) book that explains the working of the Ethereum ecosystem in a good and easy-to-understand fashion: Antonopoulos' and Wood's <a href="https://github.com/ethereumbook/ethereumbook">Mastering Ethereum</a>. Most solutions for this category come from chapters 4, 5 and 7. Still, I encourage you to find more and updated bibliography, as Ethereum is constantly evolving.</p>
+<style type="text/css">.notice{padding:18px;line-height:24px;margin-bottom:24px;border-radius:4px;color:#444;background:#e7f2fa}.notice p:last-child{margin-bottom:0}.notice-title{margin:-18px -18px 12px;padding:4px 18px;border-radius:4px 4px 0 0;font-weight:700;color:#fff;background:#6ab0de}.notice.warning .notice-title{background:rgba(217,83,79,.9)}.notice.warning{background:#fae2e2}.notice.info .notice-title{background:#f0b37e}.notice.info{background:#fff2db}.notice.note .notice-title{background:#6ab0de}.notice.note{background:#e7f2fA}.notice.tip .notice-title{background:rgba(92,184,92,.8)}.notice.tip{background:#e6f9e6}.icon-notice{display:inline-flex;align-self:center;margin-right:8px}.icon-notice img,.icon-notice svg{height:1em;width:1em;fill:currentColor}.icon-notice img,.icon-notice.baseline svg{top:0.125em;position:relative}</style>
+<div><svg width="0" height="0" display="none" xmlns="http://www.w3.org/2000/svg"><symbol id="tip-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"/></symbol><symbol id="note-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"/></symbol><symbol id="warning-notice" viewBox="0 0 576 512" preserveAspectRatio="xMidYMid meet"><path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"/></symbol><symbol id="info-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"/></symbol></svg></div><div class="notice info" >
+<p class="first notice-title"><span class="icon-notice baseline"><svg><use href="#info-notice"></use></svg></span>Info</p><p>All my solutions to CaptureTheEther were coded some time ago, while I was still new at Solidity and EVM. All of them work, however they certainly don't meet any good coding recommendation whatsoever.</p>
+<p>It was part of my learning path, and I don't intend to update them as it serves me (and hopefully you too!) as a remainder that learning is a never-ending process that rewards you when you look back and see your real progress.</p>
+<p>The complete code for these solutions is at my <a href="https://github.com/tqtsar/cte-solutions">CTE-Solutions github repo</a>.</p></div>
+
+<hr>
+<h2 id="fuzzy-identity">Fuzzy identity</h2>
+<hr>
+<p>This is a contract that requires some specific conditions to be called, in particular, the transactions must come from an account whose address includes the <code>badc0de</code> hexadecimal string somewhere, and that account must implement the <code>name()</code> function that returns the string <code>smarx</code></p>
+<h3 id="contract-analysis">Contract analysis</h3>
+<p>The contract requires the player to call <code>authenticate()</code>, so that <code>bool isComplete</code> is set to <code>true</code>. To successfully call that function, there are two checks that must be passed. The first one requires that the <code>msg.sender</code> implements the <code>IName</code> interface, and that <code>name()</code> returns <code>smarx</code>. The second check requires that the originating account has <code>badc0de</code> somewhere in its address.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="ln"> 1</span><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">4</span><span class="p">.</span><span class="mi">21</span><span class="p">;</span>
+<span class="ln"> 2</span>
+<span class="ln"> 3</span><span class="kd">interface</span> <span class="nc">IName</span> <span class="p">{</span>
+<span class="ln"> 4</span>    <span class="kd">function</span> <span class="nf">name</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span><span class="p">);</span>
+<span class="ln"> 5</span><span class="p">}</span>
+<span class="ln"> 6</span>
+<span class="ln"> 7</span><span class="kd">contract</span> <span class="nc">FuzzyIdentityChallenge</span> <span class="p">{</span>
+<span class="ln"> 8</span>    <span class="kt">bool</span> <span class="k">public</span> <span class="n">isComplete</span><span class="p">;</span>
+<span class="ln"> 9</span>
+<span class="ln">10</span>    <span class="kd">function</span> <span class="nf">authenticate</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+<span class="ln">11</span>        <span class="nb">require</span><span class="p">(</span><span class="n">isSmarx</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">));</span>
+<span class="ln">12</span>        <span class="nb">require</span><span class="p">(</span><span class="n">isBadCode</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">));</span>
+<span class="ln">13</span>
+<span class="ln">14</span>        <span class="n">isComplete</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<span class="ln">15</span>    <span class="p">}</span>
+<span class="ln">16</span>
+<span class="ln">17</span>    <span class="kd">function</span> <span class="nf">isSmarx</span><span class="p">(</span><span class="kt">address</span> <span class="n">addr</span><span class="p">)</span> <span class="k">internal</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+<span class="ln">18</span>        <span class="k">return</span> <span class="n">IName</span><span class="p">(</span><span class="n">addr</span><span class="p">).</span><span class="nb">name</span><span class="p">()</span> <span class="o">==</span> <span class="kt">bytes32</span><span class="p">(</span><span class="s">&#34;smarx&#34;</span><span class="p">);</span>
+<span class="ln">19</span>    <span class="p">}</span>
+<span class="ln">20</span>
+<span class="ln">21</span>    <span class="kd">function</span> <span class="nf">isBadCode</span><span class="p">(</span><span class="kt">address</span> <span class="n">_addr</span><span class="p">)</span> <span class="k">internal</span> <span class="k">pure</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+<span class="ln">22</span>        <span class="kt">bytes20</span> <span class="n">addr</span> <span class="o">=</span> <span class="kt">bytes20</span><span class="p">(</span><span class="n">_addr</span><span class="p">);</span>
+<span class="ln">23</span>        <span class="kt">bytes20</span> <span class="n">id</span> <span class="o">=</span> <span class="s">hex&#34;000000000000000000000000000000000badc0de&#34;</span><span class="p">;</span>
+<span class="ln">24</span>        <span class="kt">bytes20</span> <span class="n">mask</span> <span class="o">=</span> <span class="s">hex&#34;000000000000000000000000000000000fffffff&#34;</span><span class="p">;</span>
+<span class="ln">25</span>
+<span class="ln">26</span>        <span class="k">for</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">34</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+<span class="ln">27</span>            <span class="k">if</span> <span class="p">(</span><span class="n">addr</span> <span class="o">&amp;</span> <span class="n">mask</span> <span class="o">==</span> <span class="n">id</span><span class="p">)</span> <span class="p">{</span>
+<span class="ln">28</span>                <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+<span class="ln">29</span>            <span class="p">}</span>
+<span class="ln">30</span>            <span class="n">mask</span> <span class="o">&lt;&lt;=</span> <span class="mi">4</span><span class="p">;</span>
+<span class="ln">31</span>            <span class="n">id</span> <span class="o">&lt;&lt;=</span> <span class="mi">4</span><span class="p">;</span>
+<span class="ln">32</span>        <span class="p">}</span>
+<span class="ln">33</span>
+<span class="ln">34</span>        <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+<span class="ln">35</span>    <span class="p">}</span>
+<span class="ln">36</span><span class="p">}</span>
+</code></pre></div><h3 id="vulnerability--attack-vector">Vulnerability / Attack vector</h3>
+<p>There's no <em>real</em> vulnerability here. This challenge is meant to understand the inner workings of EVM <code>CREATE</code> and/or <code>CREATE2</code> opcodes.</p>
+<h3 id="solution">Solution</h3>
+<p>The solution to this level is divided in two parts: first, we have to implement a contract that meets the <code>isSmarx(address)</code> requisites, and then that contract should be deployed in an address that passes the <code>isBadCode(address)</code> checks. That contract should have a public function that acts as a proxy to call <code>authenticate()</code>.</p>
+<p>The code for the contract I used:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="ln">1</span><span class="kd">contract</span> <span class="nc">Solution</span> <span class="k">is</span> <span class="n">IName</span> <span class="p">{</span>
+<span class="ln">2</span>    <span class="kd">function</span> <span class="nf">name</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span><span class="p">)</span> <span class="p">{</span>
+<span class="ln">3</span>        <span class="k">return</span> <span class="kt">bytes32</span><span class="p">(</span><span class="s">&#34;smarx&#34;</span><span class="p">);</span>
+<span class="ln">4</span>    <span class="p">}</span>
+<span class="ln">5</span>    
+<span class="ln">6</span>    <span class="kd">function</span> <span class="nf">solve</span><span class="p">(</span><span class="kt">address</span> <span class="n">target</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+<span class="ln">7</span>        <span class="n">FuzzyIdentityChallenge</span><span class="p">(</span><span class="n">target</span><span class="p">).</span><span class="n">authenticate</span><span class="p">();</span>
+<span class="ln">8</span>    <span class="p">}</span> 
+<span class="ln">9</span><span class="p">}</span>
+</code></pre></div><p>Now, to deploy this contract to an address with <code>badc0de</code> hex string somewhere in its address, there are <a href="https://docs.openzeppelin.com/cli/2.8/deploying-with-create2">two approaches</a>:</p>
+<ul>
+<li>Using <code>CREATE</code> opcode, manipulating the deployer address' nonce.</li>
+<li>Using <code>CREATE2</code> opcode, manipulating the seed value.</li>
+</ul>
+<p>I went for the second option, because incrementing my player address' nonce would imply a lot of transactions and a waste of time and gas (even in a testnet, it's a quite scarce resource!).</p>
+<p>This python script calculates the <code>CREATE2</code> deployment address for a contract, given its bytecode, the deployer's address, and salt value:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="ln"> 1</span><span class="kn">from</span> <span class="nn">web3</span> <span class="kn">import</span> <span class="n">Web3</span>
+<span class="ln"> 2</span>
+<span class="ln"> 3</span><span class="n">deployingAddr</span> <span class="o">=</span> <span class="n">DEPLOYING_ADDRESS</span>
+<span class="ln"> 4</span><span class="n">addrbytes</span> <span class="o">=</span> <span class="nb">bytes</span><span class="o">.</span><span class="n">fromhex</span><span class="p">(</span><span class="n">deployingAddr</span><span class="p">)</span>
+<span class="ln"> 5</span><span class="n">bytecode</span> <span class="o">=</span> <span class="n">CONTRACT_BYTECODE</span>
+<span class="ln"> 6</span><span class="n">hashbytecode</span> <span class="o">=</span> <span class="n">Web3</span><span class="o">.</span><span class="n">keccak</span><span class="p">(</span><span class="n">hexstr</span><span class="o">=</span><span class="n">bytecode</span><span class="p">)</span>
+<span class="ln"> 7</span><span class="n">salt</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="ln"> 8</span>
+<span class="ln"> 9</span><span class="n">header</span> <span class="o">=</span> <span class="nb">bytes</span><span class="o">.</span><span class="n">fromhex</span><span class="p">(</span><span class="s2">&#34;ff&#34;</span><span class="p">)</span> <span class="o">+</span> <span class="n">addrbytes</span>
+<span class="ln">10</span>
+<span class="ln">11</span><span class="k">while</span> <span class="mi">1</span><span class="p">:</span>
+<span class="ln">12</span>    <span class="n">salthex</span> <span class="o">=</span> <span class="n">Web3</span><span class="o">.</span><span class="n">toHex</span><span class="p">(</span><span class="n">salt</span><span class="p">)[</span><span class="mi">2</span><span class="p">:]</span>
+<span class="ln">13</span>    <span class="n">saltbytes</span> <span class="o">=</span> <span class="s1">&#39;0&#39;</span> <span class="o">*</span> <span class="p">(</span><span class="mi">64</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">salthex</span><span class="p">))</span> <span class="o">+</span> <span class="n">salthex</span>
+<span class="ln">14</span>
+<span class="ln">15</span>    <span class="n">predicted</span> <span class="o">=</span> <span class="n">Web3</span><span class="o">.</span><span class="n">toHex</span><span class="p">(</span><span class="n">Web3</span><span class="o">.</span><span class="n">keccak</span><span class="p">(</span> <span class="n">header</span> <span class="o">+</span> <span class="nb">bytes</span><span class="o">.</span><span class="n">fromhex</span><span class="p">(</span><span class="n">saltbytes</span><span class="p">)</span> <span class="o">+</span> <span class="n">hashbytecode</span><span class="p">))[</span><span class="o">-</span><span class="mi">40</span><span class="p">:]</span>
+<span class="ln">16</span>
+<span class="ln">17</span>    <span class="k">if</span> <span class="s2">&#34;badc0de&#34;</span> <span class="ow">in</span> <span class="n">predicted</span><span class="p">:</span>
+<span class="ln">18</span>        <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;0x&#34;</span> <span class="o">+</span> <span class="n">predicted</span><span class="p">)</span>
+<span class="ln">19</span>        <span class="nb">print</span><span class="p">(</span><span class="n">saltbytes</span><span class="p">)</span>
+<span class="ln">20</span>        <span class="n">exit</span><span class="p">()</span>
+<span class="ln">21</span>    <span class="k">else</span><span class="p">:</span>
+<span class="ln">22</span>        <span class="n">salt</span> <span class="o">=</span> <span class="n">salt</span><span class="o">+</span><span class="mi">1</span>
+</code></pre></div><p>The deploying address is another contract, shown below:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="ln"> 1</span><span class="kd">contract</span> <span class="nc">Deployer</span> <span class="p">{</span>
+<span class="ln"> 2</span>    
+<span class="ln"> 3</span>    <span class="kd">function</span> <span class="nf">getBytecode</span><span class="p">()</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span><span class="p">)</span> <span class="p">{</span>
+<span class="ln"> 4</span>        <span class="k">return</span> <span class="nb">abi</span><span class="p">.</span><span class="nb">encodePacked</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="nc">Solution</span><span class="p">).</span><span class="nb">creationCode</span><span class="p">);</span>
+<span class="ln"> 5</span>    <span class="p">}</span>
+<span class="ln"> 6</span>    
+<span class="ln"> 7</span>    <span class="kd">function</span> <span class="nf">predictAddress</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">salt</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">address</span><span class="p">)</span> <span class="p">{</span>
+<span class="ln"> 8</span>        <span class="kt">bytes</span> <span class="k">memory</span> <span class="nb">code</span> <span class="o">=</span> <span class="nb">abi</span><span class="p">.</span><span class="nb">encodePacked</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="nc">Solution</span><span class="p">).</span><span class="nb">creationCode</span><span class="p">);</span>
+<span class="ln"> 9</span>        <span class="kt">address</span> <span class="n">predictedAddress</span> <span class="o">=</span> <span class="kt">address</span><span class="p">(</span><span class="kt">uint160</span><span class="p">(</span><span class="kt">uint</span><span class="p">(</span><span class="nb">keccak256</span><span class="p">(</span><span class="nb">abi</span><span class="p">.</span><span class="nb">encodePacked</span><span class="p">(</span><span class="kt">bytes1</span><span class="p">(</span><span class="mh">0xff</span><span class="p">),</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="n">salt</span><span class="p">,</span> <span class="nb">keccak256</span><span class="p">(</span><span class="nb">code</span><span class="p">))))));</span>
+<span class="ln">10</span>        <span class="k">return</span> <span class="n">predictedAddress</span><span class="p">;</span>
+<span class="ln">11</span>    <span class="p">}</span>
+<span class="ln">12</span>    
+<span class="ln">13</span>    <span class="kd">function</span> <span class="nf">deployContract</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">salt</span><span class="p">)</span> <span class="k">public</span> <span class="k">returns</span><span class="p">(</span><span class="kt">address</span><span class="p">)</span> <span class="p">{</span>
+<span class="ln">14</span>        <span class="kt">bytes</span> <span class="k">memory</span> <span class="nb">code</span> <span class="o">=</span> <span class="nb">abi</span><span class="p">.</span><span class="nb">encodePacked</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="nc">Solution</span><span class="p">).</span><span class="nb">creationCode</span><span class="p">);</span>
+<span class="ln">15</span>        <span class="kt">address</span> <span class="n">addr</span><span class="p">;</span>
+<span class="ln">16</span>        <span class="k">assembly</span> <span class="p">{</span>
+<span class="ln">17</span>          <span class="n">addr</span> <span class="o">:=</span> <span class="n">create2</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nf">add</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="mh">0x20</span><span class="p">),</span> <span class="nf">mload</span><span class="p">(</span><span class="n">code</span><span class="p">),</span> <span class="n">salt</span><span class="p">)</span>
+<span class="ln">18</span>        <span class="p">}</span>
+<span class="ln">19</span>        <span class="nf">return</span><span class="p">(</span><span class="n">addr</span><span class="p">)</span><span class="err">;</span>
+<span class="ln">20</span>    <span class="p">}</span>
+<span class="ln">21</span>    
+<span class="ln">22</span><span class="p">}</span>
+</code></pre></div><p>The while loop in the Python script bruteforces the <code>salt</code> value until it finds a suitable one, that is, a value that generates an address with <code>badc0de</code> in it. Once that value is found, it is passed as argument to the <code>deployContract(bytes32)</code> function of the <code>Deployer</code> contract.</p>
+<p>If everything works as expected, an instance of the <code>Solution</code> contract will be deployed to an address that meets the requirements, and the challenge is solved by calling <code>solve(address)</code> in that contract, with the argument being the address of the original challenge contract.</p>
+<h3 id="conclusions">Conclusions</h3>
+<p>The <code>CREATE</code> and <code>CREATE2</code> opcodes are a great tool to precalculate the deployment address of a contract before deploying it. This has some useful consequences, such as being able to pre-fund a contract before it gets deployed, or (pretty much like this example) the generation of vanity addresses.</p>
+<hr>
+<h2 id="public-key">Public key</h2>
+<hr>
+<p>This challenge requires the player to find the public key of an account, given in the contract. There's a hint, reminding us that the address is the last 20 bytes of the hash of the public key.</p>
+<h3 id="contract-analysis-1">Contract analysis</h3>
+<p>The contract is very simple and short:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="ln"> 1</span><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">4</span><span class="p">.</span><span class="mi">21</span><span class="p">;</span>
+<span class="ln"> 2</span>
+<span class="ln"> 3</span><span class="kd">contract</span> <span class="nc">PublicKeyChallenge</span> <span class="p">{</span>
+<span class="ln"> 4</span>    <span class="kt">address</span> <span class="n">owner</span> <span class="o">=</span> <span class="mh">0x92b28647ae1f3264661f72fb2eb9625a89d88a31</span><span class="p">;</span>
+<span class="ln"> 5</span>    <span class="kt">bool</span> <span class="k">public</span> <span class="n">isComplete</span><span class="p">;</span>
+<span class="ln"> 6</span>
+<span class="ln"> 7</span>    <span class="kd">function</span> <span class="nf">authenticate</span><span class="p">(</span><span class="kt">bytes</span> <span class="n">publicKey</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+<span class="ln"> 8</span>        <span class="nb">require</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">keccak256</span><span class="p">(</span><span class="n">publicKey</span><span class="p">))</span> <span class="o">==</span> <span class="n">owner</span><span class="p">);</span>
+<span class="ln"> 9</span>
+<span class="ln">10</span>        <span class="n">isComplete</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<span class="ln">11</span>    <span class="p">}</span>
+<span class="ln">12</span><span class="p">}</span>
+</code></pre></div><p>The owner address is a constant in the code, and the <code>authenticate(bytes)</code> function checks that the <code>keccak256()</code> hash of the public key, casted to <code>address</code> type, equals the owner's address.</p>
+<h3 id="vulnerability--attack-vector-1">Vulnerability / Attack vector</h3>
+<p>The goal is to recover the public key of the given address. Since reversing <code>keccak256()</code> is not possible, there should be another way to get the key back.</p>
+<p>Reading <a href="https://ethereum.github.io/yellowpaper/paper.pdf">Ethereum's yellow paper</a> and Mastering Ethereum book to understand the key generation mechanics, it's easy to calculate the public key back from a signed transaction.</p>
+<h3 id="solution-1">Solution</h3>
+<p>If there are transactions signed with the private key for that address, using the <code>v</code>, <code>r</code> and <code>s</code> values of the signature, and the message values previous to signing, it is possible to easily get back the public key.</p>
+<p>To find some signed transaction, it's useful to visit the <a href="https://ropsten.etherscan.io/address/0x92b28647ae1f3264661f72fb2eb9625a89d88a31">Etherscan</a> page for the address. Once a transaction is found, this script regenerates the message previous to signature, and gets back the public key.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="ln"> 1</span><span class="n">rom</span> <span class="n">eth_account</span><span class="o">.</span><span class="n">_utils</span><span class="o">.</span><span class="n">signing</span> <span class="kn">import</span> <span class="nn">extract_chain_id</span><span class="o">,</span> <span class="nn">to_standard_v</span>
+<span class="ln"> 2</span><span class="kn">from</span> <span class="nn">eth_account._utils.transactions</span> <span class="kn">import</span> <span class="n">serializable_unsigned_transaction_from_dict</span>
+<span class="ln"> 3</span>
+<span class="ln"> 4</span><span class="kn">from</span> <span class="nn">web3.auto.infura.ropsten</span> <span class="kn">import</span> <span class="n">w3</span>
+<span class="ln"> 5</span><span class="kn">from</span> <span class="nn">web3</span> <span class="kn">import</span> <span class="n">Web3</span>
+<span class="ln"> 6</span>
+<span class="ln"> 7</span><span class="n">tx</span> <span class="o">=</span> <span class="n">w3</span><span class="o">.</span><span class="n">eth</span><span class="o">.</span><span class="n">getTransaction</span><span class="p">(</span><span class="s1">&#39;0xabc467bedd1d17462fcc7942d0af7874d6f8bdefee2b299c9168a216d3ff0edb&#39;</span><span class="p">)</span>
+<span class="ln"> 8</span><span class="nb">print</span><span class="p">(</span><span class="n">Web3</span><span class="o">.</span><span class="n">toHex</span><span class="p">(</span><span class="n">tx</span><span class="o">.</span><span class="n">hash</span><span class="p">))</span>
+<span class="ln"> 9</span>
+<span class="ln">10</span><span class="c1"># From the tx, we need the v, r and s values to generate the signature for that key</span>
+<span class="ln">11</span><span class="n">v</span> <span class="o">=</span> <span class="n">to_standard_v</span><span class="p">(</span><span class="n">extract_chain_id</span><span class="p">(</span><span class="n">tx</span><span class="o">.</span><span class="n">v</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+<span class="ln">12</span><span class="n">r</span> <span class="o">=</span> <span class="n">Web3</span><span class="o">.</span><span class="n">toInt</span><span class="p">(</span><span class="n">tx</span><span class="o">.</span><span class="n">r</span><span class="p">)</span>
+<span class="ln">13</span><span class="n">s</span> <span class="o">=</span> <span class="n">Web3</span><span class="o">.</span><span class="n">toInt</span><span class="p">(</span><span class="n">tx</span><span class="o">.</span><span class="n">s</span><span class="p">)</span>
+<span class="ln">14</span><span class="n">signature</span> <span class="o">=</span> <span class="n">w3</span><span class="o">.</span><span class="n">eth</span><span class="o">.</span><span class="n">account</span><span class="o">.</span><span class="n">_keys</span><span class="o">.</span><span class="n">Signature</span><span class="p">(</span><span class="n">vrs</span><span class="o">=</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">s</span><span class="p">))</span>
+<span class="ln">15</span>
+<span class="ln">16</span><span class="c1"># The signature.recover_public_key_from_msg_hash() needs the msg hash before signature, so</span>
+<span class="ln">17</span><span class="c1"># now we need to regenerate the message hash from the transaction values</span>
+<span class="ln">18</span><span class="c1"># This hash involves the gas price, nonce, chainId, message data, value, gas and destination address</span>
+<span class="ln">19</span><span class="n">tx_msg</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="ln">20</span><span class="n">tx_msg</span><span class="p">[</span><span class="s1">&#39;gasPrice&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tx</span><span class="p">[</span><span class="s1">&#39;gasPrice&#39;</span><span class="p">]</span>
+<span class="ln">21</span><span class="n">tx_msg</span><span class="p">[</span><span class="s1">&#39;nonce&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tx</span><span class="p">[</span><span class="s1">&#39;nonce&#39;</span><span class="p">]</span>
+<span class="ln">22</span><span class="n">tx_msg</span><span class="p">[</span><span class="s1">&#39;chainId&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">extract_chain_id</span><span class="p">(</span><span class="n">tx</span><span class="o">.</span><span class="n">v</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="ln">23</span><span class="n">tx_msg</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tx</span><span class="p">[</span><span class="s1">&#39;input&#39;</span><span class="p">]</span>
+<span class="ln">24</span><span class="n">tx_msg</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tx</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span>
+<span class="ln">25</span><span class="n">tx_msg</span><span class="p">[</span><span class="s1">&#39;gas&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tx</span><span class="p">[</span><span class="s1">&#39;gas&#39;</span><span class="p">]</span>
+<span class="ln">26</span><span class="n">tx_msg</span><span class="p">[</span><span class="s1">&#39;to&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tx</span><span class="p">[</span><span class="s1">&#39;to&#39;</span><span class="p">]</span>
+<span class="ln">27</span>
+<span class="ln">28</span><span class="c1"># Using eth_account._utils.transactions functions we can serialize the RLP encoding of the message to recover the pk</span>
+<span class="ln">29</span><span class="c1"># https://github.com/ethereum/eth-account/blob/5558be9ce3fef8fe396c45bb744e377c7af5333d/eth_account/_utils/legacy_transactions.py</span>
+<span class="ln">30</span><span class="n">pre_sign</span> <span class="o">=</span> <span class="n">serializable_unsigned_transaction_from_dict</span><span class="p">(</span><span class="n">tx_msg</span><span class="p">)</span>
+<span class="ln">31</span><span class="nb">print</span><span class="p">(</span><span class="n">signature</span><span class="o">.</span><span class="n">recover_public_key_from_msg_hash</span><span class="p">(</span><span class="n">pre_sign</span><span class="o">.</span><span class="n">hash</span><span class="p">()))</span>
+</code></pre></div><p>Note that you will need a valid <a href="http://infura.io">Infura</a> key as environment variable before using the code.</p>
+<h3 id="conclusions-1">Conclusions</h3>
+<p>The public key infrastructure is what keeps Ethereum (and other cryptocurrency networks) secure. Even if you don't need to know the deep details of its workings to use the networks, it is indeed a good sport to understand the underlying security aspects of the system.</p>
+<hr>
+<h2 id="account-takeover">Account takeover</h2>
+<hr>
+<p>This is a step further from the previous contract. To solve this level, the <code>authenticate()</code> function must be called from the owner account. That is, we need to impersonate another account, without knowing its private key.</p>
+<h3 id="contract-analysis-2">Contract analysis</h3>
+<p>Similar to the previous one, this contract has a single public function <code>authenticate()</code>, that is meant to be called from the address of the owner, hardcoded into the contract.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="ln"> 1</span><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">4</span><span class="p">.</span><span class="mi">21</span><span class="p">;</span>
+<span class="ln"> 2</span>
+<span class="ln"> 3</span><span class="kd">contract</span> <span class="nc">AccountTakeoverChallenge</span> <span class="p">{</span>
+<span class="ln"> 4</span>    <span class="kt">address</span> <span class="n">owner</span> <span class="o">=</span> <span class="mh">0x6B477781b0e68031109f21887e6B5afEAaEB002b</span><span class="p">;</span>
+<span class="ln"> 5</span>    <span class="kt">bool</span> <span class="k">public</span> <span class="n">isComplete</span><span class="p">;</span>
+<span class="ln"> 6</span>
+<span class="ln"> 7</span>    <span class="kd">function</span> <span class="nf">authenticate</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+<span class="ln"> 8</span>        <span class="nb">require</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span> <span class="o">==</span> <span class="n">owner</span><span class="p">);</span>
+<span class="ln"> 9</span>
+<span class="ln">10</span>        <span class="n">isComplete</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<span class="ln">11</span>    <span class="p">}</span>
+<span class="ln">12</span><span class="p">}</span>
+</code></pre></div><h3 id="vulnerability--attack-vector-2">Vulnerability / Attack vector</h3>
+<p>Recovering some account's private key is by all means impossible. If it wasn't, Ethereum (and all the other EVM-compatible networks) would not be secure, allowing anyone to spend other people's ether.</p>
+<p>However, this is a game, so there must be a solution. The signature algorithm used in Ethereum is called Elliptic Curve Digital Signature Algorithm (or ECDSA for brevity). The concept is that, given a secret (or private) key generated securely, a public key can be derived. Using the private key the owner is able to sign messages, and using the public key anyone is able to verify that the message was signed by that secret key.</p>
+<p>This signing process generates for each signature, two values named <code>r</code> and <code>s</code>, used for the signing and verification process. The flaw lies in the fact that if two signatures share the same <code>r</code> value, the secret key can be regenerated using maths. For more information about this statement, <a href="https://github.com/ethereumbook/ethereumbook/blob/develop/06transactions.asciidoc#digital-signatures">Mastering Ethereum chapter 06</a> is a good starting point.</p>
+<h3 id="solution-2">Solution</h3>
+<p>In a similar approach to the previous level, the first step is to check the owner address' <a href="https://ropsten.etherscan.io/address/0x6B477781b0e68031109f21887e6B5afEAaEB002b">Etherscan page</a> in order to see the transactions signed with the account's private key, that is, the outgoing transactions from the account.</p>
+<p>As explained in the previous section, the two first transactions originated from this account share the same <code>r</code>. This can be checked with the following script, line 52.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="ln"> 1</span><span class="kn">import</span> <span class="nn">ecdsa</span>
+<span class="ln"> 2</span><span class="kn">import</span> <span class="nn">libnum</span>
+<span class="ln"> 3</span><span class="kn">import</span> <span class="nn">eth_account</span>
+<span class="ln"> 4</span>
+<span class="ln"> 5</span><span class="kn">from</span> <span class="nn">eth_account._utils.signing</span> <span class="kn">import</span> <span class="n">extract_chain_id</span><span class="p">,</span> <span class="n">to_standard_v</span>
+<span class="ln"> 6</span><span class="kn">from</span> <span class="nn">eth_account._utils.transactions</span> <span class="kn">import</span> <span class="n">serializable_unsigned_transaction_from_dict</span>
+<span class="ln"> 7</span>
+<span class="ln"> 8</span><span class="kn">from</span> <span class="nn">web3.auto.infura.ropsten</span> <span class="kn">import</span> <span class="n">w3</span>
+<span class="ln"> 9</span><span class="kn">from</span> <span class="nn">web3</span> <span class="kn">import</span> <span class="n">Web3</span>
+<span class="ln">10</span>
+<span class="ln">11</span><span class="n">contract_address</span>  <span class="o">=</span> <span class="n">DEPLOYED_CONTRACT_ADDRESS</span>
+<span class="ln">12</span><span class="n">contract_abi</span>      <span class="o">=</span> <span class="n">DEPLOYED_CONTRACT_ABI</span>
+<span class="ln">13</span><span class="n">contract_instance</span> <span class="o">=</span> <span class="n">w3</span><span class="o">.</span><span class="n">eth</span><span class="o">.</span><span class="n">contract</span><span class="p">(</span><span class="n">address</span><span class="o">=</span><span class="n">contract_address</span><span class="p">,</span> <span class="n">abi</span><span class="o">=</span><span class="n">contract_abi</span><span class="p">)</span>
+<span class="ln">14</span>
+<span class="ln">15</span><span class="c1"># Auxilliary function to create a pre-signature RLP encoded transaction</span>
+<span class="ln">16</span><span class="k">def</span> <span class="nf">createUnsignedTransaction</span><span class="p">(</span><span class="n">transaction</span><span class="p">):</span>
+<span class="ln">17</span>    <span class="n">tx_msg</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="ln">18</span>    <span class="n">tx_msg</span><span class="p">[</span><span class="s1">&#39;gasPrice&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">transaction</span><span class="p">[</span><span class="s1">&#39;gasPrice&#39;</span><span class="p">]</span>
+<span class="ln">19</span>    <span class="n">tx_msg</span><span class="p">[</span><span class="s1">&#39;nonce&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">transaction</span><span class="p">[</span><span class="s1">&#39;nonce&#39;</span><span class="p">]</span>
+<span class="ln">20</span>    <span class="n">tx_msg</span><span class="p">[</span><span class="s1">&#39;chainId&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">extract_chain_id</span><span class="p">(</span><span class="n">transaction</span><span class="o">.</span><span class="n">v</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="ln">21</span>    <span class="n">tx_msg</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">transaction</span><span class="p">[</span><span class="s1">&#39;input&#39;</span><span class="p">]</span>
+<span class="ln">22</span>    <span class="n">tx_msg</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">transaction</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span>
+<span class="ln">23</span>    <span class="n">tx_msg</span><span class="p">[</span><span class="s1">&#39;gas&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">transaction</span><span class="p">[</span><span class="s1">&#39;gas&#39;</span><span class="p">]</span>
+<span class="ln">24</span>    <span class="n">tx_msg</span><span class="p">[</span><span class="s1">&#39;to&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">transaction</span><span class="p">[</span><span class="s1">&#39;to&#39;</span><span class="p">]</span>
+<span class="ln">25</span>
+<span class="ln">26</span>    <span class="k">return</span> <span class="n">serializable_unsigned_transaction_from_dict</span><span class="p">(</span><span class="n">tx_msg</span><span class="p">)</span>
+<span class="ln">27</span>
+<span class="ln">28</span><span class="k">def</span> <span class="nf">solveChallenge</span><span class="p">(</span><span class="n">secret_key</span><span class="p">):</span>
+<span class="ln">29</span>    <span class="n">account</span> <span class="o">=</span> <span class="s1">&#39;0x6B477781b0e68031109f21887e6B5afEAaEB002b&#39;</span>
+<span class="ln">30</span>    
+<span class="ln">31</span>    <span class="c1"># Get nonce and create a new transaction</span>
+<span class="ln">32</span>    <span class="n">nonce</span> <span class="o">=</span> <span class="n">w3</span><span class="o">.</span><span class="n">eth</span><span class="o">.</span><span class="n">getTransactionCount</span><span class="p">(</span><span class="n">account</span><span class="p">)</span>
+<span class="ln">33</span>    <span class="n">txn</span> <span class="o">=</span> <span class="n">contract_instance</span><span class="o">.</span><span class="n">functions</span><span class="o">.</span><span class="n">authenticate</span><span class="p">()</span><span class="o">.</span><span class="n">buildTransaction</span><span class="p">({</span>
+<span class="ln">34</span>        <span class="s1">&#39;gas&#39;</span><span class="p">:</span> <span class="mi">2000000</span><span class="p">,</span>
+<span class="ln">35</span>        <span class="s1">&#39;gasPrice&#39;</span><span class="p">:</span> <span class="n">w3</span><span class="o">.</span><span class="n">toWei</span><span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="s1">&#39;gwei&#39;</span><span class="p">),</span>
+<span class="ln">36</span>        <span class="s1">&#39;nonce&#39;</span><span class="p">:</span> <span class="n">nonce</span>
+<span class="ln">37</span>    <span class="p">})</span>
+<span class="ln">38</span>
+<span class="ln">39</span>    <span class="c1"># Sign the transaction and send it to miners</span>
+<span class="ln">40</span>    <span class="n">txn_signed</span> <span class="o">=</span> <span class="n">w3</span><span class="o">.</span><span class="n">eth</span><span class="o">.</span><span class="n">account</span><span class="o">.</span><span class="n">sign_transaction</span><span class="p">(</span><span class="n">txn</span><span class="p">,</span> <span class="n">private_key</span><span class="o">=</span><span class="n">secret_key</span><span class="p">)</span>
+<span class="ln">41</span>    <span class="n">txn_hash</span>   <span class="o">=</span> <span class="n">w3</span><span class="o">.</span><span class="n">eth</span><span class="o">.</span><span class="n">send_raw_transaction</span><span class="p">(</span><span class="n">txn_signed</span><span class="o">.</span><span class="n">rawTransaction</span><span class="p">)</span>
+<span class="ln">42</span>
+<span class="ln">43</span>    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Transaction sent: &#39;</span> <span class="o">+</span> <span class="n">Web3</span><span class="o">.</span><span class="n">toHex</span><span class="p">(</span><span class="n">txn_hash</span><span class="p">))</span>
+<span class="ln">44</span>
+<span class="ln">45</span><span class="n">G</span> <span class="o">=</span> <span class="n">ecdsa</span><span class="o">.</span><span class="n">SECP256k1</span><span class="o">.</span><span class="n">generator</span>
+<span class="ln">46</span><span class="n">order</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">order</span><span class="p">())</span>
+<span class="ln">47</span>
+<span class="ln">48</span><span class="n">tx1</span> <span class="o">=</span> <span class="n">w3</span><span class="o">.</span><span class="n">eth</span><span class="o">.</span><span class="n">getTransaction</span><span class="p">(</span><span class="s1">&#39;0xd79fc80e7b787802602f3317b7fe67765c14a7d40c3e0dcb266e63657f881396&#39;</span><span class="p">)</span>
+<span class="ln">49</span><span class="n">tx2</span> <span class="o">=</span> <span class="n">w3</span><span class="o">.</span><span class="n">eth</span><span class="o">.</span><span class="n">getTransaction</span><span class="p">(</span><span class="s1">&#39;0x061bf0b4b5fdb64ac475795e9bc5a3978f985919ce6747ce2cfbbcaccaf51009&#39;</span><span class="p">)</span>
+<span class="ln">50</span>
+<span class="ln">51</span><span class="c1"># Check that they have effectively the same r</span>
+<span class="ln">52</span><span class="k">if</span> <span class="n">Web3</span><span class="o">.</span><span class="n">toInt</span><span class="p">(</span><span class="n">tx1</span><span class="o">.</span><span class="n">r</span><span class="p">)</span> <span class="o">==</span> <span class="n">Web3</span><span class="o">.</span><span class="n">toInt</span><span class="p">(</span><span class="n">tx2</span><span class="o">.</span><span class="n">r</span><span class="p">):</span>
+<span class="ln">53</span>    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Both share r: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">Web3</span><span class="o">.</span><span class="n">toHex</span><span class="p">(</span><span class="n">tx1</span><span class="o">.</span><span class="n">r</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="ln">54</span><span class="k">else</span><span class="p">:</span>
+<span class="ln">55</span>    <span class="n">exit</span><span class="p">()</span>
+<span class="ln">56</span>
+<span class="ln">57</span><span class="c1"># First tx hash reconstruction</span>
+<span class="ln">58</span><span class="n">presign1</span> <span class="o">=</span> <span class="n">createUnsignedTransaction</span><span class="p">(</span><span class="n">tx1</span><span class="p">)</span>
+<span class="ln">59</span><span class="n">presign2</span> <span class="o">=</span> <span class="n">createUnsignedTransaction</span><span class="p">(</span><span class="n">tx2</span><span class="p">)</span>
+<span class="ln">60</span>
+<span class="ln">61</span><span class="c1"># Values used later</span>
+<span class="ln">62</span><span class="n">z1</span> <span class="o">=</span> <span class="n">Web3</span><span class="o">.</span><span class="n">toInt</span><span class="p">(</span><span class="n">presign1</span><span class="o">.</span><span class="n">hash</span><span class="p">())</span>
+<span class="ln">63</span><span class="n">z2</span> <span class="o">=</span> <span class="n">Web3</span><span class="o">.</span><span class="n">toInt</span><span class="p">(</span><span class="n">presign2</span><span class="o">.</span><span class="n">hash</span><span class="p">())</span>
+<span class="ln">64</span>
+<span class="ln">65</span><span class="n">r1</span> <span class="o">=</span> <span class="n">Web3</span><span class="o">.</span><span class="n">toInt</span><span class="p">(</span><span class="n">tx1</span><span class="o">.</span><span class="n">r</span><span class="p">)</span>
+<span class="ln">66</span><span class="n">r2</span> <span class="o">=</span> <span class="n">Web3</span><span class="o">.</span><span class="n">toInt</span><span class="p">(</span><span class="n">tx2</span><span class="o">.</span><span class="n">r</span><span class="p">)</span>
+<span class="ln">67</span>
+<span class="ln">68</span><span class="n">s1</span> <span class="o">=</span> <span class="n">Web3</span><span class="o">.</span><span class="n">toInt</span><span class="p">(</span><span class="n">tx1</span><span class="o">.</span><span class="n">s</span><span class="p">)</span>
+<span class="ln">69</span><span class="n">s2</span> <span class="o">=</span> <span class="n">Web3</span><span class="o">.</span><span class="n">toInt</span><span class="p">(</span><span class="n">tx2</span><span class="o">.</span><span class="n">s</span><span class="p">)</span>
+<span class="ln">70</span>
+<span class="ln">71</span><span class="c1"># Now we need both hashes and both S values, to calculate k</span>
+<span class="ln">72</span><span class="c1"># k = (hash1 - hash2) / (s1 - s2)   --- the s1 and s2 signs can be + or -, so all combinations should be tested</span>
+<span class="ln">73</span><span class="n">dif_hashes</span> <span class="o">=</span> <span class="n">z1</span> <span class="o">-</span> <span class="n">z2</span>
+<span class="ln">74</span><span class="n">sign_variations</span> <span class="o">=</span> <span class="p">[</span><span class="n">s1</span> <span class="o">-</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s1</span> <span class="o">+</span> <span class="n">s2</span><span class="p">,</span> <span class="o">-</span><span class="n">s1</span> <span class="o">-</span> <span class="n">s2</span><span class="p">,</span> <span class="o">-</span><span class="n">s1</span> <span class="o">-</span> <span class="n">s2</span><span class="p">]</span>
+<span class="ln">75</span>
+<span class="ln">76</span><span class="k">for</span> <span class="n">variation</span> <span class="ow">in</span> <span class="n">sign_variations</span><span class="p">:</span>
+<span class="ln">77</span>    <span class="n">k</span> <span class="o">=</span> <span class="p">(</span><span class="n">dif_hashes</span> <span class="o">*</span> <span class="n">libnum</span><span class="o">.</span><span class="n">invmod</span><span class="p">(</span><span class="n">variation</span><span class="p">,</span> <span class="n">order</span><span class="p">))</span> <span class="o">%</span> <span class="n">order</span>
+<span class="ln">78</span>    <span class="n">d</span> <span class="o">=</span> <span class="p">(((</span><span class="n">s1</span> <span class="o">*</span> <span class="n">k</span> <span class="o">-</span> <span class="n">z1</span><span class="p">)</span> <span class="o">%</span> <span class="n">order</span><span class="p">)</span> <span class="o">*</span> <span class="n">libnum</span><span class="o">.</span><span class="n">invmod</span><span class="p">(</span><span class="n">r1</span><span class="p">,</span> <span class="n">order</span><span class="p">))</span> <span class="o">%</span> <span class="n">order</span>
+<span class="ln">79</span>
+<span class="ln">80</span>    <span class="n">a</span> <span class="o">=</span> <span class="n">eth_account</span><span class="o">.</span><span class="n">Account</span><span class="o">.</span><span class="n">from_key</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="ln">81</span>    <span class="k">if</span> <span class="n">a</span><span class="o">.</span><span class="n">address</span> <span class="o">==</span> <span class="n">tx1</span><span class="p">[</span><span class="s1">&#39;from&#39;</span><span class="p">]:</span>
+<span class="ln">82</span>        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Secret key : &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">Web3</span><span class="o">.</span><span class="n">toHex</span><span class="p">(</span><span class="n">d</span><span class="p">)))</span>
+<span class="ln">83</span>        <span class="n">solveChallenge</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="ln">84</span>        <span class="n">exit</span><span class="p">()</span>
+</code></pre></div><p>The full solution gets both transactions from the blockchain, and recreates the messages previous to signature. Next, it tests the possible variations for the sign of the denominator of the equation: given 2 values for <code>s1</code> and <code>s2</code>, every possible variation of positive and negative signs in those values could generate a valid key.</p>
+<p>The maths are explained <a href="https://asecuritysite.com/encryption/ecd6">here</a> and <a href="https://medium.com/asecuritysite-when-bob-met-alice/cracking-ecdsa-with-a-leak-of-the-random-nonce-d72c67f201cd">here</a>. The code above is my implementation of the ECDSA calculations shown in those links.</p>
+<p>Again, you will need an <a href="http://infura.io">Infura</a> key as environment variable, and replace the values in lines 11 and 12 with the correct address and ABI for the contract. The script function <code>solveChallenge(secret_key)</code> will execute the transaction from the owner account, and solve the challenge.</p>
+<h3 id="conclusions-2">Conclusions</h3>
+<p>Knowing the possible flaws, or rather, weaknesses in the algorithms makes us better at enforcing security in our implementations. However, as the usual security procedure says, never try to implement your own version of an algorithm. Instead, use well-tested and secure libraries.</p>
+    </div>
+
+	<h2 class="post_related">Posts in this Series</h2>
+	<ul>
+	  
+	</ul>
+
+<div class="post_comments">
+  <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "tqts" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+  
+</div>
+
+
+
+  </article>
+<aside class="sidebar">
+  <section class="sidebar_inner">
+        <h2>tqts</h2>
+      <div class="author_bio">
+        Engineer, maker, hobbyist.
+      </div>
+      <a href='https://tqts.ar/about/' class="button mt-1" role="button" title='Read More'>Read More</a>
+    
+      
+	    <h2 class="mt-4">Posts in this series</h2>
+      <ul>
+        
+      </ul>
+    
+    <h2 class="mt-4">Recent Posts</h2>
+    <ul class="flex-column">
+      <li>
+        <a href="https://tqts.ar/post/capturetheether-5/" class="nav-link" title="Solving CaptureTheEther - Part 5 of 5 - Miscellaneous">Solving CaptureTheEther - Part 5 of 5 - Miscellaneous</a>
+      </li>
+      <li>
+        <a href="https://tqts.ar/post/capturetheether-3/" class="nav-link" title="Solving CaptureTheEther - Part 3 of 5 - Math">Solving CaptureTheEther - Part 3 of 5 - Math</a>
+      </li>
+      <li>
+        <a href="https://tqts.ar/post/capturetheether-2/" class="nav-link" title="Solving CaptureTheEther - Part 2 of 5 - Lotteries">Solving CaptureTheEther - Part 2 of 5 - Lotteries</a>
+      </li>
+      <li>
+        <a href="https://tqts.ar/post/capturetheether-1/" class="nav-link" title="Solving CaptureTheEther - Part 1 of 5 - Warmup">Solving CaptureTheEther - Part 1 of 5 - Warmup</a>
+      </li>
+    </ul>
+    <div>
+      <h2 class="mt-4 taxonomy" id="categories-section">Categories</h2>
+      <nav class="tags_nav">
+        <a href='https://tqts.ar/categories/ctf-writeups/' class="post_tag button button_translucent" title="ctf-writeups">
+          CTF-WRITEUPS
+          <span class="button_tally">5</span>
+        </a>
+        
+        
+      </nav>
+    </div>
+    <div>
+      <h2 class="mt-4 taxonomy" id="series-section">Series</h2>
+      <nav class="tags_nav">
+        <a href='https://tqts.ar/series/capturetheether/' class="post_tag button button_translucent" title="capturetheether">
+          CAPTURETHEETHER
+          <span class="button_tally">5</span>
+        </a>
+        
+        
+      </nav>
+    </div>
+    <div>
+      <h2 class="mt-4 taxonomy" id="tags-section">Tags</h2>
+      <nav class="tags_nav">
+        <a href='https://tqts.ar/tags/remix/' class="post_tag button button_translucent" title="remix">
+          REMIX
+          <span class="button_tally">5</span>
+        </a>
+        
+        <a href='https://tqts.ar/tags/solidity/' class="post_tag button button_translucent" title="solidity">
+          SOLIDITY
+          <span class="button_tally">4</span>
+        </a>
+        
+        <a href='https://tqts.ar/tags/python/' class="post_tag button button_translucent" title="python">
+          PYTHON
+          <span class="button_tally">2</span>
+        </a>
+        
+        
+      </nav>
+    </div>
+  </section>
+</aside>
+
+  
+</div>
+    </main><svg width="0" height="0" class="hidden">
+  <symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="facebook">
+    <path d="M437 0H75C33.648 0 0 33.648 0 75v362c0 41.352 33.648 75 75 75h151V331h-60v-90h60v-61c0-49.629 40.371-90 90-90h91v90h-91v61h91l-15 90h-76v181h121c41.352 0 75-33.648 75-75V75c0-41.352-33.648-75-75-75zm0 0"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18.001 18.001" id="twitter">
+    <path d="M15.891 4.013c.808-.496 1.343-1.173 1.605-2.034a8.68 8.68 0 0 1-2.351.861c-.703-.756-1.593-1.14-2.66-1.14-1.043 0-1.924.366-2.643 1.078a3.56 3.56 0 0 0-1.076 2.605c0 .309.039.585.117.819-3.076-.105-5.622-1.381-7.628-3.837-.34.601-.51 1.213-.51 1.846 0 1.301.549 2.332 1.645 3.089-.625-.053-1.176-.211-1.645-.47 0 .929.273 1.705.82 2.388a3.623 3.623 0 0 0 2.115 1.291c-.312.08-.641.118-.979.118-.312 0-.533-.026-.664-.083.23.757.664 1.371 1.291 1.841a3.652 3.652 0 0 0 2.152.743C4.148 14.173 2.625 14.69.902 14.69c-.422 0-.721-.006-.902-.038 1.697 1.102 3.586 1.649 5.676 1.649 2.139 0 4.029-.542 5.674-1.626 1.645-1.078 2.859-2.408 3.639-3.974a10.77 10.77 0 0 0 1.172-4.892v-.468a7.788 7.788 0 0 0 1.84-1.921 8.142 8.142 0 0 1-2.11.593z"
+      ></path>
+  </symbol>
+  <symbol aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="mail">
+    <path  d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="calendar">
+    <path d="M452 40h-24V0h-40v40H124V0H84v40H60C26.916 40 0 66.916 0 100v352c0 33.084 26.916 60 60 60h392c33.084 0 60-26.916 60-60V100c0-33.084-26.916-60-60-60zm20 412c0 11.028-8.972 20-20 20H60c-11.028 0-20-8.972-20-20V188h432v264zm0-304H40v-48c0-11.028 8.972-20 20-20h24v40h40V80h264v40h40V80h24c11.028 0 20 8.972 20 20v48z"></path>
+    <path d="M76 230h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zM76 310h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zM76 390h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zm80-80h40v40h-40z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="github">
+    <path d="M255.968 5.329C114.624 5.329 0 120.401 0 262.353c0 113.536 73.344 209.856 175.104 243.872 12.8 2.368 17.472-5.568 17.472-12.384 0-6.112-.224-22.272-.352-43.712-71.2 15.52-86.24-34.464-86.24-34.464-11.616-29.696-28.416-37.6-28.416-37.6-23.264-15.936 1.728-15.616 1.728-15.616 25.696 1.824 39.2 26.496 39.2 26.496 22.848 39.264 59.936 27.936 74.528 21.344 2.304-16.608 8.928-27.936 16.256-34.368-56.832-6.496-116.608-28.544-116.608-127.008 0-28.064 9.984-51.008 26.368-68.992-2.656-6.496-11.424-32.64 2.496-68 0 0 21.504-6.912 70.4 26.336 20.416-5.696 42.304-8.544 64.096-8.64 21.728.128 43.648 2.944 64.096 8.672 48.864-33.248 70.336-26.336 70.336-26.336 13.952 35.392 5.184 61.504 2.56 68 16.416 17.984 26.304 40.928 26.304 68.992 0 98.72-59.84 120.448-116.864 126.816 9.184 7.936 17.376 23.616 17.376 47.584 0 34.368-.32 62.08-.32 70.496 0 6.88 4.608 14.88 17.6 12.352C438.72 472.145 512 375.857 512 262.353 512 120.401 397.376 5.329 255.968 5.329z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 212 212" id="gitlab">
+    <path d="M12.3 74.7h54L43.3 3c-1-3.6-6.4-3.6-7.6 0L12.3 74.8z" />
+    <path d="M12.3 74.7L.5 111c-1 3.2 0 6.8 3 8.8l101.6 74-92.5-119z"/>
+    <path d="M105 193.7l-38.6-119h-54l92.7 119z"/>
+    <path d="M105 193.7l38.7-119H66.4l38.7 119z"/>
+    <path d="M105 193.7l38.7-119H198l-93 119z"/>
+    <path d="M198 74.7l11.6 36.2c1 3 0 6.6-3 8.6l-101.5 74 93-119z"/>
+    <path d="M198 74.7h-54.3L167 3c1.2-3.6 6.4-3.6 7.6 0L198 74.8z"/> 
+  </symbol>
+  <symbol viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="rss">
+    <circle cx="3.429" cy="20.571" r="3.429"></circle>
+    <path d="M11.429 24h4.57C15.999 15.179 8.821 8.001 0 8v4.572c6.302.001 11.429 5.126 11.429 11.428z"></path>
+    <path d="M24 24C24 10.766 13.234 0 0 0v4.571c10.714 0 19.43 8.714 19.43 19.429z"></path>
+  </symbol>
+  <symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="linkedin">
+    <path d="M437 0H75C33.648 0 0 33.648 0 75v362c0 41.352 33.648 75 75 75h362c41.352 0 75-33.648 75-75V75c0-41.352-33.648-75-75-75zM181 406h-60V196h60zm0-240h-60v-60h60zm210 240h-60V286c0-16.54-13.46-30-30-30s-30 13.46-30 30v120h-60V196h60v11.309C286.719 202.422 296.93 196 316 196c40.691.043 75 36.547 75 79.688zm0 0"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 612 612" id="arrow">
+    <path d="M604.501 440.509L325.398 134.956c-5.331-5.357-12.423-7.627-19.386-7.27-6.989-.357-14.056 1.913-19.387 7.27L7.499 440.509c-9.999 10.024-9.999 26.298 0 36.323s26.223 10.024 36.222 0l262.293-287.164L568.28 476.832c9.999 10.024 26.222 10.024 36.221 0 9.999-10.023 9.999-26.298 0-36.323z"></path>
+  </symbol>
+  <symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="carly">
+    <path d="M504.971 239.029L448 182.059V84c0-46.317-37.682-84-84-84h-44c-13.255 0-24 10.745-24 24s10.745 24 24 24h44c19.851 0 36 16.149 36 36v108c0 6.365 2.529 12.47 7.029 16.971L454.059 256l-47.029 47.029A24.002 24.002 0 0 0 400 320v108c0 19.851-16.149 36-36 36h-44c-13.255 0-24 10.745-24 24s10.745 24 24 24h44c46.318 0 84-37.683 84-84v-98.059l56.971-56.971c9.372-9.372 9.372-24.568 0-33.941zM112 192V84c0-19.851 16.149-36 36-36h44c13.255 0 24-10.745 24-24S205.255 0 192 0h-44c-46.318 0-84 37.683-84 84v98.059l-56.971 56.97c-9.373 9.373-9.373 24.568 0 33.941L64 329.941V428c0 46.317 37.682 84 84 84h44c13.255 0 24-10.745 24-24s-10.745-24-24-24h-44c-19.851 0-36-16.149-36-36V320c0-6.365-2.529-12.47-7.029-16.971L57.941 256l47.029-47.029A24.002 24.002 0 0 0 112 192z"></path>
+  </symbol>
+  <symbol viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="copy">
+    <path d="M23 2.75A2.75 2.75 0 0 0 20.25 0H8.75A2.75 2.75 0 0 0 6 2.75v13.5A2.75 2.75 0 0 0 8.75 19h11.5A2.75 2.75 0 0 0 23 16.25zM18.25 14.5h-7.5a.75.75 0 0 1 0-1.5h7.5a.75.75 0 0 1 0 1.5zm0-3h-7.5a.75.75 0 0 1 0-1.5h7.5a.75.75 0 0 1 0 1.5zm0-3h-7.5a.75.75 0 0 1 0-1.5h7.5a.75.75 0 0 1 0 1.5z"></path>
+    <path d="M8.75 20.5a4.255 4.255 0 0 1-4.25-4.25V2.75c0-.086.02-.166.025-.25H3.75A2.752 2.752 0 0 0 1 5.25v16A2.752 2.752 0 0 0 3.75 24h12a2.752 2.752 0 0 0 2.75-2.75v-.75z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.001 512.001" id="closeme">
+    <path d="M284.286 256.002L506.143 34.144c7.811-7.811 7.811-20.475 0-28.285-7.811-7.81-20.475-7.811-28.285 0L256 227.717 34.143 5.859c-7.811-7.811-20.475-7.811-28.285 0-7.81 7.811-7.811 20.475 0 28.285l221.857 221.857L5.858 477.859c-7.811 7.811-7.811 20.475 0 28.285a19.938 19.938 0 0 0 14.143 5.857 19.94 19.94 0 0 0 14.143-5.857L256 284.287l221.857 221.857c3.905 3.905 9.024 5.857 14.143 5.857s10.237-1.952 14.143-5.857c7.811-7.811 7.811-20.475 0-28.285L284.286 256.002z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="open-menu">
+    <path d="M492 236H20c-11.046 0-20 8.954-20 20s8.954 20 20 20h472c11.046 0 20-8.954 20-20s-8.954-20-20-20zm0-160H20C8.954 76 0 84.954 0 96s8.954 20 20 20h472c11.046 0 20-8.954 20-20s-8.954-20-20-20zm0 320H20c-11.046 0-20 8.954-20 20s8.954 20 20 20h472c11.046 0 20-8.954 20-20s-8.954-20-20-20z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="instagram">
+    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id=youtube>
+    <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="stackoverflow">
+    <path d="M21 27v-8h3v11H0V19h3v8h18z"></path><path d="M17.1.2L15 1.8l7.9 10.6 2.1-1.6L17.1.2zm3.7 14.7L10.6 6.4l1.7-2 10.2 8.5-1.7 2zM7.2 12.3l12 5.6 1.1-2.4-12-5.6-1.1 2.4zm-1.8 6.8l13.56 1.96.17-2.38-13.26-2.55-.47 2.97zM19 25H5v-3h14v3z"></path>
+  </symbol>
+</svg>
+
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<footer class="footer">
+  <div class="footer_inner wrap pale">
+    <img src='https://tqts.ar/logos/footer.png' class="icon icon_2 transparent" alt="tqts.ar">
+    <p><span class="year"></span> - &nbsp;Written by tqts. All content under Creative Commons  <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">by-nc-sa</a></p><a class="to_top" href="#documentTop">
+  <svg class="icon">
+  <use xlink:href="#arrow"></use>
+</svg>
+</a>
+
+  </div>
+</footer>
+
+    <script type="text/javascript" src="https://tqts.ar/js/bundle.min.061d04727b51b0a8fafe2f15b9370a961f33306e7af52abd00d69c906f5d825f1599306159d7756d7d2b4f359767a170625ae541d1f37d05c1daa4d5c7feec25.js" integrity="sha512-Bh0EcntRsKj6/i8VuTcKlh8zMG569Sq9ANackG9dgl8VmTBhWdd1bX0rTzWXZ6FwYlrlQdHzfQXB2qTVx/7sJQ==" crossorigin="anonymous"></script>
+    
+  </body>
+</html>
