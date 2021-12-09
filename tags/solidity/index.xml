@@ -7,7 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Written by tqts. All content under Creative Commons </copyright>
-    <lastBuildDate>Wed, 10 Nov 2021 02:14:25 -0300</lastBuildDate><atom:link href="https://tqts.ar/tags/solidity/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 15 Nov 2021 07:10:01 -0300</lastBuildDate><atom:link href="https://tqts.ar/tags/solidity/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Solving Ethernaut - Part 1 - Levels 0 to 5</title>
+      <link>https://tqts.ar/post/ethernaut-1/</link>
+      <pubDate>Mon, 15 Nov 2021 07:10:01 -0300</pubDate>
+      
+      <guid>https://tqts.ar/post/ethernaut-1/</guid>
+      <description>
+        
+          
+            &lt;p&gt;Another Solidity and Ethereum security CTF game. This time we will be solving &lt;a href=&#34;https://ethernaut.openzeppelin.com/&#34;&gt;Ethernaut&lt;/a&gt;, the game hosted by OpenZeppelin.&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>Solving CaptureTheEther - Part 5 of 5 - Miscellaneous</title>
       <link>https://tqts.ar/post/capturetheether-5/</link>
