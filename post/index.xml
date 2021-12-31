@@ -7,7 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Written by tqts. All content under Creative Commons </copyright>
-    <lastBuildDate>Mon, 15 Nov 2021 12:11:01 -0300</lastBuildDate><atom:link href="https://tqts.ar/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 15 Nov 2021 17:11:01 -0300</lastBuildDate><atom:link href="https://tqts.ar/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Solving Ethernaut - Part 5 - Levels 21 to 25</title>
+      <link>https://tqts.ar/post/ethernaut-5/</link>
+      <pubDate>Mon, 15 Nov 2021 17:11:01 -0300</pubDate>
+      
+      <guid>https://tqts.ar/post/ethernaut-5/</guid>
+      <description>
+        
+          
+            &lt;p&gt;Fifth (and last?) part of the solutions to Ethernaut. The challenges in this part are mostly vulnerabilities on more complex contracts, that mimic real exploits.&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>Solving Ethernaut - Part 4 - Levels 16 to 20</title>
       <link>https://tqts.ar/post/ethernaut-4/</link>

