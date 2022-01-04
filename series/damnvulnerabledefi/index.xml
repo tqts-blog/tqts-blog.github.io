@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>DamnVulnerableDeFi on tqts.ar</title>
+    <link>https://tqts.ar/series/damnvulnerabledefi/</link>
+    <description>Recent content in DamnVulnerableDeFi on tqts.ar</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Written by tqts. All content under Creative Commons </copyright>
+    <lastBuildDate>Sat, 01 Jan 2022 12:10:12 -0300</lastBuildDate><atom:link href="https://tqts.ar/series/damnvulnerabledefi/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Solving DamnVulnerableDeFi - Part 1 - Levels 1 to 4</title>
+      <link>https://tqts.ar/post/damnvulnerabledefi-1/</link>
+      <pubDate>Sat, 01 Jan 2022 12:10:12 -0300</pubDate>
+      
+      <guid>https://tqts.ar/post/damnvulnerabledefi-1/</guid>
+      <description>
+        
+          
+            &lt;p&gt;First part of the solutions/exploits for the Most Vulnerable DeFi (tm) out there.&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>
