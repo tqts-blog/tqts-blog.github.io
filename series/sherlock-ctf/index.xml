@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Hardhat on tqts.ar</title>
-    <link>https://tqts.ar/tags/hardhat/</link>
-    <description>Recent content in Hardhat on tqts.ar</description>
+    <title>Sherlock CTF on tqts.ar</title>
+    <link>https://tqts.ar/series/sherlock-ctf/</link>
+    <description>Recent content in Sherlock CTF on tqts.ar</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Written by tqts. All content under Creative Commons </copyright>
-    <lastBuildDate>Fri, 25 Feb 2022 01:10:01 -0300</lastBuildDate><atom:link href="https://tqts.ar/tags/hardhat/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 25 Feb 2022 01:10:01 -0300</lastBuildDate><atom:link href="https://tqts.ar/series/sherlock-ctf/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Solving SherlockCTF</title>
       <link>https://tqts.ar/post/solving-sherlockctf/</link>
@@ -18,22 +18,6 @@
         
           
             &lt;p&gt;SherlockCTF was a collaborative CTF organized by &lt;a href=&#34;https://sherlock.xyz&#34;&gt;Sherlock&lt;/a&gt; and &lt;a href=&#34;https://secureum.xyz&#34;&gt;Secureum&lt;/a&gt;, for the top 32 participants in february&#39;s RACE event. Each participant submitted a CTF level, and for 7 days, the competition was opened. I managed to score 32 points.&lt;/p&gt;
-          
-          
-        
-      </description>
-    </item>
-    
-    <item>
-      <title>Solving DamnVulnerableDeFi - Part 1 - Levels 1 to 4</title>
-      <link>https://tqts.ar/post/damnvulnerabledefi-1/</link>
-      <pubDate>Sat, 01 Jan 2022 12:10:12 -0300</pubDate>
-      
-      <guid>https://tqts.ar/post/damnvulnerabledefi-1/</guid>
-      <description>
-        
-          
-            &lt;p&gt;First part of the solutions/exploits for the Most Vulnerable DeFi (tm) out there.&lt;/p&gt;
           
           
         

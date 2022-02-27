@@ -3,39 +3,45 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://tqts.ar/</loc>
-    <lastmod>2022-01-01T12:10:12-03:00</lastmod>
+    <lastmod>2022-02-25T01:10:01-03:00</lastmod>
   </url><url>
     <loc>https://tqts.ar/categories/</loc>
-    <lastmod>2022-01-01T12:10:12-03:00</lastmod>
+    <lastmod>2022-02-25T01:10:01-03:00</lastmod>
   </url><url>
     <loc>https://tqts.ar/categories/ctf-writeups/</loc>
-    <lastmod>2022-01-01T12:10:12-03:00</lastmod>
-  </url><url>
-    <loc>https://tqts.ar/series/damnvulnerabledefi/</loc>
-    <lastmod>2022-01-01T12:10:12-03:00</lastmod>
+    <lastmod>2022-02-25T01:10:01-03:00</lastmod>
   </url><url>
     <loc>https://tqts.ar/tags/hardhat/</loc>
-    <lastmod>2022-01-01T12:10:12-03:00</lastmod>
+    <lastmod>2022-02-25T01:10:01-03:00</lastmod>
   </url><url>
     <loc>https://tqts.ar/post/</loc>
-    <lastmod>2022-01-01T12:10:12-03:00</lastmod>
+    <lastmod>2022-02-25T01:10:01-03:00</lastmod>
+  </url><url>
+    <loc>https://tqts.ar/tags/remix/</loc>
+    <lastmod>2022-02-25T01:10:01-03:00</lastmod>
   </url><url>
     <loc>https://tqts.ar/series/</loc>
-    <lastmod>2022-01-01T12:10:12-03:00</lastmod>
+    <lastmod>2022-02-25T01:10:01-03:00</lastmod>
+  </url><url>
+    <loc>https://tqts.ar/series/sherlock-ctf/</loc>
+    <lastmod>2022-02-25T01:10:01-03:00</lastmod>
   </url><url>
     <loc>https://tqts.ar/tags/solidity/</loc>
+    <lastmod>2022-02-25T01:10:01-03:00</lastmod>
+  </url><url>
+    <loc>https://tqts.ar/post/solving-sherlockctf/</loc>
+    <lastmod>2022-02-25T01:10:01-03:00</lastmod>
+  </url><url>
+    <loc>https://tqts.ar/tags/</loc>
+    <lastmod>2022-02-25T01:10:01-03:00</lastmod>
+  </url><url>
+    <loc>https://tqts.ar/series/damnvulnerabledefi/</loc>
     <lastmod>2022-01-01T12:10:12-03:00</lastmod>
   </url><url>
     <loc>https://tqts.ar/post/damnvulnerabledefi-1/</loc>
     <lastmod>2022-01-01T12:10:12-03:00</lastmod>
   </url><url>
-    <loc>https://tqts.ar/tags/</loc>
-    <lastmod>2022-01-01T12:10:12-03:00</lastmod>
-  </url><url>
     <loc>https://tqts.ar/series/ethernaut/</loc>
-    <lastmod>2021-11-15T17:11:01-03:00</lastmod>
-  </url><url>
-    <loc>https://tqts.ar/tags/remix/</loc>
     <lastmod>2021-11-15T17:11:01-03:00</lastmod>
   </url><url>
     <loc>https://tqts.ar/post/ethernaut-5/</loc>

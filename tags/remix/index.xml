@@ -7,7 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Written by tqts. All content under Creative Commons </copyright>
-    <lastBuildDate>Mon, 15 Nov 2021 17:11:01 -0300</lastBuildDate><atom:link href="https://tqts.ar/tags/remix/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 25 Feb 2022 01:10:01 -0300</lastBuildDate><atom:link href="https://tqts.ar/tags/remix/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Solving SherlockCTF</title>
+      <link>https://tqts.ar/post/solving-sherlockctf/</link>
+      <pubDate>Fri, 25 Feb 2022 01:10:01 -0300</pubDate>
+      
+      <guid>https://tqts.ar/post/solving-sherlockctf/</guid>
+      <description>
+        
+          
+            &lt;p&gt;SherlockCTF was a collaborative CTF organized by &lt;a href=&#34;https://sherlock.xyz&#34;&gt;Sherlock&lt;/a&gt; and &lt;a href=&#34;https://secureum.xyz&#34;&gt;Secureum&lt;/a&gt;, for the top 32 participants in february&#39;s RACE event. Each participant submitted a CTF level, and for 7 days, the competition was opened. I managed to score 32 points.&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>Solving Ethernaut - Part 5 - Levels 21 to 25</title>
       <link>https://tqts.ar/post/ethernaut-5/</link>
